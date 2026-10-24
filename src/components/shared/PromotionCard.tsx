@@ -56,7 +56,7 @@ export default function PromotionCard({
         {/* Project Tag */}
         <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] uppercase text-[#8FA5B3] mb-4">
           <Calendar size={13} className="text-[#aebfcb]" />
-          <span>{promotion.projectName}</span>
+          <span>{promotion.projectName || promotion.projectTitle}</span>
         </div>
 
         {/* Headline */}
@@ -66,16 +66,16 @@ export default function PromotionCard({
 
         {/* Body */}
         <p className="text-sm sm:text-base font-light text-[#D4DDE3]/80 leading-relaxed mb-8">
-          {promotion.body}
+          {promotion.body || promotion.description1}
         </p>
 
         {/* CTA */}
         <div>
           <Link
-            to={promotion.ctaUrl}
+            to={promotion.ctaUrl || promotion.buttonUrl || '/contact'}
             className="inline-flex items-center gap-3 btn-primary px-8 py-3.5 rounded-sm text-xs font-medium tracking-[0.2em] uppercase transition-all"
           >
-            <span>{promotion.ctaLabel}</span>
+            <span>{promotion.ctaLabel || promotion.buttonText}</span>
             <ArrowRight size={14} />
           </Link>
         </div>

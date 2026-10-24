@@ -1,202 +1,105 @@
 import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence, type Variants } from 'framer-motion'
-import { Calendar, Clock, ArrowRight, ArrowUpRight, Sparkles } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { NEWS_ITEMS } from '@/data/news'
 
-type CategoryFilter = 'All' | 'Awards' | 'Construction' | 'Press' | 'Architecture' | 'Lifestyle'
-
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.165, 0.84, 0.44, 1] },
-  },
-}
+const CATEGORIES = ['All', 'PROMOTION', 'CSR', 'PROJECT', 'INSPIRATION'] as const
+type Category = (typeof CATEGORIES)[number]
 
 export default function NewsPage() {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>('All')
+  const [activeCategory, setActiveCategory] = useState<Category>('All')
 
   const filteredNews = useMemo(() => {
-    if (selectedCategory === 'All') return NEWS_ITEMS
-    return NEWS_ITEMS.filter((item) => item.category === selectedCategory)
-  }, [selectedCategory])
-
-  const featured = NEWS_ITEMS[0]
+    if (activeCategory === 'All') return NEWS_ITEMS
+    return NEWS_ITEMS.filter(
+      (item) => item.category?.toUpperCase() === activeCategory.toUpperCase()
+    )
+  }, [activeCategory])
 
   return (
-    <div className="min-h-screen bg-[#0D1117] pt-28 md:pt-36 pb-24">
-      {/* ── Page Header ── */}
-      <section className="container-large mb-16 md:mb-20">
-        <motion.div
-          variants={headerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-8 bg-[#8FA5B3]" />
-            <span className="text-xs font-medium tracking-[0.35em] uppercase text-[#8FA5B3]">
-              News &amp; Editorial
-            </span>
-          </div>
+    <div className="min-h-screen bg-white text-[#050810] pt-32 pb-24">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* ── Page Headline ── */}
+        <h1 className="text-5xl md:text-[64px] font-light mb-8 uppercase text-[#050810] tracking-tight">
+          NEWS
+        </h1>
 
-          <h1 className="heading-h1 text-[#EAF3FB] mb-6">
-            Press Releases, Awards &amp;<br />
-            Architectural Updates
-          </h1>
-
-          <p className="text-base sm:text-lg font-light text-[#D4DDE3]/80 leading-relaxed max-w-2xl">
-            Explore company milestones, construction progress reports, awards, and thought
-            leadership on luxury space design across Thailand.
-          </p>
-        </motion.div>
-
-        {/* ── Category Filter Tabs ── */}
-        <div className="mt-12 pt-8 border-t border-[#1E2633] flex items-center gap-2 overflow-x-auto pb-2">
-          {(
-            ['All', 'Awards', 'Construction', 'Press', 'Architecture', 'Lifestyle'] as const
-          ).map((cat) => {
-            const active = selectedCategory === cat
+        {/* ── Category Filter Bar ── */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          {CATEGORIES.map((category) => {
+            const isActive = activeCategory === category
             return (
               <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-sm text-xs font-medium tracking-wider uppercase transition-all cursor-pointer whitespace-nowrap ${
-                  active
-                    ? 'bg-[#D4DDE3] text-[#0D1117]'
-                    : 'bg-[#161C26] text-[#8FA5B3] hover:text-[#D4DDE3] border border-[#1E2633]'
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full px-6 py-2 text-xs font-medium tracking-wide uppercase transition-colors ${
+                  isActive
+                    ? 'bg-[#0B1D3A] text-white shadow-sm'
+                    : 'bg-white border border-[#0B1D3A] text-[#0B1D3A] hover:bg-slate-50'
                 }`}
               >
-                {cat}
+                {category}
               </button>
             )
           })}
         </div>
-      </section>
 
-      {/* ── Featured Story (Shown when 'All' is active) ── */}
-      {selectedCategory === 'All' && (
-        <section className="container-large mb-16">
-          <Link
-            to={`/news/${featured.slug}`}
-            className="group block relative overflow-hidden rounded-sm bg-[#161C26] border border-[#1E2633] hover:border-[#405664] transition-all"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
-              <div className="lg:col-span-7 h-[360px] sm:h-[440px] overflow-hidden relative">
-                <img
-                  src={featured.coverImage}
-                  alt={featured.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] via-transparent to-transparent lg:hidden" />
-              </div>
-
-              <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-[#0D1117] bg-[#D4DDE3] px-2.5 py-0.5 rounded-sm">
-                    {featured.category}
-                  </span>
-                  <span className="text-xs text-[#8FA5B3] flex items-center gap-1.5 font-mono">
-                    <Calendar size={13} />
-                    {featured.date}
-                  </span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl font-light text-[#EAF3FB] group-hover:text-white transition-colors leading-snug mb-4">
-                  {featured.title}
-                </h2>
-
-                <p className="text-sm font-light text-[#D4DDE3]/80 leading-relaxed mb-6 line-clamp-3">
-                  {featured.excerpt}
-                </p>
-
-                <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-[#D4DDE3] group-hover:text-white pt-2 border-t border-[#1E2633]">
-                  <span>Read Full Article</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </div>
-          </Link>
-        </section>
-      )}
-
-      {/* ── Articles Responsive Grid Layout ── */}
-      <section className="container-large">
-        <motion.div
-          layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
+        {/* ── 4-Column News Card Grid ── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <AnimatePresence mode="popLayout">
-            {filteredNews.map((item) => (
-              <motion.article
-                key={item.id}
+            {filteredNews.map((article) => (
+              <motion.div
                 layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                key={article.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4 }}
-                className="group flex flex-col justify-between overflow-hidden rounded-sm bg-[#161C26]/70 border border-[#1E2633] hover:border-[#2A3649] transition-all"
+                transition={{ duration: 0.35, ease: [0.165, 0.84, 0.44, 1] }}
               >
-                <div>
+                <Link
+                  to={`/news/${article.slug}`}
+                  className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden group block shadow-sm hover:shadow-md transition-shadow"
+                >
                   {/* Card Image */}
-                  <div className="relative h-56 w-full overflow-hidden">
-                    <img
-                      src={item.coverImage}
-                      alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] via-transparent to-transparent opacity-80" />
+                  <img
+                    src={article.coverImage}
+                    alt={article.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
 
-                    <div className="absolute top-4 left-4">
-                      <span className="text-[11px] font-medium tracking-wider uppercase bg-[#0D1117]/80 backdrop-blur-md px-2.5 py-1 rounded-sm border border-[#2A3649] text-[#D4DDE3]">
-                        {item.category}
-                      </span>
-                    </div>
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                  {/* Top Right Badge */}
+                  {article.category && (
+                    <span className="absolute top-4 right-4 border border-white/60 text-white text-[10px] uppercase px-3 py-1 rounded-full backdrop-blur-sm font-medium tracking-wider">
+                      {article.category}
+                    </span>
+                  )}
+
+                  {/* Bottom Text Content */}
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <h2 className="text-white text-sm md:text-base font-medium line-clamp-3 mb-2 leading-snug">
+                      {article.title}
+                    </h2>
+                    <span className="text-white/70 text-xs block">
+                      {article.date}
+                    </span>
                   </div>
-
-                  {/* Card Body */}
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-xs text-[#8FA5B3] mb-3 font-mono">
-                      <span className="flex items-center gap-1.5">
-                        <Calendar size={13} />
-                        {item.date}
-                      </span>
-                      {item.readTime && (
-                        <span className="flex items-center gap-1.5">
-                          <Clock size={13} />
-                          {item.readTime}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-xl font-normal text-[#EAF3FB] leading-snug mb-3 group-hover:text-white transition-colors line-clamp-2">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs sm:text-sm font-light text-[#D4DDE3]/80 leading-relaxed line-clamp-3 mb-6">
-                      {item.excerpt}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Card Action Link */}
-                <div className="p-6 pt-0">
-                  <Link
-                    to={`/news/${item.slug}`}
-                    className="inline-flex items-center justify-between w-full pt-4 border-t border-[#1E2633] text-xs font-medium tracking-[0.2em] uppercase text-[#D4DDE3] group-hover:text-white transition-colors"
-                  >
-                    <span>Read Article</span>
-                    <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </Link>
-                </div>
-              </motion.article>
+                </Link>
+              </motion.div>
             ))}
           </AnimatePresence>
-        </motion.div>
-      </section>
+
+          {filteredNews.length === 0 && (
+            <div className="col-span-full py-20 text-center text-slate-500 font-light">
+              No news articles found in this category.
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }

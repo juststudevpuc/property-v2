@@ -31,12 +31,18 @@ export interface Project {
 
 export interface Promotion {
   id: string
-  projectName: string
+  projectTitle: string
   headline: string
-  body: string
+  description1: string
+  description2: string
+  buttonText: string
+  buttonUrl?: string
   image: string
-  ctaLabel: string
-  ctaUrl: string
+  // Optional backward compatibility
+  projectName?: string
+  body?: string
+  ctaLabel?: string
+  ctaUrl?: string
 }
 
 export interface NewsItem {
@@ -47,7 +53,7 @@ export interface NewsItem {
   date: string        // display string e.g. "Oct 24, 2026"
   coverImage: string
   tag?: string
-  category?: 'Press' | 'Awards' | 'Construction' | 'Architecture' | 'Lifestyle'
+  category?: string
   readTime?: string
   author?: string
   content?: string[]

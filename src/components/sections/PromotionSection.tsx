@@ -1,54 +1,100 @@
-import { motion, type Variants } from 'framer-motion'
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { PROMOTIONS } from '@/data/promotions'
-import PromotionCard from '@/components/shared/PromotionCard'
-
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.165, 0.84, 0.44, 1] },
-  },
-}
+import { cn } from '@/lib/utils'
 
 export default function PromotionSection() {
+  const [activeSlide, setActiveSlide] = useState(0)
+  const currentSlide = PROMOTIONS[activeSlide] || PROMOTIONS[0]
+
   return (
     <section
-      className="relative bg-[#0D1117] py-28 md:py-36 border-b border-[#1E2633] overflow-hidden"
-      aria-label="Exclusive Privileges & Promotions"
+      className="w-full p-0 m-0 overflow-hidden bg-[#050B14] flex flex-col md:flex-row h-auto md:h-[700px] lg:h-[750px]"
+      aria-label="Featured Residences Showcase"
     >
-      <div className="container-large">
-        {/* ── Section Header ── */}
-        <motion.div
-          className="max-w-2xl mb-16 md:mb-24"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={headerVariants}
-        >
-          <p className="text-xs font-medium tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
-            Privileges &amp; Opportunities
-          </p>
-          <h2 className="heading-h2 text-[#EAF3FB] mb-5">
-            Curated Inclusions for Discerning Homeowners
-          </h2>
-          <p className="text-base font-light text-[#D4DDE3]/80 leading-relaxed">
-            Discover bespoke interior designer packages, exclusive private preview appointments,
-            and tailored financing opportunities across our landmark residences.
-          </p>
-        </motion.div>
+      {/* ── Left Panel (Rich Gradient & Content) ── */}
+      <div className="w-full md:w-1/2 bg-gradient-to-b from-[#050B14] to-[#1A2C4D] p-8 sm:p-12 md:p-16 lg:p-24 flex flex-col justify-center relative z-10">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide.id}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.45, ease: [0.165, 0.84, 0.44, 1] }}
+            className="flex flex-col"
+          >
+            {/* Project Title */}
+            <span className="text-xs sm:text-sm font-light uppercase tracking-[0.25em] text-[#8FA5B3] mb-4 sm:mb-6 block">
+              {currentSlide.projectTitle}
+            </span>
 
-        {/* ── Alternating Cards List ── */}
-        <div className="flex flex-col gap-12 md:gap-16">
-          {PROMOTIONS.map((promo, idx) => (
-            <PromotionCard
-              key={promo.id}
-              promotion={promo}
-              reverse={idx % 2 === 1}
-              index={idx}
-            />
-          ))}
+            {/* Headline */}
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.2] mb-6 sm:mb-8">
+              {currentSlide.headline}
+            </h3>
+
+            {/* Descriptions */}
+            <div className="space-y-4 sm:space-y-5 text-[#D4DDE3] font-light leading-relaxed text-sm sm:text-base max-w-xl mb-8 sm:mb-10">
+              <p>{currentSlide.description1}</p>
+              <p>{currentSlide.description2}</p>
+            </div>
+
+            {/* Action Button */}
+            <div>
+              <Link
+                to={currentSlide.buttonUrl || '/contact'}
+                className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[#121A2F] hover:bg-[#1A2542] text-white border border-white/20 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl hover:border-white/40 active:scale-95 w-fit"
+              >
+                <span>{currentSlide.buttonText}</span>
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Minimalist Clickable Dots */}
+        <div
+          className="flex items-center gap-3 mt-10 sm:mt-12"
+          role="tablist"
+          aria-label="Slide navigation"
+        >
+          {PROMOTIONS.map((slide, idx) => {
+            const isActive = idx === activeSlide
+            return (
+              <button
+                key={slide.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                aria-label={`Go to slide ${idx + 1}: ${slide.projectTitle}`}
+                onClick={() => setActiveSlide(idx)}
+                className={cn(
+                  'w-3 h-3 rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white',
+                  isActive
+                    ? 'bg-white scale-110 shadow-sm'
+                    : 'bg-transparent border border-white/50 hover:border-white hover:bg-white/10'
+                )}
+              />
+            )
+          })}
         </div>
+      </div>
+
+      {/* ── Right Panel (Flush Edge-to-Edge Image) ── */}
+      <div className="relative w-full md:w-1/2 h-[360px] sm:h-[460px] md:h-full overflow-hidden bg-[#050B14]">
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentSlide.id}
+            src={currentSlide.image}
+            alt={currentSlide.projectTitle}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </AnimatePresence>
       </div>
     </section>
   )

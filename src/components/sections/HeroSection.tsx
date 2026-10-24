@@ -1,19 +1,10 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, type Variants } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
-import { Link } from 'react-router-dom'
 
 /* ─── Hero backdrop image (sourced from original CDN) ─────── */
 const HERO_IMAGE =
   'https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/69cb84fac765898d37fb2206_The%20Creators%20HQ%20Home%20Banner_CIRA.webp'
-
-/* ─── Scroll-down indicator animation ─────────────────────── */
-const bounceVariant: Variants = {
-  animate: {
-    y: [0, 10, 0],
-    transition: { repeat: Infinity, duration: 1.8, ease: 'easeInOut' },
-  },
-}
 
 /* ─── Text entrance animations ────────────────────────────── */
 const containerVariant: Variants = {
@@ -22,7 +13,7 @@ const containerVariant: Variants = {
 }
 
 const lineVariant: Variants = {
-  hidden:  { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 32 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.165, 0.84, 0.44, 1] } },
 }
 
@@ -50,7 +41,7 @@ export default function HeroSection() {
     <section
       ref={ref}
       className="relative h-screen min-h-[600px] flex items-end overflow-hidden"
-      aria-label="Hero — Explore Projects by The Creators HQ"
+      aria-label="Hero — Explore Projects by Property Schneitec"
     >
       {/* ── Background image with parallax ── */}
       <motion.div
@@ -59,89 +50,47 @@ export default function HeroSection() {
       >
         <img
           src={HERO_IMAGE}
-          alt="CIRA Residences — luxury detached home in Bangkok"
+          alt="Luxury detached home"
           className="w-full h-full object-cover"
           loading="eager"
           fetchPriority="high"
         />
       </motion.div>
 
-      {/* ── Gradient overlays (multi-layer, matching source) ── */}
+      {/* ── Gradient overlays ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
       >
-        {/* Bottom-heavy dark gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0D1117]/30 to-[#0D1117]/90" />
-        {/* Subtle top vignette for logo readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0D1117]/40 via-transparent to-transparent" />
       </div>
 
       {/* ── Hero content ── */}
-      <div className="relative z-10 w-full container-large pb-16 md:pb-24">
+      <div className="relative z-10 w-full container-large pb-12 md:pb-16 pl-8 md:pl-16">
         <motion.div
-          className="max-w-2xl"
+          className="max-w-3xl"
           variants={containerVariant}
           initial="hidden"
           animate="visible"
         >
-          {/* Eyebrow label */}
-          <motion.p
-            variants={lineVariant}
-            className="text-xs font-medium tracking-[0.3em] uppercase text-[#aebfcb] mb-4"
-          >
-            Est. 2015 — Bangkok, Thailand
-          </motion.p>
-
-          {/* Primary headline */}
-          <motion.h1
-            variants={lineVariant}
-            className="heading-h1 text-[#EAF3FB] mb-6"
-          >
-            Explore Projects<br />
-            by The Creators HQ
-          </motion.h1>
-
-          {/* Sub-copy */}
-          <motion.p
-            variants={lineVariant}
-            className="text-[#D4DDE3] font-light text-lg leading-relaxed mb-8 max-w-md opacity-80"
-          >
-            Premier space makers and real estate developers in Bangkok —
-            crafting luxury residences that elevate everyday life.
-          </motion.p>
-
-          {/* CTAs */}
+          {/* Text and Scroll indicator aligned symmetrically on the left */}
           <motion.div
             variants={lineVariant}
-            className="flex flex-wrap gap-4"
+            className="flex items-center gap-3 text-white text-2xl md:text-[28px] tracking-wide"
           >
-            <Link
-              to="/projects"
-              className="btn-primary inline-flex items-center gap-2 px-8 py-3.5 rounded-sm text-sm font-medium tracking-widest uppercase"
+            <span>Explore Projects by Property Schneitec</span>
+            <motion.div
+              animate={{ y: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="mt-1"
             >
-              View All Projects
-            </Link>
-            <Link
-              to="/about"
-              className="btn-secondary inline-flex items-center gap-2 px-8 py-3.5 rounded-sm text-sm font-medium tracking-widest uppercase"
-            >
-              Our Story
-            </Link>
+              {/* Note: The image uses a double chevron. Import ChevronsDown from lucide-react for the exact match */}
+              <ChevronDown size={24} strokeWidth={2} className="opacity-80" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
-
-      {/* ── Scroll indicator ── */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-[#D4DDE3]/60"
-        variants={bounceVariant}
-        animate="animate"
-        aria-hidden="true"
-      >
-        <span className="text-[10px] tracking-[0.25em] uppercase font-light">Scroll</span>
-        <ChevronDown size={18} strokeWidth={1.5} />
-      </motion.div>
     </section>
   )
 }

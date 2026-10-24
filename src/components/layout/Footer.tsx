@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import { FaFacebook, FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
-import { ArrowRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
-/* ─── Footer data ────────────────────────────────────────── */
+/* ─── Navigation Data ─────────────────────────────────────── */
 const COMPANY_LINKS = [
-  { label: 'About Us',  href: '/about' },
+  { label: 'About us',  href: '/about' },
   { label: 'Services',  href: '/services' },
   { label: 'News',      href: '/news' },
 ]
@@ -19,9 +19,13 @@ const PROJECT_LINKS = [
 ]
 
 const CONNECT_LINKS = [
-  { label: 'Contact', href: '/contact' },
-  { label: 'Agent',   href: '/contact/agent' },
+  { label: 'Contact',   href: '/contact' },
+  { label: 'Agent',     href: '/contact/agent' },
   { label: 'Affiliate', href: '/contact/affiliate' },
+]
+
+const LEGAL_LINKS = [
+  { label: 'Privacy Policy', href: '/privacy-policy' },
 ]
 
 const SOCIAL_LINKS = [
@@ -32,112 +36,167 @@ const SOCIAL_LINKS = [
   { icon: FaLinkedin,  href: 'https://www.linkedin.com/company/thecreatorshq', label: 'LinkedIn' },
 ]
 
-/* ─── Sub-components ─────────────────────────────────────── */
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
+/* ─── Logo Component ─────────────────────────────────────── */
+function CreatorsLogo({ className }: { className?: string }) {
   return (
-    <div>
-      <p className="text-sm font-semibold text-[#D4DDE3] tracking-wider uppercase mb-4">
-        {title}
-      </p>
-      <div className="flex flex-col gap-2.5">{children}</div>
-    </div>
-  )
-}
-
-function FooterLink({ href, label }: { href: string; label: string }) {
-  const isExternal = href.startsWith('http')
-  return isExternal ? (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="text-sm text-[#8FA5B3] hover:text-[#D4DDE3] transition-colors duration-300"
-    >
-      {label}
-    </a>
-  ) : (
     <Link
-      to={href}
-      className="text-sm text-[#8FA5B3] hover:text-[#D4DDE3] transition-colors duration-300"
+      to="/"
+      aria-label="Home"
+      className={cn('inline-flex flex-col tracking-wider select-none group', className)}
     >
-      {label}
+      <span className="text-xl md:text-2xl font-semibold tracking-[0.2em] uppercase leading-none text-white group-hover:text-white/85 transition-colors">
+        Schneitec
+      </span>
+      <span className="text-[10px] tracking-[0.42em] uppercase text-[#D4DDE3]/75 mt-1 group-hover:text-white/85 transition-colors">
+        Property
+      </span>
     </Link>
   )
 }
 
-/* ─── Footer ─────────────────────────────────────────────── */
+/* ─── Nav Column Helper ──────────────────────────────────── */
+function NavColumn({
+  title,
+  links,
+}: {
+  title: string
+  links: { label: string; href: string }[]
+}) {
+  return (
+    <div>
+      <h4 className="text-xs uppercase tracking-[0.22em] text-white/90 font-medium mb-4 sm:mb-5">
+        {title}
+      </h4>
+      <ul className="space-y-3">
+        {links.map((link) => {
+          const isExternal = link.href.startsWith('http')
+          return (
+            <li key={link.href}>
+              {isExternal ? (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs sm:text-sm text-[#D4DDE3] hover:text-white transition-colors duration-200 block font-light leading-relaxed"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  to={link.href}
+                  className="text-xs sm:text-sm text-[#D4DDE3] hover:text-white transition-colors duration-200 block font-light leading-relaxed"
+                >
+                  {link.label}
+                </Link>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+/* ─── Redesigned Footer ──────────────────────────────────── */
 export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#0D1117] border-t border-[#1E2633]">
+    <footer className="relative overflow-hidden bg-[#070D17] text-[#D4DDE3]">
+      {/* ── Mesh Gradient Background Layer ── */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden z-0"
+        aria-hidden="true"
+      >
+        {/* Glow 1: Top left aurora blob */}
+        <div className="absolute -top-32 -left-24 w-[480px] sm:w-[620px] h-[480px] sm:h-[620px] rounded-full bg-[#1A2C4D] opacity-65 blur-[120px]" />
+        {/* Glow 2: Center-right glowing blue sphere */}
+        <div className="absolute top-1/8 -right-28 w-[520px] sm:w-[680px] h-[520px] sm:h-[680px] rounded-full bg-[#253B5E] opacity-55 blur-[130px]" />
+        {/* Glow 3: Bottom ambient glow */}
+        <div className="absolute -bottom-28 left-1/3 w-[440px] sm:w-[560px] h-[440px] sm:h-[560px] rounded-full bg-[#1A2C4D] opacity-45 blur-[120px]" />
+      </div>
 
-      {/* ── CTA Band ── */}
-      <div className="bg-[#161C26]">
+      {/* ── Top CTA Block ── */}
+      <div className="relative z-10 border-b border-white/10">
         <div className="container-large py-16 md:py-24">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-            <div>
-              <h2 className="heading-h2 text-[#D4DDE3] mb-4">
-                Schedule Your<br className="hidden md:block" /> Private Preview
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start justify-between">
+            {/* Left side: Large, lightweight headline */}
+            <div className="lg:col-span-7">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.15]">
+                Schedule Your<br className="hidden sm:inline" /> Private Preview
               </h2>
-              <p className="text-sm text-[#8FA5B3] max-w-sm leading-relaxed">
-                The Creators HQ Co, Ltd.<br />
-                65/218 26th Floor, Chamnan Phenjati Business Center,<br />
+            </div>
+
+            {/* Right side: Header, address, and inquiry button */}
+            <div className="lg:col-span-5 flex flex-col items-start">
+              <h3 className="text-xs uppercase tracking-[0.25em] text-white/70 font-medium mb-3">
+                Make an appointment
+              </h3>
+              <p className="text-xs sm:text-sm text-[#D4DDE3] leading-relaxed font-light mb-6 max-w-sm">
+                Schneitec Property Co., Ltd.
+                <br />
+                65/218 26th Floor, Chamnan Phenjati Business Center,
+                <br />
                 Rama 9 Road, Huaykwang, Bangkok 10310
               </p>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white text-white text-xs sm:text-sm font-light tracking-wide bg-transparent hover:bg-white hover:text-[#070D17] transition-all duration-300 group"
+              >
+                <span>Submit an inquiry</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">
+                  &gt;
+                </span>
+              </Link>
             </div>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-3 btn-glass px-8 py-4 rounded-sm text-sm font-medium tracking-widest uppercase shrink-0"
-            >
-              Submit an Inquiry
-              <ArrowRight size={14} />
-            </Link>
           </div>
         </div>
       </div>
 
-      {/* ── Main footer grid ── */}
-      <div className="container-large py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
-          <FooterColumn title="Company">
-            {COMPANY_LINKS.map(l => <FooterLink key={l.href} {...l} />)}
-          </FooterColumn>
-          <FooterColumn title="Projects">
-            {PROJECT_LINKS.map(l => <FooterLink key={l.href} {...l} />)}
-          </FooterColumn>
-          <FooterColumn title="Connect">
-            {CONNECT_LINKS.map(l => <FooterLink key={l.href} {...l} />)}
-          </FooterColumn>
-          <FooterColumn title="Legal">
-            <FooterLink href="/privacy-policy" label="Privacy Policy" />
-          </FooterColumn>
-        </div>
+      {/* ── Navigation Grid (5 Columns) ── */}
+      <div className="relative z-10">
+        <div className="container-large py-14 md:py-20">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 lg:gap-10">
+            {/* Column 1: Logo */}
+            <div className="col-span-2 md:col-span-1">
+              <CreatorsLogo />
+            </div>
 
-        {/* ── Bottom bar ── */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8 border-t border-[#1E2633]">
-          <p className="text-xs text-[#405664] text-center md:text-left">
-            © {year}{' '}
-            <Link to="/" className="hover:text-[#8FA5B3] transition-colors">
-              The Creators HQ
-            </Link>{' '}
-            Co., Ltd. All Rights Reserved.
-          </p>
+            {/* Column 2: Company */}
+            <NavColumn title="Company" links={COMPANY_LINKS} />
 
-          {/* Socials */}
-          <div className="flex items-center gap-4">
-            {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-              <a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-[#405664] hover:text-[#D4DDE3] transition-colors duration-300"
-              >
-                <Icon size={16} />
-              </a>
-            ))}
+            {/* Column 3: Projects */}
+            <NavColumn title="Projects" links={PROJECT_LINKS} />
+
+            {/* Column 4: Connect */}
+            <NavColumn title="Connect" links={CONNECT_LINKS} />
+
+            {/* Column 5: Legal */}
+            <NavColumn title="Legal" links={LEGAL_LINKS} />
+          </div>
+
+          {/* ── Bottom Bar ── */}
+          <div className="mt-14 md:mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-[#D4DDE3]/60 font-light">
+            {/* Copyright on far left */}
+            <p className="text-center sm:text-left">
+              © {year} Schneitec Property Co., Ltd. All Rights Reserved.
+            </p>
+
+            {/* Social media icons on far right */}
+            <div className="flex items-center gap-5">
+              {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-[#D4DDE3]/70 hover:text-white transition-colors duration-300"
+                >
+                  <Icon size={16} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

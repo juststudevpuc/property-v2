@@ -20,10 +20,10 @@ function CreatorsLogo({ className }: { className?: string }) {
   return (
     <div className={cn('flex flex-col tracking-wider select-none', className)}>
       <span className="text-lg md:text-xl font-semibold tracking-[0.2em] uppercase leading-none text-current">
-        THE CREATORS
+        Schneitec
       </span>
       <span className="text-[10px] tracking-[0.4em] uppercase opacity-75 mt-0.5 text-current">
-        HQ
+        Property
       </span>
     </div>
   )

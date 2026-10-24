@@ -1,26 +1,67 @@
-import { motion, type Variants } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
-  Compass,
-  Sparkles,
-  Shield,
-  Layers,
   ArrowRight,
-  Award,
   Gem,
+  Layers,
   Leaf,
   Users,
 } from 'lucide-react'
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.165, 0.84, 0.44, 1] },
-  },
+/* ─── Tabs Data for Interactive Hero ─────────────────────── */
+interface AboutTab {
+  id: string
+  label: string
+  title: string
+  image: string
+  description: [string, string]
 }
 
+const ABOUT_TABS: AboutTab[] = [
+  {
+    id: 'about',
+    label: 'About us',
+    title: 'Crafting Habitats Where Architecture Meets The Human Soul',
+    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85',
+    description: [
+      'Established since 2015, Schneitec Property dedicates itself to redefining modern living. With a customer-first philosophy, we craft residences that combine innovation, architectural purity, and human touch, delivering homes that elevate everyday life.',
+      'We reject repetitive developer formulas to champion tailored architectural spaces centered on wellness, clarity, and enduring distinction across Bangkok and beyond.',
+    ],
+  },
+  {
+    id: 'vision',
+    label: 'Vision',
+    title: 'Pioneering Human-Centric Architectural Wellness',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85',
+    description: [
+      'Our vision is to set the benchmark for modern luxury living across Southeast Asia, delivering residences that transcend utilitarian structures to become timeless works of living art.',
+      'We envision environments where high-performance engineering harmonizes with natural elements—cultivating sanctuaries that nurture clarity, calm, and multi-generational connection.',
+    ],
+  },
+  {
+    id: 'mission',
+    label: 'Mission',
+    title: 'Transforming Cities Through Purpose and Emotion',
+    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85',
+    description: [
+      'To challenge the commodification of urban development by ensuring every square meter possesses intentional purpose, emotional resonance, and sustainable integrity.',
+      'We partner with world-renowned master planners and craftsmen to deliver homes characterized by meticulous detailing, noble materials, and enduring investment value.',
+    ],
+  },
+  {
+    id: 'culture',
+    label: 'Culture',
+    title: 'An Obsession with Craft, Detail, and Integrity',
+    image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2000&q=85',
+    description: [
+      'Our culture thrives on collaborative boldness, spatial curiosity, and an uncompromising commitment to architectural perfection at every stage of development.',
+      'Every member of our team is guided by empathy and craft—listening intently to how people aspire to live and translating those dreams into inspiring physical reality.',
+    ],
+  },
+]
+
+/* ─── Timeline Events Data ───────────────────────────────── */
 const TIMELINE_EVENTS = [
   {
     year: '2015',
@@ -60,6 +101,7 @@ const TIMELINE_EVENTS = [
   },
 ]
 
+/* ─── Core Values Data ───────────────────────────────────── */
 const VALUES = [
   {
     icon: Gem,
@@ -88,47 +130,93 @@ const VALUES = [
 ]
 
 export default function AboutPage() {
+  const [activeTab, setActiveTab] = useState<string>('about')
+  const currentTab = ABOUT_TABS.find((t) => t.id === activeTab) || ABOUT_TABS[0]
+
   return (
-    <div className="min-h-screen bg-[#0D1117] pt-28 md:pt-36 pb-24">
-      {/* ── Visionary Hero Section ── */}
-      <section className="container-large mb-20 md:mb-28">
-        <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          animate="visible"
-          className="max-w-4xl"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-8 bg-[#8FA5B3]" />
-            <span className="text-xs font-medium tracking-[0.35em] uppercase text-[#8FA5B3]">
-              About The Creators HQ
-            </span>
-          </div>
-
-          <h1 className="heading-h1 text-[#EAF3FB] mb-8">
-            Crafting Habitats Where Architecture Meets The Human Soul
-          </h1>
-
-          <p className="text-lg md:text-2xl font-light text-[#D4DDE3] leading-relaxed mb-8">
-            We are space makers. Since 2015, we have reshaped the Bangkok skyline by delivering
-            residences that transcend utilitarian shelters—crafting living works of art that nurture
-            clarity, connection, and timeless distinction.
-          </p>
-        </motion.div>
-
-        {/* Hero visual banner */}
-        <div className="relative h-[380px] sm:h-[480px] md:h-[560px] w-full overflow-hidden rounded-sm border border-[#1E2633] mt-8">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
-            alt="The Creators HQ architectural vision"
-            className="h-full w-full object-cover"
+    <div className="min-h-screen">
+      {/* ── Interactive Full-Screen Hero Section ── */}
+      <section className="relative min-h-screen w-full flex items-center overflow-hidden">
+        {/* Full-screen background image with smooth crossfade */}
+        <AnimatePresence mode="popLayout">
+          <motion.img
+            key={currentTab.id}
+            src={currentTab.image}
+            alt={currentTab.title}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            className="absolute inset-0 object-cover w-full h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0D1117] via-transparent to-[#0D1117]/30" />
+        </AnimatePresence>
+
+        {/* Darkening overlay for text readability */}
+        <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+
+        {/* ── Bottom Gradient & Aurora matching Footer (#070D17) ── */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-64 sm:h-80 md:h-96 pointer-events-none overflow-hidden z-[1]"
+          aria-hidden="true"
+        >
+          {/* Smooth vertical fade directly into footer background */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070D17] via-[#070D17]/75 to-transparent" />
+
+          {/* Soft ambient aurora glow blobs matching footer */}
+          <div className="absolute -bottom-20 left-1/4 w-[480px] h-[280px] rounded-full bg-[#1A2C4D] opacity-60 blur-[100px]" />
+          <div className="absolute -bottom-20 right-1/4 w-[480px] h-[280px] rounded-full bg-[#253B5E] opacity-50 blur-[110px]" />
+        </div>
+
+        {/* Hero content container */}
+        <div className="container-large relative z-10 w-full pt-28 pb-16 md:pt-36 md:pb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            {/* Left Column (Menu) */}
+            <div className="lg:col-span-5 flex flex-col items-start space-y-4 sm:space-y-6">
+              {ABOUT_TABS.map((tab) => {
+                const isActive = activeTab === tab.id
+                return (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`text-left text-3xl sm:text-4xl md:text-5xl font-light tracking-tight transition-all duration-300 focus:outline-none ${isActive
+                        ? 'text-white'
+                        : 'text-white/50 hover:text-white'
+                      }`}
+                  >
+                    {tab.label}
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Right Column (Content) */}
+            <div className="lg:col-span-7">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  className="max-w-2xl"
+                >
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.2] mb-6 sm:mb-8">
+                    {currentTab.title}
+                  </h1>
+                  <div className="space-y-5 text-base sm:text-lg font-light text-[#D4DDE3] leading-relaxed">
+                    <p>{currentTab.description[0]}</p>
+                    <p>{currentTab.description[1]}</p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ── Core Philosophy Narrative ── */}
-      <section className="container-large mb-28">
+      {/* <section className="container-large mb-28">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-5">
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
@@ -157,10 +245,10 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── Timeline Milestone Block ── */}
-      <section className="bg-[#161C26]/60 py-24 md:py-32 border-y border-[#1E2633] mb-28">
+      {/* <section className="bg-[#161C26]/60 py-24 md:py-32 border-y border-[#1E2633] mb-28">
         <div className="container-large">
           <div className="max-w-2xl mb-16">
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
@@ -192,10 +280,10 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── Core Values Grid ── */}
-      <section className="container-large mb-28">
+      {/* <section className="container-large mb-28">
         <div className="max-w-2xl mb-16">
           <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
             Guiding Principles
@@ -223,10 +311,10 @@ export default function AboutPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ── Bottom Call To Action ── */}
-      <section className="container-large">
+      {/* <section className="container-large">
         <div className="p-8 sm:p-14 rounded-sm bg-[#161C26] border border-[#1E2633] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
             <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] block mb-2">
@@ -256,7 +344,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }

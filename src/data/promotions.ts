@@ -2,33 +2,42 @@ import type { Promotion } from '@/types'
 
 export const PROMOTIONS: Promotion[] = [
   {
-    id: 'cira-vip-preview',
-    projectName: 'CIRA Residences',
-    headline: 'Private VIP Preview: Bespoke Luxury Living',
-    body: 'Be among the privileged few to experience the completed master show villa in central Bangkok. Schedule a private walkthrough accompanied by our architectural consultants and unlock exclusive pre-launch acquisition privileges.',
+    id: 'cira-residences',
+    projectTitle: 'CIRA RESIDENCES',
+    headline: 'Luxury in convenience.',
+    description1:
+      'An ultra-exclusive collection of private residences designed for timeless distinction, multigenerational living, and serene privacy in central Bangkok.',
+    description2:
+      'Experience the harmonious convergence of architectural refinement, bespoke natural textures, and low-density sanctuary living designed to endure for generations.',
+    buttonText: 'Schedule an Appointment',
+    buttonUrl: '/contact',
     image:
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-    ctaLabel: 'Schedule Private Preview',
-    ctaUrl: '/contact',
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/69cb84fac765898d37fb2206_The%20Creators%20HQ%20Home%20Banner_CIRA.webp',
   },
   {
-    id: 'corner-ready-to-move',
-    projectName: 'Corner Ratchathewi',
-    headline: 'Move-In Ready Sanctuary with 0% Financing',
-    body: 'Step into immediate luxury in prime Ratchathewi. Selected units include tailored interior design packages by renowned interior studios, 2-year waived sinking fund fees, and flexible installment arrangements.',
+    id: 'corner-ratchathewi',
+    projectTitle: 'CORNER RATCHATHEWI',
+    headline: 'Panoramic skyline elevation.',
+    description1:
+      'Iconic architectural landmark offering panoramic skyline views, bespoke dual-key layouts, and curated sky-high wellness facilities just 300 meters from BTS Ratchathewi.',
+    description2:
+      'Move into immediate luxury with tailored interior designer packages, private sky lounge access, and an atmosphere crafted specifically for visionary city lifestyles.',
+    buttonText: 'Schedule an Appointment',
+    buttonUrl: '/contact',
     image:
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80',
-    ctaLabel: 'View Available Units',
-    ctaUrl: '/project/corner-ratchathewi',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=80',
   },
   {
-    id: 'curva-collectors-release',
-    projectName: 'Curva Ekkamai',
-    headline: 'The Collector’s Edition: Exclusive 12-Unit Release',
-    body: 'A rare sanctuary for discerning homeowners seeking low-density exclusivity. Featuring private elevator foyers, double-volume ceilings, private courtyard terraces, and dedicated smart EV parking bays.',
+    id: 'curva-ekkamai',
+    projectTitle: 'CURVA EKKAMAI',
+    headline: 'Bespoke organic sanctuaries.',
+    description1:
+      'Curated organic curve architecture seamlessly blending lush vertical greenery with contemporary sanctuary privacy in Bangkok’s most fashionable district.',
+    description2:
+      'A rare collector edition featuring double-volume ceilings, private courtyard terraces, and dedicated smart EV parking bays for only 12 exclusive families.',
+    buttonText: 'Schedule an Appointment',
+    buttonUrl: '/contact',
     image:
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-    ctaLabel: 'Request Residence Portfolio',
-    ctaUrl: '/contact',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80',
   },
 ]

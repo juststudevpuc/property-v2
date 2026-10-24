@@ -9,8 +9,8 @@ export const PROJECTS: Project[] = [
     description:
       'An ultra-exclusive collection of private residences designed for timeless distinction, multigenerational living, and serene privacy in central Bangkok.',
     status: 'available',
-    priceLabel: 'STARTS 125 MB*',
-    location: 'Sathorn - Rama 9, Bangkok',
+    priceLabel: '',
+    location: '',
     coverImage:
       'https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/69cb84fac765898d37fb2206_The%20Creators%20HQ%20Home%20Banner_CIRA.webp',
     logoImage: '',
@@ -53,8 +53,8 @@ export const PROJECTS: Project[] = [
     description:
       'Iconic architectural landmark offering panoramic skyline views, bespoke dual-key layouts, and curated sky-high wellness facilities 300m from BTS Ratchathewi.',
     status: 'available',
-    priceLabel: 'STARTS 6.9 MB*',
-    location: 'Ratchathewi, Bangkok',
+    priceLabel: '',
+    location: '',
     coverImage:
       'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
     logoImage: '',
@@ -96,8 +96,8 @@ export const PROJECTS: Project[] = [
     description:
       'Curated organic curve architecture seamlessly blending lush vertical greenery with contemporary sanctuary privacy in Bangkok’s most fashionable district.',
     status: 'available',
-    priceLabel: 'STARTS 28 MB*',
-    location: 'Ekkamai Soi 10, Bangkok',
+    priceLabel: '',
+    location: '',
     coverImage:
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
     logoImage: '',
@@ -136,8 +136,8 @@ export const PROJECTS: Project[] = [
     description:
       'A collaborative residential hub featuring vibrant co-working spaces, rooftop infinity pool, and tech-forward community amenities.',
     status: 'sold-out',
-    priceLabel: 'STARTS 2.4 MB*',
-    location: 'Rangsit Campus, Pathum Thani',
+    priceLabel: '',
+    location: '',
     coverImage:
       'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
     logoImage: '',
@@ -173,8 +173,8 @@ export const PROJECTS: Project[] = [
     description:
       'The landmark 44-story tower on Ekkamai, commanding 360-degree views of the capital with elevated lifestyle lounges and sky deck gardens.',
     status: 'sold-out',
-    priceLabel: 'STARTS 4.5 MB*',
-    location: 'Sukhumvit 63, Bangkok',
+    priceLabel: '',
+    location: '',
     coverImage:
       'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1200&q=80',
     logoImage: '',
