@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+/* ============================================================
+   THE CREATORS HQ — Design Token Layer
+   Extracted from: thecreatorshq.com/en
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* ── Core Brand Palette ─────────────────────────────────── */
+    /* Primary: Deep dark navy/charcoal background */
+    --color-primary:       #0D1117;   /* site body bg — near black */
+    --color-primary-90:    #161C26;   /* slightly lighter dark */
+    --color-primary-80:    #1E2633;   /* cards/sections */
+
+    /* Secondary: Soft ice-blue text on dark */
+    --color-secondary:     #D4DDE3;   /* "text-color-secondary" extracted */
+    --color-secondary-dim: #aebfcb;   /* hover state on scrolled nav */
+
+    /* Accent: Warm off-white / cream */
+    --color-accent:        #EAF3FB;   /* icon strokes, button text */
+
+    /* Neutral mids — UI borders, pagination dots */
+    --color-neutral-400:   #405664;   /* pagination bullet, dim text */
+    --color-neutral-200:   #8FA5B3;   /* placeholder / muted */
+
+    /* Focus blue (preserved from globals) */
+    --color-focus:         #4d65ff;
+
+    /* ── Typography ─────────────────────────────────────────── */
+    --font-sans: 'Manrope', 'Noto Sans Thai', sans-serif;
+
+    /* ── Spacing Scale ──────────────────────────────────────── */
+    --spacing-section-sm:  3rem;
+    --spacing-section-md:  6rem;
+    --spacing-section-lg:  9rem;
+
+    /* ── Transitions ────────────────────────────────────────── */
+    --transition-nav:      transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    --transition-color:    0.4s ease;
+
+    /* ── Shadcn/ui CSS vars ──────────────────────────────────── */
+    --background:         0 0% 5%;
+    --foreground:         210 20% 88%;
+    --card:               214 20% 10%;
+    --card-foreground:    210 20% 88%;
+    --popover:            214 20% 10%;
+    --popover-foreground: 210 20% 88%;
+    --primary:            0 0% 100%;
+    --primary-foreground: 0 0% 5%;
+    --secondary:          214 15% 18%;
+    --secondary-foreground: 210 20% 88%;
+    --muted:              214 15% 18%;
+    --muted-foreground:   210 15% 60%;
+    --accent:             210 25% 88%;
+    --accent-foreground:  0 0% 5%;
+    --destructive:        0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border:             214 15% 22%;
+    --input:              214 15% 22%;
+    --ring:               210 25% 75%;
+    --radius:             0.25rem;
+  }
+}
+
+/* ============================================================
+   Global Base Styles — mirroring thecreatorshq.com globals
+   ============================================================ */
+@layer base {
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #0D1117;
+    color: var(--color-secondary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Hide scrollbar — matches original */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text wrapping — matches original classes */
+  p, .text-pretty {
+    text-wrap: pretty;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  *:focus-visible {
+    outline: 0.125rem solid var(--color-focus);
+    outline-offset: 0.125rem;
+  }
+}
+
+/* ============================================================
+   Utility Classes — extracted from original Webflow site
+   ============================================================ */
+@layer utilities {
+  .text-color-primary   { color: #0D1117; }
+  .text-color-secondary { color: #D4DDE3; }
+  .text-color-accent    { color: #EAF3FB; }
+  .text-color-muted     { color: #8FA5B3; }
+
+  .bg-primary   { background-color: #0D1117; }
+  .bg-primary-90 { background-color: #161C26; }
+  .bg-primary-80 { background-color: #1E2633; }
+
+  /* Heading scale */
+  .heading-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; }
+  .heading-h2 { font-size: clamp(1.875rem, 3.5vw, 3rem);  font-weight: 300; line-height: 1.2; letter-spacing: -0.01em; }
+  .heading-h3 { font-size: clamp(1.5rem, 2.5vw, 2rem);    font-weight: 300; line-height: 1.3; }
+  .heading-h4 { font-size: clamp(1.125rem, 2vw, 1.5rem);  font-weight: 400; line-height: 1.4; }
+
+  /* Text size scale */
+  .text-xl-custom { font-size: clamp(1.25rem, 2.5vw, 2rem); }
+  .text-lg-custom { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+  .text-md-custom { font-size: 1rem; }
+  .text-sm-custom { font-size: 0.875rem; }
+  .text-xs-custom { font-size: 0.75rem; }
+
+  /* Nav glass blur — matches .nav_container.is-scrolled */
+  .nav-scrolled {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(0.875rem);
+    -webkit-backdrop-filter: blur(0.875rem);
+  }
+
+  /* Glass button style — .button.is-glass */
+  .btn-glass {
+    border: 1px solid rgba(212, 221, 227, 0.4);
+    background-color: transparent;
+    color: #EAF3FB;
+    backdrop-filter: blur(8px);
+    transition: all 0.4s ease;
+  }
+  .btn-glass:hover {
+    border-color: #D4DDE3;
+    background-color: rgba(212, 221, 227, 0.08);
+  }
+
+  /* Primary button */
+  .btn-primary {
+    background-color: #D4DDE3;
+    color: #0D1117;
+    border: 1px solid #D4DDE3;
+    transition: all 0.4s ease;
+  }
+  .btn-primary:hover {
+    background-color: transparent;
+    color: #D4DDE3;
+  }
+
+  /* Secondary outlined button */
+  .btn-secondary {
+    background-color: transparent;
+    color: #D4DDE3;
+    border: 1px solid #D4DDE3;
+    transition: all 0.4s ease;
+  }
+  .btn-secondary:hover {
+    background-color: #D4DDE3;
+    color: #0D1117;
+  }
+
+  /* Overlay gradient used on hero */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(13,17,23,0.15) 0%,
+      rgba(13,17,23,0.45) 60%,
+      rgba(13,17,23,0.85) 100%
+    );
+  }
+
+  /* Section containers */
+  .container-site  { max-width: 1440px; margin-inline: auto; padding-inline: 2rem; }
+  .container-large { max-width: 1200px; margin-inline: auto; padding-inline: 2rem; }
+
+  /* 2-line clamp */
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 3-line clamp */
+  .clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
