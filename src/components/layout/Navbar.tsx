@@ -1,10 +1,8 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useState, useEffect, useRef } from 'react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, type Variants } from 'framer-motion'
 import { X, Menu, ChevronDown, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { useScrollDirection } from '@/hooks/useScrollDirection'
-import { useScrollPosition } from '@/hooks/useScrollPosition'
 
 /* ─── Nav links data ─────────────────────────────────────── */
 const NAV_LINKS = [
@@ -15,7 +13,7 @@ const NAV_LINKS = [
   { label: 'News',     href: '/news' },
 ]
 
-/* ─── Logo Component (Text placeholder for safe rendering) ─── */
+/* ─── Logo Component ─────────────────────────────────────── */
 function CreatorsLogo({ className }: { className?: string }) {
   return (
     <div className={cn('flex flex-col tracking-wider select-none', className)}>
@@ -48,93 +46,164 @@ const linkVariant: Variants = {
 /* ─── Navbar ─────────────────────────────────────────────── */
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const scrollY    = useScrollPosition()
-  const scrollDir  = useScrollDirection()
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const lastScrollY = useRef(0)
+  const location = useLocation()
 
-  const isScrolled  = scrollY > 60
-  const isHidden    = scrollDir === 'down' && scrollY > 120 && !isMenuOpen
+  // Detect whether current route or page has a light/white background
+  const isWhiteRoute = ['/news', '/projects'].includes(location.pathname.replace(/\/$/, ''))
+  const [hasWhiteBg, setHasWhiteBg] = useState(isWhiteRoute)
+
+  useEffect(() => {
+    const isRouteMatch = ['/news', '/projects'].includes(location.pathname.replace(/\/$/, ''))
+    if (isRouteMatch) {
+      setHasWhiteBg(true)
+      return
+    }
+
+    // Fallback: check if main or its first child contains bg-white
+    const mainEl = document.querySelector('main')
+    const firstChild = mainEl?.firstElementChild
+    if (firstChild?.classList.contains('bg-white') || mainEl?.classList.contains('bg-white')) {
+      setHasWhiteBg(true)
+    } else {
+      setHasWhiteBg(false)
+    }
+  }, [location.pathname])
+
+  const isLight = isWhiteRoute || hasWhiteBg
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      // Morphing into pill shape state (> 20px)
+      if (currentScrollY > 20) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+
+      // Smart navbar visibility based on scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling down past the top section: hide navbar
+        setIsVisible(false)
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up: reveal navbar
+        setIsVisible(true)
+      }
+
+      lastScrollY.current = currentScrollY
+    }
+
+    // Initial check on mount
+    handleScroll()
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
-      {/* ── Fixed navbar wrapper ── */}
-      <motion.nav
-        aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-[999]"
-        animate={{ y: isHidden ? '-100%' : '0%' }}
-        transition={{ duration: 0.5, ease: [0.165, 0.84, 0.44, 1] }}
+      {/* ── Outer Wrapper (Smart hide / show on scroll) ── */}
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out flex justify-center ${
+          isScrolled ? 'pt-4' : 'pt-0'
+        } ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}
       >
-        <div
-          className={cn(
-            'transition-all duration-400 ease-in-out',
-            isScrolled && 'nav-scrolled'
-          )}
+        {/* ── Inner Nav Element (The Pill) ── */}
+        <nav
+          aria-label="Main navigation"
+          className={`transition-all duration-500 ease-in-out flex items-center justify-between ${
+            isScrolled
+              ? isLight
+                ? 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-white/80 md:bg-white/85 backdrop-blur-md rounded-full border border-black/10 shadow-xl'
+                : 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-white/10 md:bg-[#050810]/60 backdrop-blur-md rounded-full border border-white/10 shadow-xl'
+              : 'w-full max-w-none px-6 md:px-12 py-6 bg-transparent rounded-none border-transparent'
+          }`}
         >
-          <div className="container-site">
-            <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <Link to="/" aria-label="Schneitec Property — Home" className="flex items-center">
+            <CreatorsLogo
+              className={cn(
+                'transition-colors duration-300',
+                isLight
+                  ? 'text-[#050810] hover:text-black'
+                  : 'text-[#D4DDE3] hover:text-white'
+              )}
+            />
+          </Link>
 
-              {/* Logo */}
-              <Link to="/" aria-label="The Creators HQ — Home">
-                <CreatorsLogo
-                  className={cn(
-                    'transition-colors duration-400',
-                    isScrolled ? 'text-[#D4DDE3]' : 'text-[#D4DDE3]'
-                  )}
-                />
-              </Link>
-
-              {/* Desktop nav links */}
-              <div className="hidden md:flex items-center gap-8">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <NavLink
-                    key={href}
-                    to={href}
-                    end={href === '/'}
-                    className={({ isActive }) =>
-                      cn(
-                        'text-sm font-light tracking-wide transition-colors duration-300',
-                        isScrolled ? 'text-[#D4DDE3]' : 'text-[#D4DDE3]',
-                        isActive ? 'opacity-100' : 'opacity-70 hover:opacity-100'
-                      )
-                    }
-                  >
-                    {label}
-                  </NavLink>
-                ))}
-              </div>
-
-              {/* Right side — language + CTA + burger */}
-              <div className="flex items-center gap-4">
-
-                {/* Language toggle */}
-                <div className="hidden md:flex items-center gap-1 text-[#D4DDE3] text-sm font-light opacity-70 cursor-pointer hover:opacity-100 transition-opacity">
-                  <span>EN</span>
-                  <ChevronDown size={14} />
-                </div>
-
-                {/* Contact CTA */}
-                <Link
-                  to="/contact"
-                  className="hidden md:inline-flex items-center gap-2 btn-secondary text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-sm"
-                >
-                  Contact
-                </Link>
-
-                {/* Hamburger */}
-                <button
-                  onClick={() => setIsMenuOpen(true)}
-                  aria-label="Open menu"
-                  className={cn(
-                    'p-2 transition-colors duration-300',
-                    isScrolled ? 'text-[#D4DDE3]' : 'text-[#D4DDE3]'
-                  )}
-                >
-                  <Menu size={22} />
-                </button>
-              </div>
-            </div>
+          {/* Centered navigation links */}
+          <div className="hidden md:flex items-center gap-8">
+            {NAV_LINKS.map(({ label, href }) => (
+              <NavLink
+                key={href}
+                to={href}
+                end={href === '/'}
+                className={({ isActive }) =>
+                  cn(
+                    'text-sm font-light tracking-wide transition-colors duration-300',
+                    isLight
+                      ? isActive
+                        ? 'text-[#050810] font-normal opacity-100'
+                        : 'text-[#050810]/70 hover:opacity-100 hover:text-[#050810]'
+                      : isActive
+                        ? 'text-white opacity-100 font-normal'
+                        : 'text-[#D4DDE3] opacity-80 hover:opacity-100 hover:text-white'
+                  )
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
           </div>
-        </div>
-      </motion.nav>
+
+          {/* Right side — English / Contact button group */}
+          <div className="flex items-center gap-4">
+            {/* Language toggle */}
+            <div
+              className={cn(
+                'hidden md:flex items-center gap-1 text-sm font-light cursor-pointer transition-colors',
+                isLight
+                  ? 'text-[#050810]/75 hover:text-[#050810]'
+                  : 'text-[#D4DDE3] opacity-80 hover:opacity-100 hover:text-white'
+              )}
+            >
+              <span>EN</span>
+              <ChevronDown size={14} />
+            </div>
+
+            {/* Contact CTA */}
+            <Link
+              to="/contact"
+              className={cn(
+                'hidden md:inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-md',
+                isLight
+                  ? 'border border-[#050810] text-[#050810] hover:bg-[#050810] hover:text-white'
+                  : 'btn-secondary'
+              )}
+            >
+              Contact
+            </Link>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              aria-label="Open menu"
+              className={cn(
+                'p-2 transition-colors duration-300 md:hidden',
+                isLight
+                  ? 'text-[#050810] hover:text-black'
+                  : 'text-[#D4DDE3] hover:text-white'
+              )}
+            >
+              <Menu size={22} />
+            </button>
+          </div>
+        </nav>
+      </header>
 
       {/* ── Mobile full-screen overlay ── */}
       <AnimatePresence>
@@ -192,7 +261,7 @@ export default function Navbar() {
                 <Link
                   to="/contact"
                   onClick={() => setIsMenuOpen(false)}
-                  className="inline-flex items-center gap-2 btn-secondary text-sm font-medium tracking-widest uppercase px-6 py-3 rounded-sm"
+                  className="inline-flex items-center gap-2 btn-secondary text-sm font-medium tracking-widest uppercase px-6 py-3 rounded-full"
                 >
                   Contact Us
                   <ArrowRight size={14} />

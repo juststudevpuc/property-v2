@@ -1,35 +1,229 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { motion, type Variants } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowLeft,
-  MapPin,
-  Building,
-  Maximize2,
-  Calendar,
-  Car,
-  Home,
-  CheckCircle2,
-  Sparkles,
   ArrowRight,
+  ChevronLeft,
+  ChevronRight,
   Send,
   Download,
+  CheckCircle2,
+  X,
+  FileText,
 } from 'lucide-react'
 import { PROJECTS } from '@/data/projects'
 import ProjectCard from '@/components/shared/ProjectCard'
 
-const fadeIn: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.165, 0.84, 0.44, 1] },
+/* ─── House Type Interface ───────────────────────────────── */
+interface HouseTypeSpecs {
+  landArea: string
+  usableArea: string
+  bedroom: string
+  bathroom: string
+  powderRoom: string
+  parking: string
+}
+
+interface HouseType {
+  name: string
+  subtitle?: string
+  image: string
+  specs: HouseTypeSpecs
+  description?: string
+}
+
+/* ─── Mock Extensions for Editorial Luxury Layout ────────── */
+const MOCK_EXTENSIONS: Record<
+  string,
+  {
+    startingPrice: string
+    propertyType: string
+    conceptText: string[]
+    keyStats: { value: string; label: string }[]
+    houseTypes: HouseType[]
+    amenities: string[]
+    progressText: string
+    progressPercent: number
+  }
+> = {
+  'cira-residences': {
+    startingPrice: '125 MB*',
+    propertyType: 'Detached House',
+    conceptText: [
+      'Conceived as a sanctuary of understated grandeur, CIRA Residences redefines super luxury living in Bangkok. Monolithic stone forms and expansive glazed pavilions blur the boundaries between architectural mastery and verdant private landscape.',
+      'Each bespoke residence is thoughtfully calibrated to foster multi-generational intimacy while offering sovereign entertaining spaces. Crafted with artisanal Italian marble, acoustic insulated envelopes, and sovereign green courtyards for generations to cherish.',
+    ],
+    keyStats: [
+      { value: '9', label: 'PRIVATE RESIDENCES' },
+      { value: '101 - 156', label: 'SQ.WA LAND AREA' },
+      { value: '733 - 1,223', label: 'SQ.M. USABLE AREA' },
+    ],
+    houseTypes: [
+      {
+        name: 'Serein',
+        subtitle: 'The Grand Estate',
+        image:
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+        specs: {
+          landArea: '156.4 sq.wa',
+          usableArea: '1,223 sq.m.',
+          bedroom: '5 Bedrooms',
+          bathroom: '6 Bathrooms',
+          powderRoom: '2 Rooms',
+          parking: '6 Bays',
+        },
+      },
+      {
+        name: 'Elayne',
+        subtitle: 'The Signature Villa',
+        image:
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+        specs: {
+          landArea: '118.2 sq.wa',
+          usableArea: '895 sq.m.',
+          bedroom: '4 Bedrooms',
+          bathroom: '5 Bathrooms',
+          powderRoom: '1 Room',
+          parking: '4 Bays',
+        },
+      },
+      {
+        name: 'Azure',
+        subtitle: 'The Sky Villa',
+        image:
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+        specs: {
+          landArea: '108.5 sq.wa',
+          usableArea: '810 sq.m.',
+          bedroom: '4 Bedrooms',
+          bathroom: '5 Bathrooms',
+          powderRoom: '1 Room',
+          parking: '4 Bays',
+        },
+      },
+      {
+        name: 'Soleil',
+        subtitle: 'The Garden Villa',
+        image:
+          'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
+        specs: {
+          landArea: '101.5 sq.wa',
+          usableArea: '733 sq.m.',
+          bedroom: '4 Bedrooms',
+          bathroom: '5 Bathrooms',
+          powderRoom: '1 Room',
+          parking: '4 Bays',
+        },
+      },
+    ],
+    amenities: [
+      'Private 15m Saltwater Lap Pool & Sun Deck',
+      'Subterranean Private Wine Cellar & Tasting Salon',
+      'Double-Volume Living Salon with 6.8m Ceiling',
+      'Custom Sub-Zero & Wolf Gourmet Show Kitchen',
+      'Private Passenger & Service Elevator',
+      'Rooftop Starlight Terrace & BBQ Pavillion',
+      'Private Wellness Studio & Steam Retreat',
+      'Smart Home Automation & Multi-Tier Biometric Security',
+    ],
+    progressText: 'Construction of the residence project is completed',
+    progressPercent: 100,
   },
+}
+
+// Fallback defaults for other projects
+const DEFAULT_EDITORIAL_DATA = {
+  startingPrice: '125 MB*',
+  propertyType: 'Super Luxury Residence',
+  conceptText: [
+    'Conceived as a sanctuary of understated grandeur, each residence represents a harmonious fusion of monolithic architecture, natural lighting, and refined privacy.',
+    'Designed for generational legacy, the interiors prioritize grand entertaining volumes alongside secluded private retreats, crafted with artisanal materials and acoustic insulated envelopes.',
+  ],
+  keyStats: [
+    { value: '9', label: 'PRIVATE RESIDENCES' },
+    { value: '101 - 156', label: 'SQ.WA LAND AREA' },
+    { value: '733 - 1,223', label: 'SQ.M. USABLE AREA' },
+  ],
+  houseTypes: [
+    {
+      name: 'Serein',
+      subtitle: 'The Grand Estate',
+      image:
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      specs: {
+        landArea: '156.4 sq.wa',
+        usableArea: '1,223 sq.m.',
+        bedroom: '5 Bedrooms',
+        bathroom: '6 Bathrooms',
+        powderRoom: '2 Rooms',
+        parking: '6 Bays',
+      },
+    },
+    {
+      name: 'Elayne',
+      subtitle: 'The Signature Villa',
+      image:
+        'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      specs: {
+        landArea: '118.2 sq.wa',
+        usableArea: '895 sq.m.',
+        bedroom: '4 Bedrooms',
+        bathroom: '5 Bathrooms',
+        powderRoom: '1 Room',
+        parking: '4 Bays',
+      },
+    },
+    {
+      name: 'Azure',
+      subtitle: 'The Sky Villa',
+      image:
+        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+      specs: {
+        landArea: '108.5 sq.wa',
+        usableArea: '810 sq.m.',
+        bedroom: '4 Bedrooms',
+        bathroom: '5 Bathrooms',
+        powderRoom: '1 Room',
+        parking: '4 Bays',
+      },
+    },
+    {
+      name: 'Soleil',
+      subtitle: 'The Garden Villa',
+      image:
+        'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
+      specs: {
+        landArea: '101.5 sq.wa',
+        usableArea: '733 sq.m.',
+        bedroom: '4 Bedrooms',
+        bathroom: '5 Bathrooms',
+        powderRoom: '1 Room',
+        parking: '4 Bays',
+      },
+    },
+  ],
+  amenities: [
+    'Private Saltwater Swimming Pool',
+    'Double-Volume Living Hall',
+    'Private Passenger Elevator',
+    'Custom Gourmet Kitchen',
+    'Rooftop BBQ & Starlight Terrace',
+    'Smart Home Automation',
+    '24/7 Multi-Tier Biometric Security',
+    'Private Landscaped Courtyard',
+  ],
+  progressText: 'Construction of the residence project is completed',
+  progressPercent: 100,
 }
 
 export default function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>()
   const project = PROJECTS.find((p) => p.slug === slug)
+
+  // Edge-to-edge interactive house type index state
+  const [activeHouseIndex, setActiveHouseIndex] = useState(0)
+  const [activeAmenityIndex, setActiveAmenityIndex] = useState(0)
 
   // Registration Form State
   const [formState, setFormState] = useState({
@@ -42,24 +236,32 @@ export default function ProjectDetailPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  // Brochure Modal State
+  const [isBrochureOpen, setIsBrochureOpen] = useState(false)
+  const [brochureEmail, setBrochureEmail] = useState('')
+  const [isBrochureSent, setIsBrochureSent] = useState(false)
+
+  // Lightbox State
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+
   // ── Handle 404 Gracefully ──
   if (!project) {
     return (
-      <div className="min-h-[70vh] bg-[#0D1117] flex items-center justify-center pt-28 pb-20">
-        <div className="container-large text-center max-w-lg">
-          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
+      <div className="min-h-screen bg-white text-[#050810] flex items-center justify-center pt-32 pb-20">
+        <div className="max-w-lg text-center px-6">
+          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-slate-400 mb-3">
             Portfolio
           </p>
-          <h1 className="text-3xl md:text-4xl font-light text-[#EAF3FB] mb-4">
+          <h1 className="text-4xl font-light text-[#050810] mb-4">
             Residence Not Found
           </h1>
-          <p className="text-sm font-light text-[#D4DDE3]/80 leading-relaxed mb-8">
+          <p className="text-sm font-light text-slate-600 leading-relaxed mb-8">
             The project you requested does not exist or may have been archived. Please explore our
             complete active portfolio.
           </p>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 btn-primary px-8 py-3.5 rounded-sm text-xs font-medium tracking-[0.2em] uppercase"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#050810] text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-800 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>View All Projects</span>
@@ -69,8 +271,72 @@ export default function ProjectDetailPage() {
     )
   }
 
+  // Compose Mock and Real Data
+  const mock = MOCK_EXTENSIONS[project.slug] || DEFAULT_EDITORIAL_DATA
+  const startingPrice = project.priceLabel || mock.startingPrice
+  const propertyType = mock.propertyType
+  const conceptText =
+    project.fullStory && project.fullStory.length >= 2
+      ? project.fullStory.slice(0, 2)
+      : mock.conceptText
+  const keyStats = mock.keyStats
+  const houseTypes = mock.houseTypes
+  const amenitiesList = [
+    {
+      name: 'Swimming Pool',
+      image:
+        'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'BBQ Terrace',
+      image:
+        'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Elixir Lounge',
+      image:
+        'https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Family Lounge',
+      image:
+        'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Fitness Studio',
+      image:
+        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Working Room',
+      image:
+        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Grand Parlor',
+      image:
+        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1800&q=85',
+    },
+    {
+      name: 'Formal Dining Area',
+      image:
+        'https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=1800&q=85',
+    },
+  ]
+  const progressText = mock.progressText
+  const progressPercent = mock.progressPercent
+
   const otherProjects = PROJECTS.filter((p) => p.slug !== project.slug).slice(0, 3)
-  const isAvailable = project.status === 'available'
+  const currentHouse = houseTypes[activeHouseIndex] || houseTypes[0]
+
+  const specsList = [
+    { label: 'Land Area', value: currentHouse.specs.landArea },
+    { label: 'Usable Area', value: currentHouse.specs.usableArea },
+    { label: 'Bedroom', value: currentHouse.specs.bedroom },
+    { label: 'Bathroom', value: currentHouse.specs.bathroom },
+    { label: 'Powder Room', value: currentHouse.specs.powderRoom },
+    { label: 'Parking', value: currentHouse.specs.parking },
+  ]
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault()
@@ -78,365 +344,629 @@ export default function ProjectDetailPage() {
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
-    }, 800)
+    }, 700)
+  }
+
+  const handleBrochureDownload = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsBrochureSent(true)
+    setTimeout(() => {
+      setIsBrochureSent(false)
+      setIsBrochureOpen(false)
+      setBrochureEmail('')
+    }, 2000)
+  }
+
+  const scrollToRegister = () => {
+    const el = document.getElementById('register-section')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
-    <div className="min-h-screen bg-[#0D1117] pt-20 pb-24">
-      {/* ── Breadcrumb / Back Link ── */}
-      <div className="container-large py-6">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-[#8FA5B3] hover:text-[#EAF3FB] transition-colors"
-        >
-          <ArrowLeft size={14} />
-          <span>Back to All Projects</span>
-        </Link>
-      </div>
-
-      {/* ── Hero Section ── */}
-      <section className="relative h-[65vh] min-h-[500px] max-h-[720px] w-full overflow-hidden flex items-end">
+    <div className="min-h-screen bg-white text-[#050810]">
+      {/* ───────────────────────────────────────────────────────────
+          1. Hero Section (Full-Bleed)
+          ─────────────────────────────────────────────────────────── */}
+      <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-end">
+        {/* Full-bleed background image */}
         <img
           src={project.coverImage}
           alt={project.name}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
         />
-        {/* Layered dark gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D1117] via-[#0D1117]/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0D1117]/60 via-transparent to-transparent" />
 
-        <div className="container-large relative z-10 pb-16">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            className="max-w-3xl"
-          >
-            {/* Status & Price Pill */}
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0D1117]/80 backdrop-blur-md border border-[#2A3649] text-xs font-medium tracking-wider uppercase">
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    isAvailable ? 'bg-emerald-400 animate-pulse' : 'bg-[#8FA5B3]'
-                  }`}
-                />
-                <span className={isAvailable ? 'text-[#D4DDE3]' : 'text-[#8FA5B3]'}>
-                  {isAvailable ? 'Available for Private Preview' : 'Sold Out / Archive'}
-                </span>
-              </span>
+        {/* Top subtle vignette for navbar legibility */}
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/60 via-black/25 to-transparent pointer-events-none" />
 
-              <span className="text-xs font-semibold tracking-widest uppercase text-[#EAF3FB] bg-[#161C26]/80 backdrop-blur-md px-3.5 py-1 rounded-sm border border-[#2A3649]">
-                {project.priceLabel}
-              </span>
+        {/* Bottom gradient overlay so text is readable */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
+
+        {/* Hero Content (Absolute Bottom) */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-20">
+          {/* Top left of content: Breadcrumbs */}
+          <div className="flex items-center gap-2 text-xs md:text-sm font-light text-white/80 mb-6">
+            <Link to="/projects" className="hover:text-white transition-colors">
+              Projects
+            </Link>
+            <span className="text-white/40">&gt;</span>
+            <span className="text-white/80">{propertyType}</span>
+            <span className="text-white/40">&gt;</span>
+            <span className="text-white font-normal">{project.name}</span>
+          </div>
+
+          {/* Grid layout spanning the bottom */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end justify-between">
+            {/* Left: Huge project title and sub-title */}
+            <div className="lg:col-span-7">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white tracking-tight uppercase leading-[0.95] mb-4">
+                {project.name}
+              </h1>
+              <p className="text-base sm:text-lg md:text-xl font-light text-white/85 tracking-wide max-w-xl">
+                {project.tagline || 'Super Luxury Detached House'}
+              </p>
             </div>
 
-            {/* Title */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-light text-[#EAF3FB] tracking-tight mb-3">
-              {project.name}
-            </h1>
+            {/* Right: Starting price, value & CTA buttons */}
+            <div className="lg:col-span-5 flex flex-col lg:items-end justify-end">
+              <div className="mb-6 lg:text-right">
+                <span className="block text-xs uppercase tracking-[0.25em] text-white/70 font-light mb-1">
+                  Starting price
+                </span>
+                <span className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight">
+                  {startingPrice}
+                </span>
+              </div>
 
-            {/* Tagline & Location */}
-            <p className="text-lg md:text-xl font-light text-[#D4DDE3] mb-4">
-              {project.tagline}
+              {/* Side-by-side action buttons */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <button
+                  type="button"
+                  onClick={scrollToRegister}
+                  className="px-8 py-3.5 rounded-full bg-white text-[#050810] text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-100 transition-all duration-300 shadow-xl cursor-pointer"
+                >
+                  Register
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsBrochureOpen(true)}
+                  className="px-8 py-3.5 rounded-full border border-white/70 text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-white/10 hover:border-white transition-all duration-300 backdrop-blur-sm cursor-pointer"
+                >
+                  Download Brochure
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────
+          2. Concept & Stats Grid (White Section)
+          ─────────────────────────────────────────────────────────── */}
+      <section className="bg-white py-24 px-6 md:px-12 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          {/* Left (col-span-7): 'Concept' heading & 2 paragraphs */}
+          <div className="lg:col-span-7">
+            <h2 className="text-3xl font-light mb-6 uppercase tracking-wide text-[#050810]">
+              Concept
+            </h2>
+            <div className="space-y-5 text-base md:text-lg text-slate-600 leading-relaxed font-light">
+              {conceptText.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+
+          {/* Right (col-span-5): CSS grid of keyStats */}
+          <div className="lg:col-span-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-10 border-t lg:border-t-0 lg:border-l border-slate-200 pt-8 lg:pt-0 lg:pl-12">
+              {keyStats.map((stat, index) => (
+                <div key={index} className="flex flex-col">
+                  <span className="text-5xl md:text-6xl font-light text-[#050810] tracking-tight leading-none mb-2">
+                    {stat.value}
+                  </span>
+                  <span className="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────
+          3. Interactive House Types (Edge-to-Edge Layout)
+          ─────────────────────────────────────────────────────────── */}
+      <section className="w-full bg-white">
+        {/* Top Image Container (Borderless & Full-Bleed) */}
+        <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-slate-100">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeHouseIndex}
+              initial={{ opacity: 0, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.165, 0.84, 0.44, 1] }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <img
+                src={currentHouse.image}
+                alt={`House Type ${currentHouse.name}`}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Specs Dashboard (White Section) */}
+        <div className="bg-white py-12 md:py-16 px-6 md:px-12 lg:px-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+            {/* Left Column (Headline) */}
+            <div className="col-span-1 lg:col-span-4">
+              <h2 className="text-3xl md:text-[40px] text-[#050810] font-light uppercase tracking-tight leading-tight">
+                HOUSE TYPE
+              </h2>
+            </div>
+
+            {/* Right Column (Tabs & Data) */}
+            <div className="col-span-1 lg:col-span-8 flex flex-col gap-10">
+              {/* Tab Menu Row */}
+              <div className="flex flex-wrap items-center gap-8 md:gap-12">
+                {houseTypes.map((type, idx) => {
+                  const isActive = activeHouseIndex === idx
+                  return (
+                    <button
+                      key={type.name}
+                      type="button"
+                      onClick={() => setActiveHouseIndex(idx)}
+                      className={`transition-all duration-300 ${
+                        isActive
+                          ? 'text-xl md:text-2xl text-[#050810] border-b border-[#050810] pb-1 font-normal cursor-pointer'
+                          : 'text-lg md:text-xl text-slate-300 font-light hover:text-slate-500 cursor-pointer transition-colors pb-1 border-b border-transparent'
+                      }`}
+                    >
+                      {type.name}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Specs Grid (Animated) */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeHouseIndex}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="grid grid-cols-3 md:grid-cols-6 gap-6 md:gap-4"
+                >
+                  {specsList.map((spec) => (
+                    <div key={spec.label} className="flex flex-col">
+                      <span className="text-[11px] md:text-xs text-[#050810] font-medium mb-2">
+                        {spec.label}
+                      </span>
+                      <span className="text-xs md:text-sm text-slate-500 font-light">
+                        {spec.value}
+                      </span>
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────
+          3b. Video & Gallery Section
+          ─────────────────────────────────────────────────────────── */}
+      {(() => {
+        const galleryImages = [
+          project.gallery?.[0] || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+          project.gallery?.[1] || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+          project.gallery?.[2] || 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+        ]
+
+        const handleLightboxPrev = () => {
+          setLightboxIndex((prev) =>
+            prev !== null ? (prev - 1 + galleryImages.length) % galleryImages.length : null
+          )
+        }
+
+        const handleLightboxNext = () => {
+          setLightboxIndex((prev) =>
+            prev !== null ? (prev + 1) % galleryImages.length : null
+          )
+        }
+
+        return (
+          <>
+            {/* Cinematic Video + Floating Thumbnails */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
+              {/* Background HTML5 video */}
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/Blueprint.mp4" type="video/mp4" />
+                <source src="/staying.mp4" type="video/mp4" />
+              </video>
+
+              {/* Dark gradient overlay at the bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050810] to-transparent pointer-events-none" />
+
+              {/* Floating Thumbnails */}
+              <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 z-10">
+                {galleryImages.map((imgUrl, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setLightboxIndex(idx)}
+                    className="w-20 h-14 md:w-32 md:h-20 rounded-md md:rounded-lg overflow-hidden cursor-pointer border-2 border-transparent hover:border-white transition-all hover:scale-105 shadow-2xl"
+                  >
+                    <img
+                      src={imgUrl}
+                      alt={`Gallery thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* Lightbox Modal (Popup Slider) */}
+            <AnimatePresence>
+              {lightboxIndex !== null && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center"
+                >
+                  {/* Close Button */}
+                  <button
+                    type="button"
+                    onClick={() => setLightboxIndex(null)}
+                    className="absolute top-6 right-6 text-white/80 hover:text-white cursor-pointer transition-colors z-20"
+                    aria-label="Close lightbox"
+                  >
+                    <X size={28} />
+                  </button>
+
+                  {/* Previous Arrow */}
+                  <button
+                    type="button"
+                    onClick={handleLightboxPrev}
+                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/50 hover:bg-white hover:text-black text-white flex items-center justify-center cursor-pointer transition-colors z-20"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+
+                  {/* Next Arrow */}
+                  <button
+                    type="button"
+                    onClick={handleLightboxNext}
+                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/50 hover:bg-white hover:text-black text-white flex items-center justify-center cursor-pointer transition-colors z-20"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+
+                  {/* Active Image */}
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={lightboxIndex}
+                      src={galleryImages[lightboxIndex]}
+                      alt={`Gallery image ${lightboxIndex + 1}`}
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="max-w-[90vw] max-h-[85vh] object-contain rounded-sm shadow-2xl"
+                    />
+                  </AnimatePresence>
+
+                  {/* Image Counter */}
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xs tracking-widest uppercase font-light">
+                    {lightboxIndex + 1} / {galleryImages.length}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+        )
+      })()}
+
+      {/* ───────────────────────────────────────────────────────────
+          4. Amenities (Interactive Split-Screen)
+          ─────────────────────────────────────────────────────────── */}
+      <section className="flex flex-col lg:flex-row w-full min-h-[70vh] lg:min-h-[850px] bg-white">
+        {/* Left Column (Image) */}
+        <div className="w-full lg:w-1/2 relative overflow-hidden h-[50vh] lg:h-auto">
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeAmenityIndex}
+              src={amenitiesList[activeAmenityIndex].image}
+              alt={amenitiesList[activeAmenityIndex].name}
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+          </AnimatePresence>
+        </div>
+
+        {/* Right Column (The Clean White Panel) */}
+        <div className="w-full lg:w-1/2 flex flex-col justify-between py-16 px-8 lg:p-20 xl:p-28">
+          {/* Top Header Block */}
+          <div>
+            <h2 className="text-4xl lg:text-[52px] text-[#050810] font-light uppercase tracking-wide mb-6">
+              AMENITIES
+            </h2>
+            <p className="text-slate-400 font-light text-sm leading-[1.8] max-w-xs">
+              We offer a &ldquo;Hospitality&rdquo; living experience, providing services and an atmosphere blended perfectly with the rhythm of big city life.
             </p>
+          </div>
 
-            <div className="flex items-center gap-2 text-sm text-[#8FA5B3]">
-              <MapPin size={16} className="text-[#aebfcb]" />
-              <span>{project.location}</span>
+          {/* Bottom Interactive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 w-full">
+            {amenitiesList.map((item, index) => (
+              <button
+                type="button"
+                key={item.name}
+                onClick={() => setActiveAmenityIndex(index)}
+                className={`w-full text-left py-4 border-b transition-all duration-300 cursor-pointer ${
+                  index === activeAmenityIndex
+                    ? 'border-slate-300 text-[#050810] font-medium'
+                    : 'border-slate-100 text-slate-400 font-light hover:text-slate-600 hover:border-slate-200'
+                }`}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────────────────────────────────────────────────────────
+          5. Blueprint Progress Section
+          ─────────────────────────────────────────────────────────── */}
+      <section className="w-full bg-[#050810] py-24 md:py-32">
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center"
+          >
+            {/* Left Column (Interactive Blueprint) */}
+            <div className="relative group cursor-pointer w-full">
+              <svg
+                viewBox="0 0 600 420"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-full h-auto text-slate-400 group-hover:text-white transition-colors duration-500"
+              >
+                {/* Glassmorphism Gradient Definition */}
+                <defs>
+                  <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#ffffff" stopOpacity="0.1" />
+                    <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0.6" />
+                  </linearGradient>
+                </defs>
+
+                {/* Hover Silhouette (Glassmorphism Gradient Fill, Behind Dashed Lines) */}
+                <path
+                  d="M 60 330 L 60 250 L 110 250 L 110 210 L 110 110 L 90 110 L 90 100 L 200 100 L 200 60 L 360 60 L 360 100 L 440 100 L 440 110 L 420 110 L 420 210 L 480 210 L 480 330 Z"
+                  fill="url(#glassGradient)"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out backdrop-blur-sm"
+                />
+
+                {/* Dashed Outline Paths (Structural Lines) */}
+                <g
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                  strokeDasharray="4 4"
+                  className="text-slate-400 group-hover:text-white transition-colors duration-500"
+                >
+                  {/* Grid Reference Axis Lines */} 
+                  <line x1="80" y1="45" x2="80" y2="350" />
+                  <line x1="220" y1="45" x2="220" y2="350" />
+                  <line x1="380" y1="45" x2="380" y2="350" />
+                  <line x1="500" y1="45" x2="500" y2="350" />
+
+                  {/* Ground Plane Baseline */}
+                  <line x1="40" y1="330" x2="560" y2="330" strokeDasharray="6 3" />
+                  <line x1="40" y1="338" x2="560" y2="338" strokeDasharray="2 4" />
+
+                  {/* Level 1: Foundation & Ground Floor Pavilion */}
+                  <rect x="150" y="210" width="330" height="120" />
+                  {/* Carport / Porte-Cochere (Left Cantilever) */}
+                  <path d="M 60 250 L 150 250" />
+                  <line x1="80" y1="250" x2="80" y2="330" />
+                  <line x1="100" y1="250" x2="100" y2="330" />
+
+                  {/* Entrance Door & Grand Glazing */}
+                  <rect x="180" y="230" width="60" height="100" />
+                  <line x1="210" y1="230" x2="210" y2="330" />
+                  {/* Floor-to-ceiling glass living salon */}
+                  <rect x="270" y="220" width="190" height="110" />
+                  <line x1="315" y1="220" x2="315" y2="330" />
+                  <line x1="360" y1="220" x2="360" y2="330" />
+                  <line x1="415" y1="220" x2="415" y2="330" />
+
+                  {/* Level 2: Cantilevered Master Suite Volume */}
+                  <rect x="110" y="110" width="310" height="100" />
+                  {/* Cantilever under-slab support line */}
+                  <line x1="110" y1="210" x2="150" y2="210" />
+                  {/* Master Suite Panoramic Window Box */}
+                  <rect x="130" y="125" width="180" height="70" />
+                  <line x1="175" y1="125" x2="175" y2="195" />
+                  <line x1="220" y1="125" x2="220" y2="195" />
+                  <line x1="265" y1="125" x2="265" y2="195" />
+
+                  {/* Level 2 Balcony / Sky Terrace */}
+                  <rect x="330" y="130" width="90" height="80" />
+                  <line x1="330" y1="155" x2="420" y2="155" />
+                  <line x1="360" y1="155" x2="360" y2="210" />
+                  <line x1="390" y1="155" x2="390" y2="210" />
+
+                  {/* Level 3: Penthouse Pavilion / Starlight Roof Canopy */}
+                  <path d="M 90 100 L 440 100 L 440 110 L 90 110 Z" />
+                  <rect x="200" y="60" width="160" height="40" />
+                  <line x1="240" y1="60" x2="240" y2="100" />
+                  <line x1="280" y1="60" x2="280" y2="100" />
+                  <line x1="320" y1="60" x2="320" y2="100" />
+
+                  {/* Cantilever Roof Overhang */}
+                  <line x1="70" y1="52" x2="390" y2="52" />
+
+                  {/* Pool / Water Feature Line */}
+                  <path d="M 490 330 L 540 330 L 540 350 L 490 350 Z" />
+
+                  {/* Dimension Lines */}
+                  <line x1="60" y1="370" x2="500" y2="370" />
+                  <line x1="60" y1="364" x2="60" y2="376" />
+                  <line x1="500" y1="364" x2="500" y2="376" />
+                  <line x1="150" y1="366" x2="150" y2="374" />
+                  <line x1="420" y1="366" x2="420" y2="374" />
+
+                  {/* Vertical Elevation Dimension (Right) */}
+                  <line x1="530" y1="52" x2="530" y2="330" />
+                  <line x1="524" y1="52" x2="536" y2="52" />
+                  <line x1="524" y1="100" x2="536" y2="100" />
+                  <line x1="524" y1="210" x2="536" y2="210" />
+                  <line x1="524" y1="330" x2="536" y2="330" />
+                </g>
+              </svg>
+            </div>
+
+            {/* Right Column (Data Stack) */}
+            <div>
+              <h2 className="text-4xl md:text-5xl text-white font-light tracking-wide mb-2">
+                PROGRESS
+              </h2>
+              <p className="text-slate-400 text-sm font-light mb-12">
+                {progressText || 'Construction of the residence project is completed'}
+              </p>
+
+              <div className="flex flex-col gap-6">
+                <div>
+                  <h3 className="text-white font-medium text-sm mb-1">
+                    Completion
+                  </h3>
+                  <p className="text-slate-400 font-light text-sm">
+                    {progressPercent ? `${progressPercent}%` : '100%'}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-white font-medium text-sm mb-1">
+                    Last updated
+                  </h3>
+                  <p className="text-slate-400 font-light text-sm">
+                    {new Date().getFullYear()}
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Main Content Grid ── */}
-      <div className="container-large py-16 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      
 
-          {/* Left Column: Specs, Narrative, Amenities, Gallery */}
-          <div className="lg:col-span-8 flex flex-col gap-16">
+      {/* ───────────────────────────────────────────────────────────
+          Brochure Download Modal
+          ─────────────────────────────────────────────────────────── */}
+      <AnimatePresence>
+        {isBrochureOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1001] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative w-full max-w-md bg-white rounded-2xl p-8 shadow-2xl"
+            >
+              <button
+                type="button"
+                onClick={() => setIsBrochureOpen(false)}
+                className="absolute top-5 right-5 text-slate-400 hover:text-[#050810] transition-colors"
+                aria-label="Close modal"
+              >
+                <X size={20} />
+              </button>
 
-            {/* Specs Grid */}
-            {project.specs && (
-              <section aria-label="Property Specifications">
-                <h2 className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] mb-6">
-                  Key Specifications
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 p-6 sm:p-8 rounded-sm bg-[#161C26]/70 border border-[#1E2633]">
-                  {project.specs.unitTypes && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Home size={14} />
-                        <span>Unit Types</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.unitTypes}
-                      </span>
-                    </div>
-                  )}
-
-                  {project.specs.usableArea && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Maximize2 size={14} />
-                        <span>Usable Area</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.usableArea}
-                      </span>
-                    </div>
-                  )}
-
-                  {project.specs.landArea && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Building size={14} />
-                        <span>Land Area</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.landArea}
-                      </span>
-                    </div>
-                  )}
-
-                  {project.specs.totalUnits && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Building size={14} />
-                        <span>Density</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.totalUnits}
-                      </span>
-                    </div>
-                  )}
-
-                  {project.specs.completionYear && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Calendar size={14} />
-                        <span>Completion</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.completionYear}
-                      </span>
-                    </div>
-                  )}
-
-                  {project.specs.parking && (
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2 text-xs text-[#8FA5B3]">
-                        <Car size={14} />
-                        <span>Parking</span>
-                      </div>
-                      <span className="text-sm font-medium text-[#EAF3FB]">
-                        {project.specs.parking}
-                      </span>
-                    </div>
-                  )}
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3 text-[#050810]">
+                  <FileText size={22} />
                 </div>
-              </section>
-            )}
-
-            {/* Narrative & Philosophy */}
-            <section aria-label="About the Residence">
-              <h2 className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] mb-4">
-                Architectural Narrative
-              </h2>
-              <div className="space-y-4 text-base md:text-lg font-light text-[#D4DDE3]/85 leading-relaxed">
-                <p>{project.description}</p>
-                {project.fullStory?.map((para, i) => (
-                  <p key={i}>{para}</p>
-                ))}
+                <h3 className="text-2xl font-light text-[#050810] mb-1">
+                  Official Brochure
+                </h3>
+                <p className="text-xs text-slate-500 font-light">
+                  Receive the confidential architectural catalog and layout dossier for {project.name}.
+                </p>
               </div>
-            </section>
 
-            {/* Amenities Grid */}
-            {project.amenities && project.amenities.length > 0 && (
-              <section aria-label="Curated Amenities">
-                <h2 className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] mb-6">
-                  Curated Sanctuaries &amp; Amenities
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {project.amenities.map((amenity) => (
-                    <div
-                      key={amenity}
-                      className="flex items-center gap-3 p-4 rounded-sm bg-[#161C26]/40 border border-[#1E2633]"
-                    >
-                      <Sparkles size={16} className="text-[#8FA5B3] shrink-0" />
-                      <span className="text-sm font-light text-[#D4DDE3]">{amenity}</span>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* Photo Gallery Grid */}
-            {project.gallery && project.gallery.length > 0 && (
-              <section aria-label="Residence Gallery">
-                <h2 className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] mb-6">
-                  Visual Collection
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {project.gallery.map((imgUrl, i) => (
-                    <div
-                      key={i}
-                      className="group relative h-64 sm:h-72 overflow-hidden rounded-sm bg-[#161C26] border border-[#1E2633]"
-                    >
-                      <img
-                        src={imgUrl}
-                        alt={`${project.name} gallery image ${i + 1}`}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0D1117]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            )}
-          </div>
-
-          {/* Right Column: Sticky Register Interest Card */}
-          <div className="lg:col-span-4 lg:sticky lg:top-28">
-            <div className="p-8 rounded-sm bg-[#161C26] border border-[#1E2633] shadow-2xl">
-              <span className="text-xs font-medium tracking-[0.25em] uppercase text-[#8FA5B3] block mb-2">
-                Private Consultation
-              </span>
-              <h3 className="text-2xl font-light text-[#EAF3FB] mb-2">
-                Register Your Interest
-              </h3>
-              <p className="text-xs font-light text-[#D4DDE3]/80 leading-relaxed mb-6">
-                Receive confidential floor plans, investment yields, and book a priority show-villa tour for {project.name}.
-              </p>
-
-              {isSubmitted ? (
-                <div className="py-8 text-center bg-[#0D1117]/60 rounded-sm p-6 border border-emerald-500/20">
-                  <CheckCircle2 size={36} className="text-emerald-400 mx-auto mb-3" />
-                  <h4 className="text-lg font-light text-[#EAF3FB] mb-1">
-                    Registration Confirmed
-                  </h4>
-                  <p className="text-xs text-[#8FA5B3] leading-relaxed mb-4">
-                    Our private property manager for {project.name} will contact you shortly.
+              {isBrochureSent ? (
+                <div className="py-6 text-center">
+                  <CheckCircle2 size={36} className="text-emerald-500 mx-auto mb-2" />
+                  <p className="text-sm font-medium text-[#050810]">
+                    Brochure Sent
                   </p>
-                  <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="text-xs tracking-wider uppercase text-[#D4DDE3] underline cursor-pointer"
-                  >
-                    Send another request
-                  </button>
+                  <p className="text-xs text-slate-500 font-light mt-1">
+                    Please check your email inbox shortly.
+                  </p>
                 </div>
               ) : (
-                <form onSubmit={handleRegister} className="flex flex-col gap-4">
+                <form onSubmit={handleBrochureDownload} className="space-y-4">
                   <div>
-                    <label className="block text-[11px] font-medium tracking-wider uppercase text-[#D4DDE3] mb-1">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formState.name}
-                      onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      placeholder="e.g. Eleanor Rigby"
-                      className="w-full px-3.5 py-2.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-xs text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-medium tracking-wider uppercase text-[#D4DDE3] mb-1">
-                      Phone Number *
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formState.phone}
-                      onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                      placeholder="+66 81 234 5678"
-                      className="w-full px-3.5 py-2.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-xs text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-medium tracking-wider uppercase text-[#D4DDE3] mb-1">
-                      Email Address *
+                    <label className="block text-xs uppercase tracking-wider text-slate-600 font-medium mb-1.5">
+                      Your Email Address
                     </label>
                     <input
                       type="email"
                       required
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      placeholder="you@domain.com"
-                      className="w-full px-3.5 py-2.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-xs text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3]"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-medium tracking-wider uppercase text-[#D4DDE3] mb-1">
-                      Preferred Viewing Date
-                    </label>
-                    <input
-                      type="date"
-                      value={formState.date}
-                      onChange={(e) => setFormState({ ...formState, date: e.target.value })}
-                      className="w-full px-3.5 py-2.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-xs text-[#EAF3FB] focus:outline-none focus:border-[#D4DDE3]"
+                      value={brochureEmail}
+                      onChange={(e) => setBrochureEmail(e.target.value)}
+                      placeholder="name@company.com"
+                      className="w-full px-4 py-3 rounded-lg border border-slate-200 text-sm text-[#050810] placeholder-slate-400 focus:outline-none focus:border-[#050810]"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="btn-primary w-full py-3.5 mt-2 rounded-sm text-xs font-medium tracking-[0.2em] uppercase flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3.5 rounded-full bg-[#050810] text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    {isSubmitting ? (
-                      <span>Processing…</span>
-                    ) : (
-                      <>
-                        <span>Register for Preview</span>
-                        <Send size={13} />
-                      </>
-                    )}
+                    <Download size={14} />
+                    <span>Send e-Brochure</span>
                   </button>
-
-                  <a
-                    href="mailto:contact@thecreatorshq.com?subject=Brochure%20Request"
-                    className="inline-flex items-center justify-center gap-2 text-[11px] text-[#8FA5B3] hover:text-[#EAF3FB] tracking-wider uppercase pt-2 transition-colors"
-                  >
-                    <Download size={13} />
-                    <span>Download e-Brochure</span>
-                  </a>
                 </form>
               )}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Related Residences ── */}
-        <div className="mt-28 pt-16 border-t border-[#1E2633]">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-2">
-                Portfolio
-              </p>
-              <h2 className="text-2xl sm:text-3xl font-light text-[#EAF3FB]">
-                Explore Other Residences
-              </h2>
-            </div>
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase text-[#D4DDE3] hover:text-white"
-            >
-              <span>View All</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {otherProjects.map((p) => (
-              <ProjectCard key={p.id} project={p} />
-            ))}
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

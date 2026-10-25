@@ -58,6 +58,7 @@ export interface NewsItem {
   author?: string
   content?: string[]
   quote?: string
+  gallery?: string[]
 }
 
 export interface SocialLink {

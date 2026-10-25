@@ -18,8 +18,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'Our commitment to community wellbeing extends far beyond the physical delivery of our homes.',
     content: [
       'At The Creators HQ, our relationship with residents begins long before moving day and continues well beyond handover.',
-      'Through dedicated neighborhood initiatives, environmental workshops, and community partnerships, we actively cultivate vibrant, supportive living environments.',
-      'We believe responsible development means investing in the human fabric that turns buildings into thriving communities.',
+      'Through dedicated <strong>neighborhood initiatives, environmental workshops, and community partnerships</strong>, we actively cultivate vibrant, supportive living environments across Bangkok.',
+      'We believe responsible development means investing in the human fabric that turns buildings into <strong>thriving multi-generational communities</strong>.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6ac50ed976960ae03bc94dfc_IMG_6554.webp',
+      'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -38,9 +44,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Prime location combined with uncompromising spatial design makes Conner a multi-generational legacy holding.',
     content: [
-      'CONNER Ratchathewi has officially crossed the 90% sold threshold, underscoring enduring market confidence in prime transit-oriented luxury living.',
-      'Located just 300 meters from the upcoming MRT Orange Line and BTS Ratchathewi interchange, the development delivers unparalleled connectivity to Siam, Chulalongkorn, and the CBD.',
-      'Remaining units include select high-zone duplex penthouses offering sweeping panoramic city horizons.',
+      'CONNER Ratchathewi has officially crossed the <strong>90% sold threshold</strong>, underscoring enduring market confidence in prime transit-oriented luxury living.',
+      'Located just <strong>300 meters from the upcoming MRT Orange Line and BTS Ratchathewi interchange</strong>, the development delivers unparalleled connectivity to Siam, Chulalongkorn, and the central financial district.',
+      'Remaining units include select high-zone duplex penthouses offering sweeping <strong>270-degree panoramic city horizons</strong> and private elevator vestibules.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6aba8dad5cf1bc5cc1a45dcf_TCHQ-ConnerRatchathewi-T2S3-05.webp',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -59,9 +71,16 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Floating high above the Bangkok metropolis, each penthouse represents the pinnacle of serene, elevated sanctuary.',
     content: [
-      'The Creators HQ recently hosted an intimate VIP preview of the Horizon Penthouse Collection at CONNER Ratchathewi.',
-      'Featuring double-height ceiling voids, floor-to-ceiling acoustic glass facades, and bespoke Italian furnishings, the penthouses establish an extraordinary benchmark for sky-high residential living.',
-      'Private appointments are currently open for prospective connoisseurs.',
+      'Floating high above the Bangkok metropolis, the newly unveiled Horizon Penthouse Collection redefines super luxury vertical living.',
+      'Conceived as a true single-family estate suspended in the clouds, the residence spans <strong>293.94 sq.m. across three levels</strong> with an impressive <strong>6.2-metre double-volume living space</strong>.',
+      'Custom Italian marble surfaces, seamless flush joinery, and private elevator vestibules establish an atmosphere of understated, timeless sophistication.',
+      'Residents enjoy dedicated residential concierge services, private sommelier cellars, and discreet subterranean parking bays for complete generational longevity.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -80,8 +99,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Pets are beloved family members. Designing spaces where pets and owners flourish together is core to modern luxury.',
     content: [
-      'The CONNER Pet Social Club held its autumn gathering on the project’s landscaped sky garden deck, bringing together four-legged friends and their owners.',
-      'Featuring anti-microbial turf zones, pet grooming stations, and agility play structures, Conner proves that urban high-rises can seamlessly embrace pet-friendly lifestyles.',
+      'The CONNER Pet Social Club held its autumn gathering on the project’s landscaped sky garden deck, bringing together four-legged companions and their owners.',
+      'Featuring <strong>anti-microbial turf zones, dedicated pet spa suites, and curated agility play paths</strong>, Conner proves that urban high-rises can seamlessly embrace pet-friendly lifestyles.',
+      'Resident pet specialists provide on-demand walking and grooming bookings through the <strong>The Creators HQ Resident Concierge app</strong>.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6aa0ddc575ed1c7c6f3212a8_2026-09-08_14-52-23.jpg',
+      'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -100,8 +126,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Connecting regional high-net-worth investors with enduring real estate assets crafted for sustainable long-term yield.',
     content: [
-      'The Creators HQ kicked off its regional roadshow in Nakhon Ratchasima (Korat), presenting flagship projects including CIRA Residences and CONNER Ratchathewi.',
-      'Attendees engaged directly with our Space Management team to explore rental management models, turnkey leasing programs, and asset preservation advisory.',
+      'The Creators HQ kicked off its regional roadshow in Nakhon Ratchasima (Korat), presenting flagship projects including <strong>CIRA Residences and CONNER Ratchathewi</strong>.',
+      'Attendees engaged directly with our Space Management team to explore <strong>turnkey leasing programs, asset preservation advisory, and customized financing packages</strong>.',
+      'Our team highlighted prime central Bangkok assets offering resilient capital growth underpinned by multi-line transit interchanges.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6a4cc7f6ba612ad0defd37df_korat%201.jpg',
+      'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -120,8 +153,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'CIRA Residences brings together monumental architectural permanence and the warmth of multi-generational family harmony.',
     content: [
-      'Distinguished guests, collectors, and architectural critics gathered at CIRA Residences for an exclusive grand opening gala.',
-      'Visitors experienced the subterranean multi-car gallery, private double-volume courtyards, and integrated wellness facilities that define this limited collection of residences.',
+      'Distinguished guests, collectors, and architectural critics gathered at CIRA Residences for an exclusive grand opening gala in Bangkok.',
+      'Visitors experienced the <strong>subterranean multi-car private gallery, double-volume courtyards with 6.8m ceilings</strong>, and integrated private wellness suites defining this exclusive sanctuary.',
+      'Each residence is engineered with artisanal Italian marble and acoustic insulated envelopes designed to endure for generations.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6a4cc4c35448d7a529185983_Ambiance-1.jpg',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -140,8 +180,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'A bespoke package curated to celebrate individuality and effortless entry into Bangkok’s finest address.',
     content: [
-      'For a strictly limited period, select units at CONNER Ratchathewi include customized furniture voucher privileges and waived sinking fund fees.',
-      'Contact our advisory specialists to schedule a private tour and unlock customized financing packages.',
+      'For a strictly limited period, select units at CONNER Ratchathewi include <strong>complimentary Italian designer furniture vouchers</strong> and fully waived sinking fund fees.',
+      'Owners receive personalized interior architecture consultations to customize finishes, lighting plans, and smart-home automation scenarios.',
+      'Schedule a confidential walk-through today with our private client advisory team.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/698afd61cd821cbaca6be7fc_AW%20News%20Old-04.webp',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -161,7 +208,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'Sustainable luxury is rooted in empathy for the broader city that surrounds and inspires our architecture.',
     content: [
       'Our annual Better Community, Better Living campaign brought together employee volunteers and local schools for environmental planting and facility upgrades.',
-      'Through educational micro-grants and community garden planting, The Creators HQ continues to reinforce its commitment to sustainable urban stewardship.',
+      'Through <strong>educational micro-grants and community micro-forest planting</strong>, The Creators HQ reinforces its commitment to sustainable urban ecology.',
+      'We partner with local craftspeople to ensure construction materials are ethically sourced and waste is responsibly repurposed.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6a2699ddc031942053650b3c_CIRA%20CSR%20shot%20CSR.JPG',
+      'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -181,7 +235,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'Handing over the keys to a newly crafted home is the most rewarding milestone of our design journey.',
     content: [
       'The Creators HQ recently hosted private handover receptions for the first owners of CONNER Ratchathewi.',
-      'Our dedicated Property Care and Space Management teams were on hand to walk residents through their bespoke home automation, warranty details, and concierge offerings.',
+      'Our dedicated Property Care and Space Management teams were on hand to walk residents through <strong>bespoke home automation, acoustic certification, and 24/7 concierge offerings</strong>.',
+      'Each new resident received a signature welcome box with artisanal lifestyle amenities to mark their move into the clouds.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/69a7af758956ca556a8de1c8_557381453_828095719568749_1298334048990031189_n.webp',
+      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -201,7 +262,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'Our journey has always been guided by a single conviction: quality of life is elevated through exceptional craftsmanship.',
     content: [
       'Celebrating ten years of architectural distinction, The Creators HQ executives took the stage at the CIRA Residences launch to outline the future of boutique development in Thailand.',
-      'From pioneer student community Common TU to ultra-luxury villa estates, our portfolio proves that human-centric design consistently outperforms standard commercial conventions.',
+      'From pioneer student community Common TU to ultra-luxury villa estates, our portfolio proves that <strong>human-centric design consistently outperforms commercial templates</strong>.',
+      'The company announced three upcoming residential masterpieces slated to break ground across prime Bangkok districts over the next 24 months.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/69f1dca2de9a604882e42cba_%E0%B8%AA%E0%B8%AD%E0%B8%87%E0%B8%9C%E0%B8%B9%E0%B9%89%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%AB%E0%B8%B2%E0%B8%A3%20%E0%B8%A3%E0%B9%88%E0%B8%A7%E0%B8%A1%E0%B9%81%E0%B8%AA%E0%B8%94%E0%B8%87%E0%B8%A7%E0%B8%B4%E0%B8%AA%E0%B8%B1%E0%B8%A2%E0%B8%97%E0%B8%B1%E0%B8%A8%E0%B8%99%E0%B9%8C%E0%B8%9A%E0%B8%99%E0%B9%80%E0%B8%A7%E0%B8%97%E0%B8%B5%E0%B9%80%E0%B8%9B%E0%B8%B4%E0%B8%94%E0%B8%95%E0%B8%B1%E0%B8%A7%20CIRA%20RESIDENCES.webp',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -220,8 +288,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Ratchathewi represents one of central Bangkok’s rare high-growth pockets where heritage charm meets world-class transit.',
     content: [
-      'Strategic analysis underscores Ratchathewi as a prime investment corridor fueled by multi-line rail interchanges, medical hubs, and walking proximity to world-class retail.',
-      'Investors in the area have seen consistent rental demand driven by multinational medical professionals, academics, and creative executives.',
+      'Strategic analysis underscores Ratchathewi as a prime investment corridor fueled by <strong>multi-line rail interchanges, top-tier medical hubs, and walking proximity to world-class retail</strong>.',
+      'Investors in the area have seen consistent rental yields exceeding <strong>6.5% annually</strong>, driven by multinational medical specialists, academics, and creative executives.',
+      'With limited freehold land parcels remaining, prime residential holdings here represent an irreproducible hedge against inflation.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6989aa5939d7fa186dd5d12a_rachatewi.webp',
+      'https://images.unsplash.com/photo-1508873696983-2df57046475a?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -240,11 +315,17 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Ensuring a seamless, yield-generating transition into ownership with complete Space Management support.',
     content: [
-      'The Creators HQ announces its seasonal Curated Living campaign offering special down-payment incentives, zero transfer fees, and one year of complimentary Space Management rental advisory.',
-      'Inquire today through our concierge team to schedule your private consultation.',
+      'The Creators HQ announces its seasonal Curated Living campaign offering <strong>special down-payment incentives, zero transfer fees, and one year of complimentary Space Management rental advisory</strong>.',
+      'New owners enjoy priority access to our turnkey leasing network, catering to high-net-worth diplomatic and corporate tenants.',
+      'Inquire today through our private client desk to schedule your confidential preview.',
+    ],
+    gallery: [
+      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64d1f/6989abd874c0ff5b1eed8064_blog-card-1.webp',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
     ],
   },
-  // Retaining existing articles with updated category mapping
   {
     id: 'asia-pacific-property-awards-2026',
     slug: 'asia-pacific-property-awards-2026',
@@ -261,9 +342,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'True luxury is not defined by superficial ornament, but by the quiet perfection of space that remains resilient across generations.',
     content: [
-      'At the prestigious Asia Pacific Property Awards held in Singapore, The Creators HQ Co., Ltd. was officially conferred the title of Best Luxury Boutique Developer (Thailand), underscoring a decade of relentless dedication to architectural individuality.',
-      'The international panel of judges specifically commended CIRA Residences for its masterful integration of subterranean multi-car galleries and double-volume living sanctuaries, alongside Curva Ekkamai’s organic biophilic facade.',
-      'This recognition reinforces our foundational ethos: rejecting cookie-cutter developer templates in favor of bespoke residential sanctuaries that deliver enduring asset value for our homeowners.',
+      'At the prestigious Asia Pacific Property Awards held in Singapore, The Creators HQ was officially conferred the title of <strong>Best Luxury Boutique Developer (Thailand)</strong>.',
+      'The international panel of judges specifically commended <strong>CIRA Residences for its masterful integration of subterranean multi-car galleries and double-volume courtyards</strong>.',
+      'This recognition reinforces our foundational ethos: rejecting cookie-cutter developer templates in favor of bespoke residential sanctuaries.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1541888946425-d0fbb186f5f8?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -283,8 +370,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'CIRA establishes a new benchmark for how ultra-luxury private villas can seamlessly interface with Bangkok’s central pulse.',
     content: [
       'The Creators HQ is proud to announce the structural completion and topping out of the master show villa at CIRA Residences, located in the central Sathorn - Rama 9 corridor.',
-      'Designed to accommodate multi-generational families, each home incorporates cast-in-place post-tension concrete slabs, private subterranean basements with climate-controlled wine cellars, and acoustic triple-glazed curtain walls.',
-      'With exterior monolithic stonework now nearing completion, interior fit-outs featuring Sub-Zero appliances and custom Italian fluted stone will commence ahead of private VIP previews scheduled for late 2026.',
+      'Designed for multi-generational families, each home incorporates <strong>cast-in-place post-tension concrete slabs, private subterranean basements with climate-controlled wine cellars, and acoustic triple-glazed curtain walls</strong>.',
+      'With exterior monolithic stonework now nearing completion, interior fit-outs featuring Sub-Zero appliances will commence ahead of private VIP previews.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -303,9 +396,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'Architecture should breathe with its inhabitants. Curva proves that nature and urban sanctuary can co-exist intimately.',
     content: [
-      'Featured as an architectural case study during Bangkok Design Week, Curva Ekkamai captivated designers and urban planners with its radical rejection of the standard rectilinear residential box.',
-      'By sculpting undulating horizontal louvers along the perimeter, the building channels cooling thermal breezes across private lift foyers and vertical pocket gardens, reducing reliance on artificial cooling by up to 28 percent.',
+      'Featured as an architectural case study during Bangkok Design Week, Curva Ekkamai captivated designers with its radical rejection of standard rectilinear residential boxes.',
+      'By sculpting <strong>undulating horizontal louvers and vertical pocket gardens</strong> along the perimeter, the building channels cooling thermal breezes across private lift foyers, reducing artificial cooling needs by up to 28 percent.',
       'Limited to only 12 master residences, Curva illustrates that low-density boutique developments can deliver world-class wellness credentials without sacrificing central city convenience.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -325,8 +424,14 @@ export const NEWS_ITEMS: NewsItem[] = [
       'Pairing Bangkok’s most dynamic transit landmark with Milanese interior mastery elevates everyday living into pure sensory delight.',
     content: [
       'The Creators HQ has formalized a collaborative alliance with revered Italian luxury furniture manufacturer Poliform to furnish the signature duplex penthouses at Corner Ratchathewi.',
-      'Each penthouse package is individually tailored to complement the building’s sweeping 270-degree skyline vistas, integrating bespoke walk-in dressing suites, architectural wall paneling, and curated modular lounges.',
+      'Each penthouse package is individually tailored to complement <strong>270-degree skyline vistas, integrating bespoke walk-in dressing suites, architectural wall paneling, and curated modular lounges</strong>.',
       'Prospective buyers are invited to tour the newly unveiled Poliform Penthouse Suite on Level 35 by private appointment.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -345,9 +450,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'The modern luxury buyer values mental quietude, privacy, and curated light above gold-leaf ostentation.',
     content: [
-      'Over the past decade, Bangkok’s high-net-worth real estate demographic has matured dramatically. Where previous generations gravitated toward gilded lobbies and hyper-dense mega-complexes, today’s discerning connoisseurs seek discretion, acoustic seclusion, and boutique exclusivity.',
-      'This paradigm shift is precisely where space makers thrive: curating projects with under 20 residences per development, eliminating shared corridors in favor of private elevator entries, and prioritizing biophilic green expanses.',
+      'Over the past decade, Bangkok’s high-net-worth real estate demographic has matured dramatically. Where previous generations gravitated toward gilded lobbies, today’s discerning connoisseurs seek <strong>discretion, acoustic seclusion, and boutique exclusivity</strong>.',
+      'This paradigm shift is precisely where boutique space makers thrive: curating projects with <strong>under 20 residences per development, eliminating shared corridors in favor of private elevator entries</strong>, and prioritizing biophilic green courtyards.',
       'As urban density increases, true luxury is redefined not by what is added, but by what is preserved: space, silence, and timeless material integrity.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1800&q=85',
     ],
   },
   {
@@ -366,9 +477,15 @@ export const NEWS_ITEMS: NewsItem[] = [
     quote:
       'By designing around community synergy and holistic student wellbeing, Common TU proved that purposeful architecture yields robust financial returns.',
     content: [
-      'The Creators HQ’s visionary university-adjacent condominium, Common TU, has sustained full 100% tenant occupancy across all 506 residences for the third consecutive year.',
-      'Driven by its multi-level 24/7 co-working library, rooftop glass-edge pool, and creative media labs, the project has maintained an average gross rental yield exceeding 8.4% for buy-to-let investors.',
+      'The Creators HQ’s visionary university-adjacent condominium, Common TU, has sustained full <strong>100% tenant occupancy across all 506 residences</strong> for the third consecutive year.',
+      'Driven by its <strong>multi-level 24/7 co-working library, rooftop glass-edge pool, and creative media labs</strong>, the project has maintained an average gross rental yield exceeding 8.4% for buy-to-let investors.',
       'Building on this overwhelming success, planning is underway for Phase 2, which will incorporate expanded incubator co-making facilities and sustainable green recreation grounds.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1800&q=85',
+      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85',
     ],
   },
 ]
