@@ -52,11 +52,11 @@ export default function Navbar() {
   const location = useLocation()
 
   // Detect whether current route or page has a light/white background
-  const isWhiteRoute = ['/news', '/projects'].includes(location.pathname.replace(/\/$/, ''))
+  const isWhiteRoute = ['/news', '/projects', '/contact'].includes(location.pathname.replace(/\/$/, '')) || location.pathname.startsWith('/news/')
   const [hasWhiteBg, setHasWhiteBg] = useState(isWhiteRoute)
 
   useEffect(() => {
-    const isRouteMatch = ['/news', '/projects'].includes(location.pathname.replace(/\/$/, ''))
+    const isRouteMatch = ['/news', '/projects', '/contact'].includes(location.pathname.replace(/\/$/, '')) || location.pathname.startsWith('/news/')
     if (isRouteMatch) {
       setHasWhiteBg(true)
       return

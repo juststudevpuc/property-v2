@@ -1,346 +1,747 @@
-import { useState } from 'react'
-import { motion, type Variants } from 'framer-motion'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   MapPin,
   Phone,
   Mail,
-  Clock,
-  Send,
+  Train,
+  ArrowUpRight,
   CheckCircle2,
-  ArrowRight,
+  UploadCloud,
+  RefreshCw,
+  Building2,
 } from 'lucide-react'
-import {
-  FaFacebook,
-  FaInstagram,
-  FaYoutube,
-  FaLinkedin,
-} from 'react-icons/fa'
-import { FaXTwitter } from 'react-icons/fa6'
-import { PROJECTS } from '@/data/projects'
 
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.165, 0.84, 0.44, 1] },
-  },
-}
-
-const SOCIAL_LINKS = [
-  { icon: FaFacebook, href: 'https://web.facebook.com/thecreatorshqth', label: 'Facebook' },
-  { icon: FaInstagram, href: 'https://www.instagram.com/thecreatorshqth', label: 'Instagram' },
-  { icon: FaXTwitter, href: 'https://twitter.com/thecreatorshq', label: 'X (Twitter)' },
-  { icon: FaYoutube, href: 'https://www.youtube.com/channel/UCmU9h0ymxOn-eVvFaIT0zZA', label: 'YouTube' },
-  { icon: FaLinkedin, href: 'https://www.linkedin.com/company/thecreatorshq', label: 'LinkedIn' },
-]
+const TABS = ['GENERAL', 'LAND PROPOSAL', 'PRODUCT PROPOSAL', 'CAREERS'] as const
+type TabType = (typeof TABS)[number]
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [activeTab, setActiveTab] = useState<TabType>('GENERAL')
+
+  // Form states per tab
+  const [generalForm, setGeneralForm] = useState({
     name: '',
-    email: '',
     phone: '',
-    project: 'General Inquiry',
+    email: '',
+    subject: '',
     message: '',
   })
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [landForm, setLandForm] = useState({
+    location: '',
+    landSize: '',
+    price: '',
+    cadastral: '',
+    contactName: '',
+    phone: '',
+    email: '',
+  })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [productForm, setProductForm] = useState({
+    companyName: '',
+    mainProduct: '',
+    phone: '',
+    email: '',
+    lineId: '',
+    message: '',
+  })
+
+  const [careerForm, setCareerForm] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    position: '',
+    resumeLink: '',
+    fileName: '',
+  })
+
+  // Submission state
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submittedTabs, setSubmittedTabs] = useState<Record<string, boolean>>({})
+
+  const handleGeneralSubmit = (e: FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    // Simulate mock submission delay
     setTimeout(() => {
       setIsSubmitting(false)
-      setIsSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        project: 'General Inquiry',
-        message: '',
-      })
-    }, 900)
+      setSubmittedTabs((prev) => ({ ...prev, [activeTab]: true }))
+    }, 600)
   }
 
+  const handleLandSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setSubmittedTabs((prev) => ({ ...prev, [activeTab]: true }))
+    }, 600)
+  }
+
+  const handleProductSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setSubmittedTabs((prev) => ({ ...prev, [activeTab]: true }))
+    }, 600)
+  }
+
+  const handleCareerSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setSubmittedTabs((prev) => ({ ...prev, [activeTab]: true }))
+    }, 600)
+  }
+
+  const resetActiveTabSubmission = () => {
+    setSubmittedTabs((prev) => ({ ...prev, [activeTab]: false }))
+  }
+
+  const handleResumeFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setCareerForm((prev) => ({
+        ...prev,
+        fileName: e.target.files![0].name,
+      }))
+    }
+  }
+
+  const inputClass =
+    'w-full bg-transparent border-b border-slate-300 py-3 text-sm md:text-base focus:outline-none focus:border-[#050810] transition-colors mb-6 placeholder-slate-400 text-[#050810]'
+
   return (
-    <div className="min-h-screen bg-[#0D1117] pt-28 md:pt-36 pb-24">
-      {/* ── Page Header ── */}
-      <section className="container-large mb-16 md:mb-20">
-        <motion.div
-          variants={headerVariants}
-          initial="hidden"
-          animate="visible"
-          className="max-w-3xl"
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <span className="h-px w-8 bg-[#8FA5B3]" />
-            <span className="text-xs font-medium tracking-[0.35em] uppercase text-[#8FA5B3]">
-              Private Inquiries &amp; Preview Appointments
-            </span>
-          </div>
+    <main className="min-h-screen bg-white text-[#050810] pt-32 md:pt-40 pb-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* ── Top Section: Headline ── */}
+        <h1 className="text-5xl md:text-[72px] lg:text-[80px] font-light leading-[1.05] tracking-tight mb-16">
+          CONNECT WITH<br />
+          OUR TEAM
+        </h1>
 
-          <h1 className="heading-h1 text-[#EAF3FB] mb-6">
-            Connect With Our<br />
-            Architectural Advisory
-          </h1>
+        {/* ── Tabs Row ── */}
+        <div className="flex flex-wrap gap-8 md:gap-12 border-b border-slate-200 w-full mb-12">
+          {TABS.map((tab) => {
+            const isActive = activeTab === tab
+            return (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setActiveTab(tab)}
+                className={`text-xs md:text-sm font-semibold tracking-widest uppercase pb-4 relative cursor-pointer transition-colors ${
+                  isActive ? 'text-[#050810]' : 'text-slate-400 hover:text-[#050810]'
+                }`}
+              >
+                {tab}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTabUnderline"
+                    className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#050810]"
+                    transition={{ type: 'spring', stiffness: 450, damping: 35 }}
+                  />
+                )}
+              </button>
+            )
+          })}
+        </div>
 
-          <p className="text-base sm:text-lg font-light text-[#D4DDE3]/80 leading-relaxed max-w-2xl">
-            Whether scheduling a private walkthrough of our completed show residences,
-            requesting project dossiers, or exploring partnership opportunities, our dedicated team is at your disposal.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ── Main Two-Column Contact Section ── */}
-      <section className="container-large">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-
-          {/* ── Left Column: Office & Contact Info ── */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            {/* Headquarters Card */}
-            <div className="p-8 rounded-sm bg-[#161C26]/70 border border-[#1E2633]">
-              <div className="h-10 w-10 rounded-sm bg-[#1E2633] flex items-center justify-center text-[#D4DDE3] mb-6">
-                <MapPin size={20} strokeWidth={1.5} />
-              </div>
-              <h2 className="text-xl font-normal text-[#EAF3FB] mb-3">
-                Bangkok Headquarters
-              </h2>
-              <p className="text-sm font-light text-[#D4DDE3]/80 leading-relaxed mb-6">
-                <strong className="text-[#EAF3FB] font-medium">The Creators HQ Co., Ltd.</strong><br />
-                65/218 26th Floor, Chamnan Phenjati Business Center<br />
-                Rama 9 Road, Huaykwang, Bangkok 10310
-              </p>
-
-              <div className="pt-6 border-t border-[#1E2633] flex flex-col gap-4 text-sm font-light text-[#D4DDE3]/80">
-                <div className="flex items-center gap-3">
-                  <Phone size={16} className="text-[#8FA5B3] shrink-0" />
-                  <a
-                    href="tel:+6620266555"
-                    className="hover:text-white transition-colors"
-                  >
-                    +66 (0) 2 026 6555
-                  </a>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Mail size={16} className="text-[#8FA5B3] shrink-0" />
-                  <a
-                    href="mailto:contact@thecreatorshq.com"
-                    className="hover:text-white transition-colors"
-                  >
-                    contact@thecreatorshq.com
-                  </a>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <Clock size={16} className="text-[#8FA5B3] shrink-0" />
-                  <span>Monday – Saturday: 09:00 – 18:00 (ICT)</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Social Media Card */}
-            <div className="p-8 rounded-sm bg-[#161C26]/70 border border-[#1E2633]">
-              <h3 className="text-xs font-semibold tracking-[0.25em] uppercase text-[#D4DDE3] mb-4">
-                Follow Our Developments
-              </h3>
-              <p className="text-xs font-light text-[#8FA5B3] mb-6 leading-relaxed">
-                Stay updated with behind-the-scenes architectural photography, construction milestones, and event invitations.
-              </p>
-
-              <div className="flex items-center gap-3">
-                {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="h-10 w-10 rounded-sm bg-[#1E2633] border border-[#2A3649] flex items-center justify-center text-[#8FA5B3] hover:text-white hover:bg-[#2A3649] transition-all"
-                  >
-                    <Icon size={16} />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ── Right Column: Modern Contact Form ── */}
-          <div className="lg:col-span-7">
-            <div className="p-8 sm:p-12 rounded-sm bg-[#161C26]/90 border border-[#1E2633]">
-              {isSubmitted ? (
+        {/* ── Split Layout (Forms vs. Info) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+          {/* ── Left Column: Dynamic Forms (col-span-7) ── */}
+          <div className="col-span-1 lg:col-span-7">
+            <AnimatePresence mode="wait">
+              {submittedTabs[activeTab] ? (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 text-center"
+                  key={`${activeTab}-success`}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.3 }}
+                  className="py-12 px-8 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col items-start gap-4"
                 >
-                  <div className="h-14 w-14 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 mx-auto flex items-center justify-center mb-6">
-                    <CheckCircle2 size={28} />
+                  <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <CheckCircle2 size={26} />
                   </div>
-                  <h3 className="text-2xl font-light text-[#EAF3FB] mb-3">
-                    Inquiry Received
+                  <h3 className="text-2xl font-light text-[#050810]">
+                    THANK YOU!
                   </h3>
-                  <p className="text-sm font-light text-[#D4DDE3]/80 max-w-md mx-auto leading-relaxed mb-8">
-                    Thank you for reaching out. One of our private client advisors will contact
-                    you within 24 hours with the requested information.
+                  <p className="text-slate-600 font-light text-sm md:text-base leading-relaxed max-w-lg">
+                    {activeTab === 'GENERAL' &&
+                      'For reaching out to The Creators HQ. We have received your inquiry regarding our real estate projects and services. Our representative will be in touch with you shortly.'}
+                    {activeTab === 'LAND PROPOSAL' &&
+                      'For your land proposal submission. Our development advisory team will carefully review the site parameters and contact you to explore potential collaboration.'}
+                    {activeTab === 'PRODUCT PROPOSAL' &&
+                      'For sharing your product proposal. We appreciate your submission and our procurement specialists will contact you if there is an architectural alignment.'}
+                    {activeTab === 'CAREERS' &&
+                      'For your interest in joining The Creators HQ. Your application has been received and our HR department will review your profile.'}
                   </p>
                   <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="btn-secondary px-8 py-3.5 rounded-sm text-xs font-medium tracking-widest uppercase cursor-pointer"
+                    type="button"
+                    onClick={resetActiveTabSubmission}
+                    className="mt-4 inline-flex items-center gap-2 bg-[#050810] text-white px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider hover:bg-slate-800 transition-colors cursor-pointer"
                   >
-                    Submit Another Inquiry
+                    <RefreshCw size={14} />
+                    <span>Submit Another Inquiry</span>
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                  <div>
-                    <h2 className="text-2xl font-light text-[#EAF3FB] mb-1">
-                      Private Preview Request
-                    </h2>
-                    <p className="text-xs text-[#8FA5B3] tracking-wider uppercase">
-                      Please provide your details below
-                    </p>
-                  </div>
-
-                  {/* Name field */}
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-xs font-medium tracking-wider uppercase text-[#D4DDE3] mb-2"
-                    >
-                      Full Name <span className="text-emerald-400">*</span>
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      placeholder="e.g. Robert Vance"
-                      className="w-full px-4 py-3.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-sm text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3] transition-colors"
-                    />
-                  </div>
-
-                  {/* Email & Phone fields in grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-xs font-medium tracking-wider uppercase text-[#D4DDE3] mb-2"
-                      >
-                        Email Address <span className="text-emerald-400">*</span>
-                      </label>
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  {/* ── 1. GENERAL TAB FORM ── */}
+                  {activeTab === 'GENERAL' && (
+                    <form onSubmit={handleGeneralSubmit} className="flex flex-col">
                       <input
-                        id="email"
-                        type="email"
+                        type="text"
                         required
-                        value={formData.email}
+                        placeholder="Full name *"
+                        value={generalForm.name}
                         onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
+                          setGeneralForm({ ...generalForm, name: e.target.value })
                         }
-                        placeholder="you@domain.com"
-                        className="w-full px-4 py-3.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-sm text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3] transition-colors"
+                        className={inputClass}
                       />
-                    </div>
 
-                    <div>
-                      <label
-                        htmlFor="phone"
-                        className="block text-xs font-medium tracking-wider uppercase text-[#D4DDE3] mb-2"
-                      >
-                        Phone Number <span className="text-emerald-400">*</span>
-                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8">
+                        <input
+                          type="tel"
+                          required
+                          placeholder="Mobile phone *"
+                          value={generalForm.phone}
+                          onChange={(e) =>
+                            setGeneralForm({ ...generalForm, phone: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+                        <input
+                          type="email"
+                          required
+                          placeholder="Email *"
+                          value={generalForm.email}
+                          onChange={(e) =>
+                            setGeneralForm({ ...generalForm, email: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+                      </div>
+
                       <input
-                        id="phone"
-                        type="tel"
+                        type="text"
                         required
-                        value={formData.phone}
+                        placeholder="Subject *"
+                        value={generalForm.subject}
                         onChange={(e) =>
-                          setFormData({ ...formData, phone: e.target.value })
+                          setGeneralForm({ ...generalForm, subject: e.target.value })
                         }
-                        placeholder="+66 81 234 5678"
-                        className="w-full px-4 py-3.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-sm text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3] transition-colors"
+                        className={inputClass}
                       />
+
+                      <textarea
+                        required
+                        rows={4}
+                        placeholder="Message *"
+                        value={generalForm.message}
+                        onChange={(e) =>
+                          setGeneralForm({ ...generalForm, message: e.target.value })
+                        }
+                        className={`${inputClass} resize-none`}
+                      />
+
+                      <div className="pt-2">
+                        <button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                        >
+                          {isSubmitting ? 'Sending...' : 'Submit'}
+                        </button>
+                      </div>
+                    </form>
+                  )}
+
+                  {/* ── 2. LAND PROPOSAL TAB FORM ── */}
+                  {activeTab === 'LAND PROPOSAL' && (
+                    <div>
+                      <div className="mb-8">
+                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                          Present Your Land Opportunity
+                        </h2>
+                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                          We welcome submissions for potential development sites that align with our vision for high-quality residential and mixed-use projects.
+                        </p>
+                      </div>
+
+                      <form onSubmit={handleLandSubmit} className="flex flex-col">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Address / Location *"
+                          value={landForm.location}
+                          onChange={(e) =>
+                            setLandForm({ ...landForm, location: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8">
+                          <input
+                            type="text"
+                            required
+                            placeholder="Land size (e.g. Rai, sq.m.) *"
+                            value={landForm.landSize}
+                            onChange={(e) =>
+                              setLandForm({ ...landForm, landSize: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                          <input
+                            type="text"
+                            required
+                            placeholder="Price (THB) *"
+                            value={landForm.price}
+                            onChange={(e) =>
+                              setLandForm({ ...landForm, price: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <input
+                          type="text"
+                          required
+                          placeholder="Position – Cadastral number *"
+                          value={landForm.cadastral}
+                          onChange={(e) =>
+                            setLandForm({ ...landForm, cadastral: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        <input
+                          type="text"
+                          required
+                          placeholder="Name of contact person *"
+                          value={landForm.contactName}
+                          onChange={(e) =>
+                            setLandForm({ ...landForm, contactName: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8">
+                          <input
+                            type="tel"
+                            required
+                            placeholder="Mobile phone *"
+                            value={landForm.phone}
+                            onChange={(e) =>
+                              setLandForm({ ...landForm, phone: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                          <input
+                            type="email"
+                            required
+                            placeholder="Email *"
+                            value={landForm.email}
+                            onChange={(e) =>
+                              setLandForm({ ...landForm, email: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <div className="pt-2">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                          >
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                  </div>
+                  )}
 
-                  {/* Project of Interest */}
-                  <div>
-                    <label
-                      htmlFor="project"
-                      className="block text-xs font-medium tracking-wider uppercase text-[#D4DDE3] mb-2"
-                    >
-                      Project of Interest
-                    </label>
-                    <select
-                      id="project"
-                      value={formData.project}
-                      onChange={(e) =>
-                        setFormData({ ...formData, project: e.target.value })
-                      }
-                      className="w-full px-4 py-3.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-sm text-[#EAF3FB] focus:outline-none focus:border-[#D4DDE3] transition-colors cursor-pointer"
-                    >
-                      <option value="General Inquiry">General Company Inquiry</option>
-                      {PROJECTS.map((p) => (
-                        <option key={p.id} value={p.name}>
-                          {p.name} ({p.location})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  {/* ── 3. PRODUCT PROPOSAL TAB FORM ── */}
+                  {activeTab === 'PRODUCT PROPOSAL' && (
+                    <div>
+                      <div className="mb-8">
+                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                          Introduce Your Product Innovation
+                        </h2>
+                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                          Suppliers may propose materials, products, or solutions that support our commitment to exceptional quality and innovation.
+                        </p>
+                      </div>
 
-                  {/* Message field */}
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs font-medium tracking-wider uppercase text-[#D4DDE3] mb-2"
-                    >
-                      Message or Preferred Viewing Schedule <span className="text-emerald-400">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      required
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      placeholder="Please let us know your requirements or preferred appointment time..."
-                      className="w-full px-4 py-3.5 rounded-sm bg-[#0D1117] border border-[#1E2633] text-sm text-[#EAF3FB] placeholder-[#405664] focus:outline-none focus:border-[#D4DDE3] transition-colors resize-none"
-                    />
-                  </div>
+                      <form onSubmit={handleProductSubmit} className="flex flex-col">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Company name *"
+                          value={productForm.companyName}
+                          onChange={(e) =>
+                            setProductForm({ ...productForm, companyName: e.target.value })
+                          }
+                          className={inputClass}
+                        />
 
-                  {/* Consent notice */}
-                  <p className="text-[11px] text-[#8FA5B3] leading-relaxed">
-                    By submitting this form, you agree to receive communications regarding your inquiry in accordance with our Privacy Policy. Your information remains strictly confidential.
-                  </p>
+                        <div className="relative mb-6">
+                          <select
+                            required
+                            value={productForm.mainProduct}
+                            onChange={(e) =>
+                              setProductForm({ ...productForm, mainProduct: e.target.value })
+                            }
+                            className="w-full bg-transparent border-b border-slate-300 py-3 text-sm md:text-base focus:outline-none focus:border-[#050810] transition-colors text-[#050810] cursor-pointer appearance-none"
+                          >
+                            <option value="" disabled className="text-slate-400">
+                              Main product *
+                            </option>
+                            <option value="Product Supply Only" className="text-[#050810]">
+                              Supply Only
+                            </option>
+                            <option value="Supply & Installation" className="text-[#050810]">
+                              Supply &amp; Installation
+                            </option>
+                            <option value="Installation Only" className="text-[#050810]">
+                              Installation Only
+                            </option>
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-slate-400">
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                          </div>
+                        </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-3 btn-primary w-full py-4 rounded-sm text-xs font-medium tracking-[0.2em] uppercase transition-all cursor-pointer disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <span>Submitting Inquiry…</span>
-                    ) : (
-                      <>
-                        <span>Submit Private Inquiry</span>
-                        <Send size={14} />
-                      </>
-                    )}
-                  </button>
-                </form>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8">
+                          <input
+                            type="tel"
+                            required
+                            placeholder="Mobile phone *"
+                            value={productForm.phone}
+                            onChange={(e) =>
+                              setProductForm({ ...productForm, phone: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                          <input
+                            type="email"
+                            required
+                            placeholder="Email *"
+                            value={productForm.email}
+                            onChange={(e) =>
+                              setProductForm({ ...productForm, email: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <input
+                          type="text"
+                          required
+                          placeholder="Line ID *"
+                          value={productForm.lineId}
+                          onChange={(e) =>
+                            setProductForm({ ...productForm, lineId: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        <textarea
+                          rows={3}
+                          placeholder="Brief description of proposed materials or solutions (optional)"
+                          value={productForm.message}
+                          onChange={(e) =>
+                            setProductForm({ ...productForm, message: e.target.value })
+                          }
+                          className={`${inputClass} resize-none`}
+                        />
+
+                        <div className="pt-2">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                          >
+                            {isSubmitting ? 'Submitting...' : 'Submit'}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+
+                  {/* ── 4. CAREERS TAB FORM ── */}
+                  {activeTab === 'CAREERS' && (
+                    <div>
+                      <div className="mb-8">
+                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                          Create spaces that inspire
+                        </h2>
+                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                          Join The Creators HQ and be part of a culture that celebrates innovation, individuality, and the art of refined living.
+                        </p>
+                      </div>
+
+                      <form onSubmit={handleCareerSubmit} className="flex flex-col">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Full name *"
+                          value={careerForm.name}
+                          onChange={(e) =>
+                            setCareerForm({ ...careerForm, name: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8">
+                          <input
+                            type="tel"
+                            required
+                            placeholder="Mobile phone *"
+                            value={careerForm.phone}
+                            onChange={(e) =>
+                              setCareerForm({ ...careerForm, phone: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                          <input
+                            type="email"
+                            required
+                            placeholder="Email *"
+                            value={careerForm.email}
+                            onChange={(e) =>
+                              setCareerForm({ ...careerForm, email: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <input
+                          type="text"
+                          required
+                          placeholder="Interested position and department *"
+                          value={careerForm.position}
+                          onChange={(e) =>
+                            setCareerForm({ ...careerForm, position: e.target.value })
+                          }
+                          className={inputClass}
+                        />
+
+                        {/* Resume upload or link */}
+                        <div className="mb-8">
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+                            Resume / CV (Upload File or Document Link) *
+                          </label>
+
+                          <div className="relative border border-dashed border-slate-300 rounded-lg p-5 text-center hover:border-slate-500 transition-colors bg-slate-50/50">
+                            <input
+                              type="file"
+                              accept=".pdf,.doc,.docx"
+                              onChange={handleResumeFileChange}
+                              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            />
+                            <div className="flex flex-col items-center justify-center gap-1.5">
+                              <UploadCloud size={24} className="text-slate-400" />
+                              <p className="text-xs text-slate-600 font-medium">
+                                {careerForm.fileName ? (
+                                  <span className="text-[#050810] font-semibold">
+                                    Selected: {careerForm.fileName}
+                                  </span>
+                                ) : (
+                                  'Click or drag your Resume/CV here (PDF or DOC)'
+                                )}
+                              </p>
+                              <p className="text-[11px] text-slate-400">Max file size 10MB</p>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-3 my-3">
+                            <div className="h-px bg-slate-200 flex-1" />
+                            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium">
+                              Or paste link
+                            </span>
+                            <div className="h-px bg-slate-200 flex-1" />
+                          </div>
+
+                          <input
+                            type="url"
+                            placeholder="Resume / CV Link (e.g. Google Drive, LinkedIn) *"
+                            value={careerForm.resumeLink}
+                            onChange={(e) =>
+                              setCareerForm({ ...careerForm, resumeLink: e.target.value })
+                            }
+                            className={inputClass}
+                          />
+                        </div>
+
+                        <div className="pt-2">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                          >
+                            {isSubmitting ? 'Submitting Application...' : 'Submit'}
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  )}
+                </motion.div>
               )}
+            </AnimatePresence>
+          </div>
+
+          {/* ── Right Column: Contact Info & Cards (col-span-5) ── */}
+          <div className="col-span-1 lg:col-span-5 flex flex-col justify-between">
+            <div>
+              {/* Address Details */}
+              <div className="space-y-6 text-slate-600 font-light leading-relaxed">
+                <div>
+                  <h3 className="text-base font-medium text-[#050810] mb-1">
+                    The Creators HQ Co, Ltd.
+                  </h3>
+                  <p className="text-sm">
+                    65/218 Floor 26, Chamnan Phenjati Business Center, Rama 9 Road, Huaykwang Sub-district, Huaykwang District, Bangkok, 10310
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-slate-100 flex items-start gap-3 text-sm">
+                  <Train size={18} className="text-slate-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-medium text-[#050810] block">
+                      Public Transportation
+                    </span>
+                    <span>MRT Rama 9 Station, Exit 1</span>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center gap-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Phone size={15} className="text-slate-400 shrink-0" />
+                    <span>T :</span>
+                    <a
+                      href="tel:022462195"
+                      className="text-[#050810] hover:underline underline-offset-4 font-normal"
+                    >
+                      (+66) 02 246 2195
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Mail size={15} className="text-slate-400 shrink-0" />
+                    <span>E :</span>
+                    <a
+                      href="mailto:info@thecreatorshq.com?subject=Contact%20The%20Creators%20HQ"
+                      className="text-[#050810] hover:underline underline-offset-4 font-normal"
+                    >
+                      info@thecreatorshq.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Map Placeholder */}
+              <div className="w-full aspect-video bg-slate-100 mt-8 mb-12 rounded-xl overflow-hidden relative group border border-slate-200/60 shadow-sm">
+                <img
+                  src="https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/69883028dc4a1440775dad60_decoration.webp"
+                  alt="Chamnan Phenjati Business Center - The Creators HQ"
+                  className="w-full h-full object-cover object-center filter grayscale contrast-125 group-hover:scale-105 group-hover:filter-none transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
+                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-300 mb-1">
+                    <Building2 size={14} />
+                    <span>Headquarters &amp; Executive Office</span>
+                  </div>
+                  <p className="text-sm font-light text-white/95">
+                    Chamnan Phenjati Business Center, Rama 9
+                  </p>
+                </div>
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-medium text-[#050810] flex items-center gap-1.5 shadow-sm">
+                  <MapPin size={12} className="text-rose-500" />
+                  <span>Bangkok 10310</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Agent & Affiliate Cards */}
+            <div className="space-y-4">
+              {/* Creators Agent Card */}
+              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200/50 hover:border-slate-300 transition-all flex flex-col justify-between">
+                <div>
+                  <h3 className="text-base font-semibold text-[#050810] mb-2">
+                    Creators Agent
+                  </h3>
+                  <p className="text-xs md:text-sm text-slate-600 font-light leading-relaxed mb-4">
+                    Become a Creators HQ Agent and expand your portfolio with premium creative properties. Refer customers, secure bookings, and earn commission on every successful sales.
+                  </p>
+                </div>
+                <div>
+                  <a
+                    href="#agent"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setActiveTab('GENERAL')
+                      setGeneralForm((prev) => ({
+                        ...prev,
+                        subject: 'Application: Creators Agent Network',
+                      }))
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#050810] hover:text-slate-600 transition-colors cursor-pointer group"
+                  >
+                    <span>Join Our Network</span>
+                    <ArrowUpRight
+                      size={14}
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    />
+                  </a>
+                </div>
+              </div>
+
+              {/* Creators Affiliate Card */}
+              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200/50 hover:border-slate-300 transition-all flex flex-col justify-between">
+                <div>
+                  <h3 className="text-base font-semibold text-[#050810] mb-2">
+                    Creators Affiliate
+                  </h3>
+                  <p className="text-xs md:text-sm text-slate-600 font-light leading-relaxed mb-4">
+                    Become a Creators HQ affiliate and earn from your referral. Share our creative living spaces with your audience and turn your network into passive income.
+                  </p>
+                </div>
+                <div>
+                  <a
+                    href="#affiliate"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setActiveTab('GENERAL')
+                      setGeneralForm((prev) => ({
+                        ...prev,
+                        subject: 'Application: Creators Affiliate Program',
+                      }))
+                    }}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#050810] hover:text-slate-600 transition-colors cursor-pointer group"
+                  >
+                    <span>Apply as Affiliate</span>
+                    <ArrowUpRight
+                      size={14}
+                      className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </main>
   )
 }
