@@ -1,34 +1,48 @@
 @import "tailwindcss";
 
+@theme {
+  --color-greyon-primary: #627063;
+  --color-greyon-primary-hover: #525e53;
+  --color-greyon-gold: #c4a35a;
+  --color-greyon-gold-deep: #8f7340;
+  --color-greyon-dark: #1c1814;
+  --color-greyon-ink: #454c4b;
+  --color-greyon-muted: #7a736a;
+  --color-greyon-cream: #faf8f6;
+  --color-greyon-sand: #f1f1f1;
+  --color-greyon-white: #ffffff;
+  --color-greyon-stone: #d9d0c3;
+  --color-greyon-beige: #e4d5c0;
+  --color-greyon-success: #5f7a55;
+  --color-greyon-danger: #8b2e2e;
+  --color-greyon-warning: #a89278;
+}
+
 /* ============================================================
-   THE CREATORS HQ — Design Token Layer
-   Extracted from: thecreatorshq.com/en
+   GREYON — Design Token Layer
    ============================================================ */
 
 @layer base {
   :root {
     /* ── Core Brand Palette ─────────────────────────────────── */
-    /* Primary: Deep dark navy/charcoal background */
-    --color-primary:       #0D1117;   /* site body bg — near black */
-    --color-primary-90:    #161C26;   /* slightly lighter dark */
-    --color-primary-80:    #1E2633;   /* cards/sections */
+    --color-primary:       #627063;
+    --color-primary-hover: #525e53;
+    --color-gold:          #c4a35a;
+    --color-gold-deep:     #8f7340;
+    --color-dark:          #1c1814;
+    --color-ink:           #454c4b;
+    --color-muted:         #7a736a;
+    --color-cream:         #faf8f6;
+    --color-sand:          #f1f1f1;
+    --color-stone:         #d9d0c3;
+    --color-beige:         #e4d5c0;
 
-    /* Secondary: Soft ice-blue text on dark */
-    --color-secondary:     #D4DDE3;   /* "text-color-secondary" extracted */
-    --color-secondary-dim: #aebfcb;   /* hover state on scrolled nav */
-
-    /* Accent: Warm off-white / cream */
-    --color-accent:        #EAF3FB;   /* icon strokes, button text */
-
-    /* Neutral mids — UI borders, pagination dots */
-    --color-neutral-400:   #405664;   /* pagination bullet, dim text */
-    --color-neutral-200:   #8FA5B3;   /* placeholder / muted */
-
-    /* Focus blue (preserved from globals) */
-    --color-focus:         #4d65ff;
+    /* Focus (brand accent) */
+    --color-focus:         #c4a35a;
 
     /* ── Typography ─────────────────────────────────────────── */
-    --font-sans: 'Manrope', 'Noto Sans Thai', sans-serif;
+    --font-sans: 'Montserrat', sans-serif;
+    --font-serif: 'Lora', serif;
 
     /* ── Spacing Scale ──────────────────────────────────────── */
     --spacing-section-sm:  3rem;
@@ -40,31 +54,31 @@
     --transition-color:    0.4s ease;
 
     /* ── Shadcn/ui CSS vars ──────────────────────────────────── */
-    --background:         0 0% 5%;
-    --foreground:         210 20% 88%;
-    --card:               214 20% 10%;
-    --card-foreground:    210 20% 88%;
-    --popover:            214 20% 10%;
-    --popover-foreground: 210 20% 88%;
-    --primary:            0 0% 100%;
-    --primary-foreground: 0 0% 5%;
-    --secondary:          214 15% 18%;
-    --secondary-foreground: 210 20% 88%;
-    --muted:              214 15% 18%;
-    --muted-foreground:   210 15% 60%;
-    --accent:             210 25% 88%;
-    --accent-foreground:  0 0% 5%;
-    --destructive:        0 72% 51%;
+    --background:         30 29% 97%;
+    --foreground:         171 5% 28%;
+    --card:               0 0% 100%;
+    --card-foreground:    171 5% 28%;
+    --popover:            0 0% 100%;
+    --popover-foreground: 171 5% 28%;
+    --primary:            124 7% 41%;
+    --primary-foreground: 0 0% 100%;
+    --secondary:          41 47% 56%;
+    --secondary-foreground: 30 17% 9%;
+    --muted:              0 0% 95%;
+    --muted-foreground:   34 7% 45%;
+    --accent:             41 47% 56%;
+    --accent-foreground:  30 17% 9%;
+    --destructive:        0 50% 36%;
     --destructive-foreground: 0 0% 100%;
-    --border:             214 15% 22%;
-    --input:              214 15% 22%;
-    --ring:               210 25% 75%;
+    --border:             35 23% 81%;
+    --input:              35 23% 81%;
+    --ring:               124 7% 41%;
     --radius:             0.25rem;
   }
 }
 
 /* ============================================================
-   Global Base Styles — mirroring thecreatorshq.com globals
+   Global Base Styles
    ============================================================ */
 @layer base {
   * {
@@ -78,8 +92,8 @@
 
   body {
     font-family: var(--font-sans);
-    background-color: #0D1117;
-    color: var(--color-secondary);
+    background-color: var(--color-cream);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -108,17 +122,17 @@
 }
 
 /* ============================================================
-   Utility Classes — extracted from original Webflow site
+   Utility Classes
    ============================================================ */
 @layer utilities {
-  .text-color-primary   { color: #0D1117; }
-  .text-color-secondary { color: #D4DDE3; }
-  .text-color-accent    { color: #EAF3FB; }
-  .text-color-muted     { color: #8FA5B3; }
+  .text-color-primary   { color: #454c4b; }
+  .text-color-secondary { color: #7a736a; }
+  .text-color-accent    { color: #c4a35a; }
+  .text-color-muted     { color: #7a736a; }
 
-  .bg-primary   { background-color: #0D1117; }
-  .bg-primary-90 { background-color: #161C26; }
-  .bg-primary-80 { background-color: #1E2633; }
+  .bg-primary   { background-color: #627063; }
+  .bg-primary-90 { background-color: #525e53; }
+  .bg-primary-80 { background-color: #1c1814; }
 
   /* Heading scale */
   .heading-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; }
@@ -135,55 +149,56 @@
 
   /* Nav glass blur — matches .nav_container.is-scrolled */
   .nav-scrolled {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgba(28, 24, 20, 0.4) !important;
     backdrop-filter: blur(0.875rem);
     -webkit-backdrop-filter: blur(0.875rem);
   }
 
   /* Glass button style — .button.is-glass */
   .btn-glass {
-    border: 1px solid rgba(212, 221, 227, 0.4);
+    border: 1px solid rgba(196, 163, 90, 0.4);
     background-color: transparent;
-    color: #EAF3FB;
+    color: #ffffff;
     backdrop-filter: blur(8px);
     transition: all 0.4s ease;
   }
   .btn-glass:hover {
-    border-color: #D4DDE3;
-    background-color: rgba(212, 221, 227, 0.08);
+    border-color: #c4a35a;
+    background-color: rgba(196, 163, 90, 0.08);
   }
 
   /* Primary button */
   .btn-primary {
-    background-color: #D4DDE3;
-    color: #0D1117;
-    border: 1px solid #D4DDE3;
+    background-color: #627063;
+    color: #ffffff;
+    border: 1px solid #627063;
     transition: all 0.4s ease;
   }
   .btn-primary:hover {
-    background-color: transparent;
-    color: #D4DDE3;
+    background-color: #525e53;
+    border-color: #525e53;
+    color: #ffffff;
   }
 
   /* Secondary outlined button */
   .btn-secondary {
     background-color: transparent;
-    color: #D4DDE3;
-    border: 1px solid #D4DDE3;
+    color: #627063;
+    border: 1px solid #627063;
     transition: all 0.4s ease;
   }
   .btn-secondary:hover {
-    background-color: #D4DDE3;
-    color: #0D1117;
+    background-color: #627063;
+    color: #ffffff;
   }
 
   /* Overlay gradient used on hero */
   .hero-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(13,17,23,0.15) 0%,
-      rgba(13,17,23,0.45) 60%,
-      rgba(13,17,23,0.85) 100%
+      rgba(28, 24, 20, 0.15) 0%,
+      rgba(28, 24, 20, 0.45) 60%,
+      rgba(28, 24, 20, 0.85) 100%
     );
   }
 

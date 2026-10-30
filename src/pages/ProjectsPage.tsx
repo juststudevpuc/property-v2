@@ -34,7 +34,7 @@ export default function ProjectsPage() {
   }, [activeCategory])
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pt-32 pb-24">
+    <div className="min-h-screen bg-greyon-cream text-greyon-ink pt-32 pb-24">
       {/* ── Split Layout Container ── */}
       <div className="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12">
         {/* ── Left Sidebar (Sticky Category Menu) ── */}
@@ -49,8 +49,8 @@ export default function ProjectsPage() {
                   onClick={() => setActiveCategory(cat)}
                   className={`text-left text-3xl lg:text-5xl font-light tracking-tight transition-colors duration-300 focus:outline-none ${
                     isActive
-                      ? 'text-slate-900 font-normal'
-                      : 'text-slate-300 hover:text-slate-900'
+                      ? 'text-greyon-ink font-normal'
+                      : 'text-greyon-stone hover:text-greyon-ink'
                   }`}
                 >
                   {cat}
@@ -105,8 +105,8 @@ export default function ProjectsPage() {
           </motion.div>
 
           {filteredProjects.length === 0 && (
-            <div className="py-24 text-center border border-dashed border-slate-200 rounded-sm">
-              <p className="text-slate-400 text-sm tracking-widest uppercase">
+            <div className="py-24 text-center border border-dashed border-greyon-stone rounded-sm">
+              <p className="text-greyon-muted text-sm tracking-widest uppercase">
                 No projects found in this category.
               </p>
             </div>

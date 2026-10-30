@@ -31,7 +31,7 @@ export default function PromotionCard({
       whileInView="visible"
       viewport={{ once: true, margin: '-80px' }}
       className={cn(
-        'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-6 sm:p-10 md:p-12 rounded-sm bg-[#161C26]/50 border border-[#1E2633] hover:border-[#2A3649] transition-all',
+        'grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-6 sm:p-10 md:p-12 rounded-sm bg-white/60 border border-greyon-stone hover:border-greyon-gold/50 transition-all',
         reverse && 'lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1'
       )}
     >
@@ -43,10 +43,10 @@ export default function PromotionCard({
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0D1117]/80 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-greyon-dark/80 via-transparent to-transparent pointer-events-none" />
 
         {/* Index indicator */}
-        <span className="absolute bottom-4 left-4 font-mono text-xs text-[#EAF3FB] bg-[#0D1117]/80 backdrop-blur-md px-3 py-1 rounded-sm border border-[#2A3649]">
+        <span className="absolute bottom-4 left-4 font-mono text-xs text-white bg-greyon-dark/80 backdrop-blur-md px-3 py-1 rounded-sm border border-white/20">
           0{index + 1}
         </span>
       </div>
@@ -54,18 +54,18 @@ export default function PromotionCard({
       {/* ── Text Content Side ── */}
       <div className="lg:col-span-6 flex flex-col justify-center">
         {/* Project Tag */}
-        <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] uppercase text-[#8FA5B3] mb-4">
-          <Calendar size={13} className="text-[#aebfcb]" />
+        <div className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] uppercase text-greyon-gold mb-4">
+          <Calendar size={13} className="text-greyon-gold" />
           <span>{promotion.projectName || promotion.projectTitle}</span>
         </div>
 
         {/* Headline */}
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-[#EAF3FB] leading-snug tracking-tight mb-5">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-light text-greyon-ink leading-snug tracking-tight mb-5">
           {promotion.headline}
         </h3>
 
         {/* Body */}
-        <p className="text-sm sm:text-base font-light text-[#D4DDE3]/80 leading-relaxed mb-8">
+        <p className="text-sm sm:text-base font-light text-greyon-muted leading-relaxed mb-8">
           {promotion.body || promotion.description1}
         </p>
 

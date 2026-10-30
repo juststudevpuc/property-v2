@@ -18,7 +18,7 @@ import Footer from '@/components/layout/Footer'
  */
 export default function RootLayout() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0D1117]">
+    <div className="min-h-screen flex flex-col bg-greyon-cream text-greyon-ink">
       {/* Global navigation */}
       <Navbar />
 

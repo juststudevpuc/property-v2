@@ -12,7 +12,7 @@ import ContactPage from '@/pages/ContactPage'
 /* ─── Lazy placeholder pages (stubs until built) ────────── */
 const PlaceholderPage = ({ name }: { name: string }) => (
   <div className="min-h-[60vh] flex items-center justify-center">
-    <p className="text-[#405664] text-sm tracking-widest uppercase">
+    <p className="text-greyon-muted text-sm tracking-widest uppercase">
       {name} — coming soon
     </p>
   </div>

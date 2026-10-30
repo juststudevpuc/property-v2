@@ -28,7 +28,7 @@ export default function VideoShowcaseSection({
 
   return (
     <section
-      className={cn('relative w-full bg-[#0D1117] overflow-hidden', className)}
+      className={cn('relative w-full bg-greyon-dark overflow-hidden', className)}
       aria-label={ariaLabel}
     >
       <video

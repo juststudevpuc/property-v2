@@ -62,8 +62,8 @@ export default function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0D1117]/30 to-[#0D1117]/90" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0D1117]/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-greyon-dark/30 to-greyon-dark/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-greyon-dark/40 via-transparent to-transparent" />
       </div>
 
       {/* ── Hero content ── */}

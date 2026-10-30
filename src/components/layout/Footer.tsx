@@ -47,7 +47,7 @@ function CreatorsLogo({ className }: { className?: string }) {
       <span className="text-xl md:text-2xl font-semibold tracking-[0.2em] uppercase leading-none text-white group-hover:text-white/85 transition-colors">
         Schneitec
       </span>
-      <span className="text-[10px] tracking-[0.42em] uppercase text-[#D4DDE3]/75 mt-1 group-hover:text-white/85 transition-colors">
+      <span className="text-[10px] tracking-[0.42em] uppercase text-greyon-sand/75 mt-1 group-hover:text-white/85 transition-colors">
         Property
       </span>
     </Link>
@@ -77,14 +77,14 @@ function NavColumn({
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs sm:text-sm text-[#D4DDE3] hover:text-white transition-colors duration-200 block font-light leading-relaxed"
+                  className="text-xs sm:text-sm text-greyon-sand hover:text-white transition-colors duration-200 block font-light leading-relaxed"
                 >
                   {link.label}
                 </a>
               ) : (
                 <Link
                   to={link.href}
-                  className="text-xs sm:text-sm text-[#D4DDE3] hover:text-white transition-colors duration-200 block font-light leading-relaxed"
+                  className="text-xs sm:text-sm text-greyon-sand hover:text-white transition-colors duration-200 block font-light leading-relaxed"
                 >
                   {link.label}
                 </Link>
@@ -102,18 +102,18 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative overflow-hidden bg-[#070D17] text-[#D4DDE3]">
+    <footer className="relative overflow-hidden bg-greyon-dark text-greyon-sand">
       {/* ── Mesh Gradient Background Layer ── */}
       <div
         className="absolute inset-0 pointer-events-none overflow-hidden z-0"
         aria-hidden="true"
       >
         {/* Glow 1: Top left aurora blob */}
-        <div className="absolute -top-32 -left-24 w-[480px] sm:w-[620px] h-[480px] sm:h-[620px] rounded-full bg-[#1A2C4D] opacity-65 blur-[120px]" />
+        <div className="absolute -top-32 -left-24 w-[480px] sm:w-[620px] h-[480px] sm:h-[620px] rounded-full bg-greyon-primary opacity-65 blur-[120px]" />
         {/* Glow 2: Center-right glowing blue sphere */}
-        <div className="absolute top-1/8 -right-28 w-[520px] sm:w-[680px] h-[520px] sm:h-[680px] rounded-full bg-[#253B5E] opacity-55 blur-[130px]" />
+        <div className="absolute top-1/8 -right-28 w-[520px] sm:w-[680px] h-[520px] sm:h-[680px] rounded-full bg-greyon-gold-deep opacity-55 blur-[130px]" />
         {/* Glow 3: Bottom ambient glow */}
-        <div className="absolute -bottom-28 left-1/3 w-[440px] sm:w-[560px] h-[440px] sm:h-[560px] rounded-full bg-[#1A2C4D] opacity-45 blur-[120px]" />
+        <div className="absolute -bottom-28 left-1/3 w-[440px] sm:w-[560px] h-[440px] sm:h-[560px] rounded-full bg-greyon-primary opacity-45 blur-[120px]" />
       </div>
 
       {/* ── Top CTA Block ── */}
@@ -132,7 +132,7 @@ export default function Footer() {
               <h3 className="text-xs uppercase tracking-[0.25em] text-white/70 font-medium mb-3">
                 Make an appointment
               </h3>
-              <p className="text-xs sm:text-sm text-[#D4DDE3] leading-relaxed font-light mb-6 max-w-sm">
+              <p className="text-xs sm:text-sm text-greyon-sand leading-relaxed font-light mb-6 max-w-sm">
                 Schneitec Property Co., Ltd.
                 <br />
                 65/218 26th Floor, Chamnan Phenjati Business Center,
@@ -141,7 +141,7 @@ export default function Footer() {
               </p>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white text-white text-xs sm:text-sm font-light tracking-wide bg-transparent hover:bg-white hover:text-[#070D17] transition-all duration-300 group"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white text-white text-xs sm:text-sm font-light tracking-wide bg-transparent hover:bg-white hover:text-greyon-dark transition-all duration-300 group"
               >
                 <span>Submit an inquiry</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1">
@@ -176,7 +176,7 @@ export default function Footer() {
           </div>
 
           {/* ── Bottom Bar ── */}
-          <div className="mt-14 md:mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-[#D4DDE3]/60 font-light">
+          <div className="mt-14 md:mt-20 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5 text-xs text-greyon-sand/60 font-light">
             {/* Copyright on far left */}
             <p className="text-center sm:text-left">
               © {year} Schneitec Property Co., Ltd. All Rights Reserved.
@@ -191,7 +191,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="text-[#D4DDE3]/70 hover:text-white transition-colors duration-300"
+                  className="text-greyon-sand/70 hover:text-white transition-colors duration-300"
                 >
                   <Icon size={16} />
                 </a>

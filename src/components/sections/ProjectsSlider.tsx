@@ -19,7 +19,7 @@ export default function ProjectsSlider({
 
   return (
     <section
-      className="w-full p-0 m-0 overflow-hidden bg-[#0D1117]"
+      className="w-full p-0 m-0 overflow-hidden bg-greyon-dark"
       aria-label="Featured Landmark Projects"
     >
       <div className="w-full flex flex-col lg:flex-row gap-0 p-0 m-0">
@@ -27,7 +27,7 @@ export default function ProjectsSlider({
           <div
             key={project.id}
             className={cn(
-              'w-full lg:flex-1 border-b lg:border-b-0 lg:border-r border-[#1E2633]/60 last:border-b-0 last:border-r-0',
+              'w-full lg:flex-1 border-b lg:border-b-0 lg:border-r border-greyon-stone/20 last:border-b-0 last:border-r-0',
               heightClassName
             )}
           >

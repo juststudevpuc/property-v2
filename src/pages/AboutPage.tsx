@@ -160,11 +160,11 @@ export default function AboutPage() {
           aria-hidden="true"
         >
           {/* Smooth vertical fade directly into footer background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070D17] via-[#070D17]/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-greyon-dark via-greyon-dark/75 to-transparent" />
 
           {/* Soft ambient aurora glow blobs matching footer */}
-          <div className="absolute -bottom-20 left-1/4 w-[480px] h-[280px] rounded-full bg-[#1A2C4D] opacity-60 blur-[100px]" />
-          <div className="absolute -bottom-20 right-1/4 w-[480px] h-[280px] rounded-full bg-[#253B5E] opacity-50 blur-[110px]" />
+          <div className="absolute -bottom-20 left-1/4 w-[480px] h-[280px] rounded-full bg-greyon-primary opacity-60 blur-[100px]" />
+          <div className="absolute -bottom-20 right-1/4 w-[480px] h-[280px] rounded-full bg-greyon-gold-deep opacity-50 blur-[110px]" />
         </div>
 
         {/* Hero content container */}
@@ -204,7 +204,7 @@ export default function AboutPage() {
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.2] mb-6 sm:mb-8">
                     {currentTab.title}
                   </h1>
-                  <div className="space-y-5 text-base sm:text-lg font-light text-[#D4DDE3] leading-relaxed">
+                  <div className="space-y-5 text-base sm:text-lg font-light text-greyon-sand leading-relaxed">
                     <p>{currentTab.description[0]}</p>
                     <p>{currentTab.description[1]}</p>
                   </div>
@@ -248,13 +248,13 @@ export default function AboutPage() {
       </section> */}
 
       {/* ── Timeline Milestone Block ── */}
-      {/* <section className="bg-[#161C26]/60 py-24 md:py-32 border-y border-[#1E2633] mb-28">
+      {/* <section className="bg-greyon-dark/60 py-24 md:py-32 border-y border-greyon-stone/20 mb-28">
         <div className="container-large">
           <div className="max-w-2xl mb-16">
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-greyon-gold mb-3">
               A Decade of Distinction
             </p>
-            <h2 className="heading-h2 text-[#EAF3FB]">
+            <h2 className="heading-h2 text-white">
               Our Journey &amp; Milestones
             </h2>
           </div>
@@ -263,16 +263,16 @@ export default function AboutPage() {
             {TIMELINE_EVENTS.map(({ year, title, description }) => (
               <div
                 key={year}
-                className="p-8 rounded-sm bg-[#0D1117]/70 border border-[#1E2633] hover:border-[#2A3649] transition-all flex flex-col justify-between"
+                className="p-8 rounded-sm bg-greyon-dark/70 border border-greyon-stone/20 hover:border-greyon-gold/40 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <span className="font-mono text-2xl font-light text-[#EAF3FB] tracking-wider block mb-4 border-b border-[#1E2633] pb-3">
+                  <span className="font-mono text-2xl font-light text-white tracking-wider block mb-4 border-b border-greyon-stone/20 pb-3">
                     {year}
                   </span>
-                  <h3 className="text-lg font-normal text-[#EAF3FB] mb-3">
+                  <h3 className="text-lg font-normal text-white mb-3">
                     {title}
                   </h3>
-                  <p className="text-sm font-light text-[#8FA5B3] leading-relaxed">
+                  <p className="text-sm font-light text-greyon-sand/80 leading-relaxed">
                     {description}
                   </p>
                 </div>
@@ -285,10 +285,10 @@ export default function AboutPage() {
       {/* ── Core Values Grid ── */}
       {/* <section className="container-large mb-28">
         <div className="max-w-2xl mb-16">
-          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
+          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-greyon-gold mb-3">
             Guiding Principles
           </p>
-          <h2 className="heading-h2 text-[#EAF3FB]">
+          <h2 className="heading-h2 text-white">
             The Pillars of Our Craft
           </h2>
         </div>
@@ -297,15 +297,15 @@ export default function AboutPage() {
           {VALUES.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="p-8 rounded-sm bg-[#161C26]/40 border border-[#1E2633] hover:border-[#2A3649] transition-all group"
+              className="p-8 rounded-sm bg-greyon-dark/40 border border-greyon-stone/20 hover:border-greyon-gold/40 transition-all group"
             >
-              <div className="h-10 w-10 rounded-sm bg-[#1E2633] flex items-center justify-center text-[#D4DDE3] mb-6 group-hover:bg-[#2A3649] group-hover:text-white transition-all">
+              <div className="h-10 w-10 rounded-sm bg-greyon-dark flex items-center justify-center text-greyon-sand mb-6 group-hover:bg-greyon-primary group-hover:text-white transition-all">
                 <Icon size={20} strokeWidth={1.5} />
               </div>
-              <h3 className="text-lg font-normal text-[#EAF3FB] mb-3">
+              <h3 className="text-lg font-normal text-white mb-3">
                 {title}
               </h3>
-              <p className="text-xs font-light text-[#8FA5B3] leading-relaxed">
+              <p className="text-xs font-light text-greyon-sand/80 leading-relaxed">
                 {description}
               </p>
             </div>
@@ -315,15 +315,15 @@ export default function AboutPage() {
 
       {/* ── Bottom Call To Action ── */}
       {/* <section className="container-large">
-        <div className="p-8 sm:p-14 rounded-sm bg-[#161C26] border border-[#1E2633] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="p-8 sm:p-14 rounded-sm bg-greyon-dark border border-greyon-stone/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
-            <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#8FA5B3] block mb-2">
+            <span className="text-xs font-semibold tracking-[0.25em] uppercase text-greyon-gold block mb-2">
               Explore Our Collection
             </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-[#EAF3FB] mb-2">
+            <h2 className="text-2xl sm:text-3xl font-light text-white mb-2">
               Ready to Discover Your Next Sanctuary?
             </h2>
-            <p className="text-sm font-light text-[#D4DDE3]/80 max-w-xl">
+            <p className="text-sm font-light text-greyon-sand/80 max-w-xl">
               From super-luxury detached villas to landmark skyline condominiums, tour our complete portfolio.
             </p>
           </div>

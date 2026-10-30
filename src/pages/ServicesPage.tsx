@@ -69,7 +69,7 @@ export default function ServicesPage() {
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-75%'])
 
   return (
-    <div className="min-h-screen bg-[#0D1117] text-[#D4DDE3]">
+    <div className="min-h-screen bg-greyon-dark text-greyon-sand">
       {/* ── Edge-to-Edge Hero Section ── */}
       <section className="relative w-full h-screen min-h-[600px] overflow-hidden">
         {/* Background Image Container */}
@@ -86,7 +86,7 @@ export default function ServicesPage() {
           />
 
           {/* Gradient Overlay focused on the bottom */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-[#050810]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-greyon-dark" />
         </motion.div>
 
         {/* Split Column Text Content */}
@@ -101,7 +101,7 @@ export default function ServicesPage() {
 
             {/* Right: Paragraph */}
             <div className="md:col-span-6 lg:col-span-6 lg:col-start-7">
-              <p className="text-sm md:text-base font-light text-[#D4DDE3] leading-relaxed">
+              <p className="text-sm md:text-base font-light text-greyon-sand leading-relaxed">
                 At The Creators HQ, we are committed to safeguarding and enhancing the long-term
                 value of our customers through dedicated after-sales services. These include brokerage
                 solutions for rental management and resales, as well as comprehensive home care services.
@@ -115,11 +115,11 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Section Header: BROKERAGE (Symmetrically aligned with columns below) ── */}
-      <section className="bg-[#050810] pt-20 md:pt-28 pb-10 md:pb-14 ">
+      <section className="bg-greyon-dark pt-20 md:pt-28 pb-10 md:pb-14 ">
         <div className="w-full flex flex-col md:flex-row">
           {/* Left: Aligned symmetrically with left column */}
           <div className="w-full md:w-1/2 px-6 md:px-12 lg:px-20 flex items-end">
-            <span className="text-xs uppercase tracking-[0.3em] text-[#8FA5B3] font-light">
+            <span className="text-xs uppercase tracking-[0.3em] text-greyon-gold font-light">
               SERVICE
             </span>
           </div>
@@ -130,7 +130,7 @@ export default function ServicesPage() {
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-white tracking-tight leading-none mb-2">
                 BROKERAGE
               </h2>
-              <span className="text-xs sm:text-sm font-light text-[#8FA5B3] tracking-widest uppercase">
+              <span className="text-xs sm:text-sm font-light text-greyon-gold tracking-widest uppercase">
                 by Space Management
               </span>
             </div>
@@ -139,7 +139,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Section 1: Sticky Scroll BROKERAGE Wireframe Section (300vh) ── */}
-      <section ref={brokerageRef} className="relative h-[300vh] bg-[#050810] text-[#D4DDE3]">
+      <section ref={brokerageRef} className="relative h-[300vh] bg-greyon-dark text-greyon-sand">
         {/* Sticky Container locks to viewport */}
         <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row overflow-hidden">
 
@@ -314,7 +314,7 @@ export default function ServicesPage() {
             <motion.div style={{ y: contentY }} className="flex flex-col">
               {/* Block 1: Space Management */}
               <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#8FA5B3] block mb-2 font-mono">
+                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
                   01 / SUBSIDIARY
                 </span>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
@@ -323,7 +323,7 @@ export default function ServicesPage() {
                 <h4 className="text-sm font-medium text-white/90 mb-4">
                   Protecting Your Interests, Growing Your Value
                 </h4>
-                <p className="text-sm sm:text-base font-light text-[#D4DDE3] leading-relaxed">
+                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
                   Through our subsidiary, Space Management, we believe every property is a valuable
                   investment. Our role is to safeguard your interests while ensuring your assets continue
                   to generate income and appreciate in value. With trusted services in both rental
@@ -334,7 +334,7 @@ export default function ServicesPage() {
 
               {/* Block 2: Rental Services */}
               <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#8FA5B3] block mb-2 font-mono">
+                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
                   02 / LEASING
                 </span>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
@@ -343,7 +343,7 @@ export default function ServicesPage() {
                 <h4 className="text-sm font-medium text-white/90 mb-4">
                   Seamless Rentals, Effortless Income
                 </h4>
-                <p className="text-sm sm:text-base font-light text-[#D4DDE3] leading-relaxed">
+                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
                   From finding the right tenants and managing rental collections to property maintenance
                   and housekeeping, we handle every step with care. Our goal is to always keep your unit
                   rental-ready, so you can enjoy effortless Passive Income while knowing your investment
@@ -353,7 +353,7 @@ export default function ServicesPage() {
 
               {/* Block 3: Resales */}
               <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#8FA5B3] block mb-2 font-mono">
+                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
                   03 / BROKERAGE
                 </span>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
@@ -362,7 +362,7 @@ export default function ServicesPage() {
                 <h4 className="text-sm font-medium text-white/90 mb-4">
                   Stronger Network, Higher Value
                 </h4>
-                <p className="text-sm sm:text-base font-light text-[#D4DDE3] leading-relaxed">
+                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
                   With comprehensive marketing strategies and a strong network of co-agents, we help you
                   secure a selling price above market value. We also manage the entire transfer process
                   with transparency and efficiency, so you never have to worry—simply trust us to deliver
@@ -372,7 +372,7 @@ export default function ServicesPage() {
 
               {/* Block 4: Property Care */}
               <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-[#8FA5B3] block mb-2 font-mono">
+                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
                   04 / STEWARDSHIP
                 </span>
                 <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
@@ -381,7 +381,7 @@ export default function ServicesPage() {
                 <h4 className="text-sm font-medium text-white/90 mb-4">
                   Preserving Pristine Condition &amp; Security
                 </h4>
-                <p className="text-sm sm:text-base font-light text-[#D4DDE3] leading-relaxed">
+                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
                   Our dedicated Home Care Service ensures your residence remains in its prime condition—safe,
                   well-maintained, and rental-ready. We provide scheduled engineering check-ups, product
                   servicing, and preventative maintenance for total peace of mind.
@@ -396,7 +396,7 @@ export default function ServicesPage() {
               <button
                 key={tag}
                 type="button"
-                className="px-4 py-2 rounded-full border border-white/30 text-[11px] sm:text-xs tracking-wider uppercase font-light text-white bg-transparent hover:border-white hover:bg-white hover:text-[#050810] transition-all duration-300"
+                className="px-4 py-2 rounded-full border border-white/30 text-[11px] sm:text-xs tracking-wider uppercase font-light text-white bg-transparent hover:border-white hover:bg-white hover:text-greyon-dark transition-all duration-300"
               >
                 {tag}
               </button>
@@ -406,21 +406,21 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Section 2: PROPERTY CARE (Light Theme Header Block) ── */}
-      <section className="bg-white py-16 px-6 md:px-12 text-[#050810]">
+      <section className="bg-greyon-cream py-16 px-6 md:px-12 text-greyon-ink">
         <div className="container-large grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
           {/* Left Column (col-span-4) */}
           <div className="md:col-span-4">
-            <span className="text-slate-500 uppercase tracking-widest text-sm font-medium">
+            <span className="text-greyon-muted uppercase tracking-widest text-sm font-medium">
               SERVICE
             </span>
           </div>
 
           {/* Right Column (col-span-8) */}
           <div className="md:col-span-8">
-            <h2 className="text-[#050810] text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-none">
+            <h2 className="text-greyon-ink text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-none">
               PROPERTY CARE
             </h2>
-            <p className="text-slate-500 font-light text-base sm:text-lg mt-4">
+            <p className="text-greyon-muted font-light text-base sm:text-lg mt-4">
               Protecting Your Home. Preserving Its Value.
             </p>
           </div>
@@ -437,7 +437,7 @@ export default function ServicesPage() {
         />
 
         {/* Bottom Dark Gradient fading upwards */}
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#02040A] via-[#02040A]/80 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-greyon-dark via-greyon-dark/80 to-transparent pointer-events-none" />
 
         {/* Overlay Text Inside the Gradient */}
         <div className="absolute inset-x-0 bottom-0 px-6 md:px-12 pb-12 z-10 w-full">
@@ -462,7 +462,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Property Care Slider: White Content Container ── */}
-      <section className="bg-white py-16 md:py-24 px-6 md:px-12 lg:px-24">
+      <section className="bg-greyon-cream py-16 md:py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-4xl">
           <AnimatePresence mode="wait">
             <motion.div
@@ -472,21 +472,21 @@ export default function ServicesPage() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.35, ease: 'easeInOut' }}
             >
-              <h3 className="text-3xl md:text-[40px] text-[#050810] font-light mb-6">
+              <h3 className="text-3xl md:text-[40px] text-greyon-ink font-light mb-6">
                 {PROPERTY_CARE_SLIDES[activeSlide].title}
               </h3>
-              <h4 className="text-sm font-semibold text-[#050810] mb-2">
+              <h4 className="text-sm font-semibold text-greyon-ink mb-2">
                 {PROPERTY_CARE_SLIDES[activeSlide].subtitle}
               </h4>
-              <p className="text-slate-500 font-light text-sm md:text-base mb-6">
+              <p className="text-greyon-muted font-light text-sm md:text-base mb-6">
                 {PROPERTY_CARE_SLIDES[activeSlide].intro}
               </p>
-              <ul className="list-disc ml-5 text-slate-500 font-light text-sm md:text-base space-y-2 mb-8">
+              <ul className="list-disc ml-5 text-greyon-muted font-light text-sm md:text-base space-y-2 mb-8">
                 {PROPERTY_CARE_SLIDES[activeSlide].bullets.map((bullet, idx) => (
                   <li key={idx}>{bullet}</li>
                 ))}
               </ul>
-              <p className="text-xs text-slate-400 mt-4">
+              <p className="text-xs text-greyon-muted mt-4">
                 {PROPERTY_CARE_SLIDES[activeSlide].footnote}
               </p>
             </motion.div>
@@ -495,7 +495,7 @@ export default function ServicesPage() {
       </section>
 
       {/* ── Full-Bleed Lifestyle Image Block with Animated Crossfade & Dots ── */}
-      <section className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden bg-[#050810]">
+      <section className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden bg-greyon-dark">
         <AnimatePresence mode="wait">
           <motion.img
             key={activeSlide}

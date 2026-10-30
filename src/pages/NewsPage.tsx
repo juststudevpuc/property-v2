@@ -17,10 +17,10 @@ export default function NewsPage() {
   }, [activeCategory])
 
   return (
-    <div className="min-h-screen bg-white text-[#050810] pt-32 pb-24">
+    <div className="min-h-screen bg-greyon-cream text-greyon-ink pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6">
         {/* ── Page Headline ── */}
-        <h1 className="text-5xl md:text-[64px] font-light mb-8 uppercase text-[#050810] tracking-tight">
+        <h1 className="text-5xl md:text-[64px] font-light mb-8 uppercase text-greyon-ink tracking-tight">
           NEWS
         </h1>
 
@@ -35,8 +35,8 @@ export default function NewsPage() {
                 onClick={() => setActiveCategory(category)}
                 className={`rounded-full px-6 py-2 text-xs font-medium tracking-wide uppercase transition-colors ${
                   isActive
-                    ? 'bg-[#0B1D3A] text-white shadow-sm'
-                    : 'bg-white border border-[#0B1D3A] text-[#0B1D3A] hover:bg-slate-50'
+                    ? 'bg-greyon-primary text-white shadow-sm'
+                    : 'bg-white border border-greyon-primary text-greyon-primary hover:bg-greyon-sand'
                 }`}
               >
                 {category}
@@ -94,7 +94,7 @@ export default function NewsPage() {
           </AnimatePresence>
 
           {filteredNews.length === 0 && (
-            <div className="col-span-full py-20 text-center text-slate-500 font-light">
+            <div className="col-span-full py-20 text-center text-greyon-muted font-light">
               No news articles found in this category.
             </div>
           )}

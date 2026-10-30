@@ -247,21 +247,21 @@ export default function ProjectDetailPage() {
   // ── Handle 404 Gracefully ──
   if (!project) {
     return (
-      <div className="min-h-screen bg-white text-[#050810] flex items-center justify-center pt-32 pb-20">
+      <div className="min-h-screen bg-greyon-cream text-greyon-ink flex items-center justify-center pt-32 pb-20">
         <div className="max-w-lg text-center px-6">
-          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-slate-400 mb-3">
+          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-greyon-muted mb-3">
             Portfolio
           </p>
-          <h1 className="text-4xl font-light text-[#050810] mb-4">
+          <h1 className="text-4xl font-light text-greyon-ink mb-4">
             Residence Not Found
           </h1>
-          <p className="text-sm font-light text-slate-600 leading-relaxed mb-8">
+          <p className="text-sm font-light text-greyon-muted leading-relaxed mb-8">
             The project you requested does not exist or may have been archived. Please explore our
             complete active portfolio.
           </p>
           <Link
             to="/projects"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#050810] text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-greyon-primary text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-greyon-primary-hover transition-colors"
           >
             <ArrowLeft size={14} />
             <span>View All Projects</span>
@@ -365,7 +365,7 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-[#050810]">
+    <div className="min-h-screen bg-greyon-cream text-greyon-ink">
       {/* ───────────────────────────────────────────────────────────
           1. Hero Section (Full-Bleed)
           ─────────────────────────────────────────────────────────── */}
@@ -425,7 +425,7 @@ export default function ProjectDetailPage() {
                 <button
                   type="button"
                   onClick={scrollToRegister}
-                  className="px-8 py-3.5 rounded-full bg-white text-[#050810] text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-100 transition-all duration-300 shadow-xl cursor-pointer"
+                  className="px-8 py-3.5 rounded-full bg-white text-greyon-ink text-xs font-medium tracking-[0.2em] uppercase hover:bg-greyon-sand transition-all duration-300 shadow-xl cursor-pointer"
                 >
                   Register
                 </button>
@@ -445,14 +445,14 @@ export default function ProjectDetailPage() {
       {/* ───────────────────────────────────────────────────────────
           2. Concept & Stats Grid (White Section)
           ─────────────────────────────────────────────────────────── */}
-      <section className="bg-white py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="bg-greyon-cream py-24 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           {/* Left (col-span-7): 'Concept' heading & 2 paragraphs */}
           <div className="lg:col-span-7">
-            <h2 className="text-3xl font-light mb-6 uppercase tracking-wide text-[#050810]">
+            <h2 className="text-3xl font-light mb-6 uppercase tracking-wide text-greyon-ink">
               Concept
             </h2>
-            <div className="space-y-5 text-base md:text-lg text-slate-600 leading-relaxed font-light">
+            <div className="space-y-5 text-base md:text-lg text-greyon-ink/80 leading-relaxed font-light">
               {conceptText.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
@@ -461,13 +461,13 @@ export default function ProjectDetailPage() {
 
           {/* Right (col-span-5): CSS grid of keyStats */}
           <div className="lg:col-span-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-10 border-t lg:border-t-0 lg:border-l border-slate-200 pt-8 lg:pt-0 lg:pl-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8 lg:gap-10 border-t lg:border-t-0 lg:border-l border-greyon-stone pt-8 lg:pt-0 lg:pl-12">
               {keyStats.map((stat, index) => (
                 <div key={index} className="flex flex-col">
-                  <span className="text-5xl md:text-6xl font-light text-[#050810] tracking-tight leading-none mb-2">
+                  <span className="text-5xl md:text-6xl font-light text-greyon-ink tracking-tight leading-none mb-2">
                     {stat.value}
                   </span>
-                  <span className="text-xs uppercase tracking-[0.25em] text-slate-400 font-medium">
+                  <span className="text-xs uppercase tracking-[0.25em] text-greyon-muted font-medium">
                     {stat.label}
                   </span>
                 </div>
@@ -480,9 +480,9 @@ export default function ProjectDetailPage() {
       {/* ───────────────────────────────────────────────────────────
           3. Interactive House Types (Edge-to-Edge Layout)
           ─────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-white">
+      <section className="w-full bg-greyon-cream">
         {/* Top Image Container (Borderless & Full-Bleed) */}
-        <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-slate-100">
+        <div className="relative w-full h-[50vh] md:h-[70vh] overflow-hidden bg-greyon-sand">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeHouseIndex}
@@ -503,11 +503,11 @@ export default function ProjectDetailPage() {
         </div>
 
         {/* Bottom Specs Dashboard (White Section) */}
-        <div className="bg-white py-12 md:py-16 px-6 md:px-12 lg:px-24">
+        <div className="bg-greyon-cream py-12 md:py-16 px-6 md:px-12 lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             {/* Left Column (Headline) */}
             <div className="col-span-1 lg:col-span-4">
-              <h2 className="text-3xl md:text-[40px] text-[#050810] font-light uppercase tracking-tight leading-tight">
+              <h2 className="text-3xl md:text-[40px] text-greyon-ink font-light uppercase tracking-tight leading-tight">
                 HOUSE TYPE
               </h2>
             </div>
@@ -525,8 +525,8 @@ export default function ProjectDetailPage() {
                       onClick={() => setActiveHouseIndex(idx)}
                       className={`transition-all duration-300 ${
                         isActive
-                          ? 'text-xl md:text-2xl text-[#050810] border-b border-[#050810] pb-1 font-normal cursor-pointer'
-                          : 'text-lg md:text-xl text-slate-300 font-light hover:text-slate-500 cursor-pointer transition-colors pb-1 border-b border-transparent'
+                          ? 'text-xl md:text-2xl text-greyon-ink border-b border-greyon-ink pb-1 font-normal cursor-pointer'
+                          : 'text-lg md:text-xl text-greyon-stone font-light hover:text-greyon-muted cursor-pointer transition-colors pb-1 border-b border-transparent'
                       }`}
                     >
                       {type.name}
@@ -547,10 +547,10 @@ export default function ProjectDetailPage() {
                 >
                   {specsList.map((spec) => (
                     <div key={spec.label} className="flex flex-col">
-                      <span className="text-[11px] md:text-xs text-[#050810] font-medium mb-2">
+                      <span className="text-[11px] md:text-xs text-greyon-ink font-medium mb-2">
                         {spec.label}
                       </span>
-                      <span className="text-xs md:text-sm text-slate-500 font-light">
+                      <span className="text-xs md:text-sm text-greyon-muted font-light">
                         {spec.value}
                       </span>
                     </div>
@@ -601,7 +601,7 @@ export default function ProjectDetailPage() {
               </video>
 
               {/* Dark gradient overlay at the bottom */}
-              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050810] to-transparent pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-greyon-dark to-transparent pointer-events-none" />
 
               {/* Floating Thumbnails */}
               <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-4 z-10">
@@ -691,7 +691,7 @@ export default function ProjectDetailPage() {
       {/* ───────────────────────────────────────────────────────────
           4. Amenities (Interactive Split-Screen)
           ─────────────────────────────────────────────────────────── */}
-      <section className="flex flex-col lg:flex-row w-full min-h-[70vh] lg:min-h-[850px] bg-white">
+      <section className="flex flex-col lg:flex-row w-full min-h-[70vh] lg:min-h-[850px] bg-greyon-cream">
         {/* Left Column (Image) */}
         <div className="w-full lg:w-1/2 relative overflow-hidden h-[50vh] lg:h-auto">
           <AnimatePresence mode="wait">
@@ -712,10 +712,10 @@ export default function ProjectDetailPage() {
         <div className="w-full lg:w-1/2 flex flex-col justify-between py-16 px-8 lg:p-20 xl:p-28">
           {/* Top Header Block */}
           <div>
-            <h2 className="text-4xl lg:text-[52px] text-[#050810] font-light uppercase tracking-wide mb-6">
+            <h2 className="text-4xl lg:text-[52px] text-greyon-ink font-light uppercase tracking-wide mb-6">
               AMENITIES
             </h2>
-            <p className="text-slate-400 font-light text-sm leading-[1.8] max-w-xs">
+            <p className="text-greyon-muted font-light text-sm leading-[1.8] max-w-xs">
               We offer a &ldquo;Hospitality&rdquo; living experience, providing services and an atmosphere blended perfectly with the rhythm of big city life.
             </p>
           </div>
@@ -729,8 +729,8 @@ export default function ProjectDetailPage() {
                 onClick={() => setActiveAmenityIndex(index)}
                 className={`w-full text-left py-4 border-b transition-all duration-300 cursor-pointer ${
                   index === activeAmenityIndex
-                    ? 'border-slate-300 text-[#050810] font-medium'
-                    : 'border-slate-100 text-slate-400 font-light hover:text-slate-600 hover:border-slate-200'
+                    ? 'border-greyon-primary text-greyon-primary font-medium'
+                    : 'border-greyon-stone/40 text-greyon-muted font-light hover:text-greyon-ink hover:border-greyon-stone'
                 }`}
               >
                 {item.name}
@@ -743,7 +743,7 @@ export default function ProjectDetailPage() {
       {/* ───────────────────────────────────────────────────────────
           5. Blueprint Progress Section
           ─────────────────────────────────────────────────────────── */}
-      <section className="w-full bg-[#050810] py-24 md:py-32">
+      <section className="w-full bg-greyon-dark py-24 md:py-32">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -758,14 +758,14 @@ export default function ProjectDetailPage() {
                 viewBox="0 0 600 420"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-auto text-slate-400 group-hover:text-white transition-colors duration-500"
+                className="w-full h-auto text-greyon-stone group-hover:text-greyon-sand transition-colors duration-500"
               >
                 {/* Glassmorphism Gradient Definition */}
                 <defs>
                   <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#ffffff" stopOpacity="0.1" />
-                    <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0.6" />
+                    <stop offset="50%" stopColor="#c4a35a" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#627063" stopOpacity="0.6" />
                   </linearGradient>
                 </defs>
 
@@ -782,7 +782,7 @@ export default function ProjectDetailPage() {
                   strokeWidth="1"
                   fill="none"
                   strokeDasharray="4 4"
-                  className="text-slate-400 group-hover:text-white transition-colors duration-500"
+                  className="text-greyon-stone group-hover:text-greyon-sand transition-colors duration-500"
                 >
                   {/* Grid Reference Axis Lines */} 
                   <line x1="80" y1="45" x2="80" y2="350" />
@@ -861,24 +861,24 @@ export default function ProjectDetailPage() {
               <h2 className="text-4xl md:text-5xl text-white font-light tracking-wide mb-2">
                 PROGRESS
               </h2>
-              <p className="text-slate-400 text-sm font-light mb-12">
+              <p className="text-greyon-sand/80 text-sm font-light mb-12">
                 {progressText || 'Construction of the residence project is completed'}
               </p>
 
               <div className="flex flex-col gap-6">
                 <div>
-                  <h3 className="text-white font-medium text-sm mb-1">
+                  <h3 className="text-greyon-sand font-medium text-sm mb-1">
                     Completion
                   </h3>
-                  <p className="text-slate-400 font-light text-sm">
+                  <p className="text-greyon-muted font-light text-sm">
                     {progressPercent ? `${progressPercent}%` : '100%'}
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-white font-medium text-sm mb-1">
+                  <h3 className="text-greyon-sand font-medium text-sm mb-1">
                     Last updated
                   </h3>
-                  <p className="text-slate-400 font-light text-sm">
+                  <p className="text-greyon-muted font-light text-sm">
                     {new Date().getFullYear()}
                   </p>
                 </div>
@@ -905,43 +905,43 @@ export default function ProjectDetailPage() {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-md bg-white rounded-2xl p-8 shadow-2xl"
+              className="relative w-full max-w-md bg-white border border-greyon-stone rounded-2xl p-8 shadow-2xl"
             >
               <button
                 type="button"
                 onClick={() => setIsBrochureOpen(false)}
-                className="absolute top-5 right-5 text-slate-400 hover:text-[#050810] transition-colors"
+                className="absolute top-5 right-5 text-greyon-muted hover:text-greyon-ink transition-colors"
                 aria-label="Close modal"
               >
                 <X size={20} />
               </button>
 
               <div className="text-center mb-6">
-                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3 text-[#050810]">
+                <div className="w-12 h-12 rounded-full bg-greyon-sand flex items-center justify-center mx-auto mb-3 text-greyon-ink">
                   <FileText size={22} />
                 </div>
-                <h3 className="text-2xl font-light text-[#050810] mb-1">
+                <h3 className="text-2xl font-light text-greyon-ink mb-1">
                   Official Brochure
                 </h3>
-                <p className="text-xs text-slate-500 font-light">
+                <p className="text-xs text-greyon-muted font-light">
                   Receive the confidential architectural catalog and layout dossier for {project.name}.
                 </p>
               </div>
 
               {isBrochureSent ? (
                 <div className="py-6 text-center">
-                  <CheckCircle2 size={36} className="text-emerald-500 mx-auto mb-2" />
-                  <p className="text-sm font-medium text-[#050810]">
+                  <CheckCircle2 size={36} className="text-greyon-success mx-auto mb-2" />
+                  <p className="text-sm font-medium text-greyon-ink">
                     Brochure Sent
                   </p>
-                  <p className="text-xs text-slate-500 font-light mt-1">
+                  <p className="text-xs text-greyon-muted font-light mt-1">
                     Please check your email inbox shortly.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleBrochureDownload} className="space-y-4">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-slate-600 font-medium mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider text-greyon-muted font-medium mb-1.5">
                       Your Email Address
                     </label>
                     <input
@@ -950,13 +950,13 @@ export default function ProjectDetailPage() {
                       value={brochureEmail}
                       onChange={(e) => setBrochureEmail(e.target.value)}
                       placeholder="name@company.com"
-                      className="w-full px-4 py-3 rounded-lg border border-slate-200 text-sm text-[#050810] placeholder-slate-400 focus:outline-none focus:border-[#050810]"
+                      className="w-full px-4 py-3 rounded-lg border border-greyon-stone text-sm text-greyon-ink placeholder-greyon-muted focus:outline-none focus:border-greyon-primary"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-full bg-[#050810] text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 rounded-full bg-greyon-primary text-white text-xs font-medium tracking-[0.2em] uppercase hover:bg-greyon-primary-hover transition-colors flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download size={14} />
                     <span>Send e-Brochure</span>

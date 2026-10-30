@@ -185,13 +185,13 @@ export default function NewsDetailPage() {
   }
 
   return (
-    <main className="min-h-screen bg-white text-[#050810] pt-32 md:pt-40 pb-24">
+    <main className="min-h-screen bg-greyon-cream text-greyon-ink pt-32 md:pt-40 pb-24">
       {/* Top Header Section (Constrained Width) */}
       <section className="max-w-5xl mx-auto px-6 md:px-12 mb-12">
         {/* Meta Row */}
         <div className="flex items-center justify-between mb-8">
           {/* Left: The Date */}
-          <span className="text-sm font-medium tracking-widest uppercase text-slate-500">
+          <span className="text-sm font-medium tracking-widest uppercase text-greyon-muted">
             {article.date}
           </span>
 
@@ -199,7 +199,7 @@ export default function NewsDetailPage() {
           <button
             type="button"
             onClick={handleShare}
-            className="flex items-center gap-2 text-sm font-medium text-[#050810] border border-[#050810] rounded-full px-5 py-2 hover:bg-[#050810] hover:text-white transition-colors cursor-pointer"
+            className="flex items-center gap-2 text-sm font-medium text-greyon-ink border border-greyon-stone rounded-full px-5 py-2 hover:bg-greyon-primary hover:border-greyon-primary hover:text-white transition-colors cursor-pointer"
             aria-label="Share article"
           >
             <Share2 size={15} />
@@ -212,7 +212,7 @@ export default function NewsDetailPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-4xl md:text-[56px] lg:text-[64px] font-light leading-[1.1] text-[#050810]"
+          className="text-4xl md:text-[56px] lg:text-[64px] font-light leading-[1.1] text-greyon-ink"
         >
           {article.title}
         </motion.h1>
@@ -224,7 +224,7 @@ export default function NewsDetailPage() {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
-          className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden bg-slate-100 shadow-sm"
+          className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden bg-greyon-sand shadow-sm"
         >
           <img
             src={article.image}
@@ -242,7 +242,7 @@ export default function NewsDetailPage() {
               return (
                 <h2
                   key={index}
-                  className="text-2xl md:text-3xl text-[#050810] font-light mt-16 mb-6"
+                  className="text-2xl md:text-3xl text-greyon-ink font-light mt-16 mb-6"
                 >
                   {block.text}
                 </h2>
@@ -267,7 +267,7 @@ export default function NewsDetailPage() {
             return (
               <p
                 key={index}
-                className="text-base md:text-lg text-slate-600 font-light leading-[1.8] mb-8 [&_strong]:font-semibold [&_strong]:text-[#050810]"
+                className="text-base md:text-lg text-greyon-ink/85 font-light leading-[1.8] mb-8 [&_strong]:font-semibold [&_strong]:text-greyon-ink"
                 dangerouslySetInnerHTML={{ __html: block.text }}
               />
             )
@@ -275,9 +275,9 @@ export default function NewsDetailPage() {
         </div>
 
         {/* Back to News Button */}
-        <div className="pt-4 border-t border-slate-100">
+        <div className="pt-4 border-t border-greyon-stone">
           <Link
-            className="inline-flex items-center gap-2 text-[#050810] font-medium mt-12 hover:opacity-70 transition-opacity"
+            className="inline-flex items-center gap-2 text-greyon-ink font-medium mt-12 hover:opacity-70 transition-opacity"
             to="/news"
           >
             <ArrowLeft size={16} />

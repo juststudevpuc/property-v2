@@ -118,8 +118,8 @@ export default function Navbar() {
           className={`transition-all duration-500 ease-in-out flex items-center justify-between ${
             isScrolled
               ? isLight
-                ? 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-white/80 md:bg-white/85 backdrop-blur-md rounded-full border border-black/10 shadow-xl'
-                : 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-white/10 md:bg-[#050810]/60 backdrop-blur-md rounded-full border border-white/10 shadow-xl'
+                ? 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-white/85 md:bg-white/90 backdrop-blur-md rounded-full border border-greyon-stone shadow-xl'
+                : 'w-[95%] max-w-7xl px-6 md:px-8 py-3 bg-greyon-dark/60 md:bg-greyon-dark/80 backdrop-blur-md rounded-full border border-white/10 shadow-xl'
               : 'w-full max-w-none px-6 md:px-12 py-6 bg-transparent rounded-none border-transparent'
           }`}
         >
@@ -129,8 +129,8 @@ export default function Navbar() {
               className={cn(
                 'transition-colors duration-300',
                 isLight
-                  ? 'text-[#050810] hover:text-black'
-                  : 'text-[#D4DDE3] hover:text-white'
+                  ? 'text-greyon-ink hover:text-black'
+                  : 'text-greyon-sand hover:text-white'
               )}
             />
           </Link>
@@ -147,11 +147,11 @@ export default function Navbar() {
                     'text-sm font-light tracking-wide transition-colors duration-300',
                     isLight
                       ? isActive
-                        ? 'text-[#050810] font-normal opacity-100'
-                        : 'text-[#050810]/70 hover:opacity-100 hover:text-[#050810]'
+                        ? 'text-greyon-ink font-normal opacity-100'
+                        : 'text-greyon-muted hover:opacity-100 hover:text-greyon-ink'
                       : isActive
                         ? 'text-white opacity-100 font-normal'
-                        : 'text-[#D4DDE3] opacity-80 hover:opacity-100 hover:text-white'
+                        : 'text-greyon-sand opacity-80 hover:opacity-100 hover:text-white'
                   )
                 }
               >
@@ -167,8 +167,8 @@ export default function Navbar() {
               className={cn(
                 'hidden md:flex items-center gap-1 text-sm font-light cursor-pointer transition-colors',
                 isLight
-                  ? 'text-[#050810]/75 hover:text-[#050810]'
-                  : 'text-[#D4DDE3] opacity-80 hover:opacity-100 hover:text-white'
+                  ? 'text-greyon-muted hover:text-greyon-ink'
+                  : 'text-greyon-sand opacity-80 hover:opacity-100 hover:text-white'
               )}
             >
               <span>EN</span>
@@ -181,7 +181,7 @@ export default function Navbar() {
               className={cn(
                 'hidden md:inline-flex items-center gap-2 text-xs font-medium tracking-widest uppercase px-5 py-2.5 rounded-full transition-all duration-300 hover:shadow-md',
                 isLight
-                  ? 'border border-[#050810] text-[#050810] hover:bg-[#050810] hover:text-white'
+                  ? 'border border-greyon-primary text-greyon-primary hover:bg-greyon-primary hover:text-white'
                   : 'btn-secondary'
               )}
             >
@@ -195,8 +195,8 @@ export default function Navbar() {
               className={cn(
                 'p-2 transition-colors duration-300 md:hidden',
                 isLight
-                  ? 'text-[#050810] hover:text-black'
-                  : 'text-[#D4DDE3] hover:text-white'
+                  ? 'text-greyon-ink hover:text-black'
+                  : 'text-greyon-sand hover:text-white'
               )}
             >
               <Menu size={22} />
@@ -213,7 +213,7 @@ export default function Navbar() {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
-            className="fixed inset-0 z-[1000] flex flex-col bg-[#0D1117]"
+            className="fixed inset-0 z-[1000] flex flex-col bg-greyon-dark"
             variants={mobileMenuVariants}
             initial="hidden"
             animate="visible"
@@ -224,7 +224,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsMenuOpen(false)}
                 aria-label="Close menu"
-                className="text-[#D4DDE3] hover:text-white transition-colors"
+                className="text-greyon-sand hover:text-white transition-colors"
               >
                 <X size={24} />
               </button>
@@ -245,7 +245,7 @@ export default function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     className={({ isActive }) =>
                       cn(
-                        'block text-4xl font-light text-[#D4DDE3] py-3 border-b border-[#1E2633] transition-colors hover:text-white',
+                        'block text-4xl font-light text-greyon-sand py-3 border-b border-white/10 transition-colors hover:text-white',
                         isActive && 'opacity-100',
                         !isActive && 'opacity-60'
                       )
@@ -269,10 +269,10 @@ export default function Navbar() {
               </motion.div>
 
               {/* Language */}
-              <motion.div variants={linkVariant} className="pt-4 flex gap-4 text-[#8FA5B3] text-sm">
-                <span className="cursor-pointer hover:text-[#D4DDE3] transition-colors font-medium text-[#D4DDE3]">EN</span>
+              <motion.div variants={linkVariant} className="pt-4 flex gap-4 text-greyon-muted text-sm">
+                <span className="cursor-pointer hover:text-greyon-sand transition-colors font-medium text-greyon-sand">EN</span>
                 <span className="opacity-30">|</span>
-                <span className="cursor-pointer hover:text-[#D4DDE3] transition-colors">TH</span>
+                <span className="cursor-pointer hover:text-greyon-sand transition-colors">TH</span>
               </motion.div>
             </motion.div>
           </motion.div>

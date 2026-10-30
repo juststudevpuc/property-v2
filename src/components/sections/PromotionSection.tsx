@@ -10,11 +10,11 @@ export default function PromotionSection() {
 
   return (
     <section
-      className="w-full p-0 m-0 overflow-hidden bg-[#050B14] flex flex-col md:flex-row h-auto md:h-[700px] lg:h-[750px]"
+      className="w-full p-0 m-0 overflow-hidden bg-greyon-dark flex flex-col md:flex-row h-auto md:h-[700px] lg:h-[750px]"
       aria-label="Featured Residences Showcase"
     >
       {/* ── Left Panel (Rich Gradient & Content) ── */}
-      <div className="w-full md:w-1/2 bg-gradient-to-b from-[#050B14] to-[#1A2C4D] p-8 sm:p-12 md:p-16 lg:p-24 flex flex-col justify-center relative z-10">
+      <div className="w-full md:w-1/2 bg-gradient-to-b from-greyon-dark to-[#262e27] p-8 sm:p-12 md:p-16 lg:p-24 flex flex-col justify-center relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide.id}
@@ -25,7 +25,7 @@ export default function PromotionSection() {
             className="flex flex-col"
           >
             {/* Project Title */}
-            <span className="text-xs sm:text-sm font-light uppercase tracking-[0.25em] text-[#8FA5B3] mb-4 sm:mb-6 block">
+            <span className="text-xs sm:text-sm font-light uppercase tracking-[0.25em] text-greyon-gold mb-4 sm:mb-6 block">
               {currentSlide.projectTitle}
             </span>
 
@@ -35,7 +35,7 @@ export default function PromotionSection() {
             </h3>
 
             {/* Descriptions */}
-            <div className="space-y-4 sm:space-y-5 text-[#D4DDE3] font-light leading-relaxed text-sm sm:text-base max-w-xl mb-8 sm:mb-10">
+            <div className="space-y-4 sm:space-y-5 text-greyon-sand font-light leading-relaxed text-sm sm:text-base max-w-xl mb-8 sm:mb-10">
               <p>{currentSlide.description1}</p>
               <p>{currentSlide.description2}</p>
             </div>
@@ -44,7 +44,7 @@ export default function PromotionSection() {
             <div>
               <Link
                 to={currentSlide.buttonUrl || '/contact'}
-                className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-[#121A2F] hover:bg-[#1A2542] text-white border border-white/20 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl hover:border-white/40 active:scale-95 w-fit"
+                className="inline-flex items-center justify-center px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-greyon-primary hover:bg-greyon-primary-hover text-white border border-white/20 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase transition-all duration-300 shadow-lg hover:shadow-xl hover:border-white/40 active:scale-95 w-fit"
               >
                 <span>{currentSlide.buttonText}</span>
               </Link>
@@ -81,7 +81,7 @@ export default function PromotionSection() {
       </div>
 
       {/* ── Right Panel (Flush Edge-to-Edge Image) ── */}
-      <div className="relative w-full md:w-1/2 h-[360px] sm:h-[460px] md:h-full overflow-hidden bg-[#050B14]">
+      <div className="relative w-full md:w-1/2 h-[360px] sm:h-[460px] md:h-full overflow-hidden bg-greyon-dark">
         <AnimatePresence mode="wait">
           <motion.img
             key={currentSlide.id}

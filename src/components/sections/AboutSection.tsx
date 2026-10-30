@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 export default function AboutSection() {
   return (
     <section
-      className="relative bg-white  py-28 md:py-36  overflow-hidden"
+      className="relative bg-greyon-cream py-28 md:py-36 overflow-hidden"
       aria-label="About Schneitec Property"
     >
       {/* ── Ambient Radial Glows ── */}
@@ -12,7 +12,7 @@ export default function AboutSection() {
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-[#1E2633]/0 rounded-full blur-[120px] pointer-events-none"
+        className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-greyon-sand/0 rounded-full blur-[120px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -25,12 +25,12 @@ export default function AboutSection() {
           className="w-full max-w-5xl"
         >
           {/* ── Headline ── */}
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light text-black tracking-tight leading-[1.2] mb-8 sm:mb-10 whitespace-nowrap">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-light text-greyon-ink tracking-tight leading-[1.2] mb-8 sm:mb-10 whitespace-nowrap">
             Schneitec Property: Curated Spaces for Life
           </h2>
 
           {/* ── Body Text ── */}
-          <div className="max-w-3xl space-y-6 text-[#000000] leading-relaxed font-light text-base sm:text-lg">
+          <div className="max-w-3xl space-y-6 text-greyon-ink leading-relaxed font-light text-base sm:text-lg">
             <p>
               Established since 2015, Schneitec Property dedicates to redefining how people live. With a
               Customer-First Philosophy, we craft residences that combine innovation, functionality, and
@@ -44,7 +44,7 @@ export default function AboutSection() {
           </div>
 
           {/* ── Sign-off ── */}
-          <p className="mt-8 sm:mt-10 font-semibold text-black text-base sm:text-lg">
+          <p className="mt-8 sm:mt-10 font-semibold text-greyon-ink text-base sm:text-lg">
             Creators for Space - Curated for Life.
           </p>
         </motion.div>

@@ -8,7 +8,7 @@ export default function LatestNewsSection() {
 
   return (
     <section
-      className="relative bg-white py-24 md:py-28 overflow-hidden"
+      className="relative bg-greyon-cream py-24 md:py-28 overflow-hidden"
       aria-label="Latest News"
     >
       <div className="container-large">
@@ -20,13 +20,13 @@ export default function LatestNewsSection() {
           transition={{ duration: 0.7, ease: [0.165, 0.84, 0.44, 1] }}
           className="flex items-end justify-between mb-10 md:mb-14"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-black tracking-tight leading-[1.2]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-greyon-ink tracking-tight leading-[1.2]">
             Latest News from SCHNEITEC PROPERTY
           </h2>
 
           <Link
             to="/news"
-            className="hidden sm:flex items-center justify-center w-12 h-12 rounded-full border border-black/20 text-black hover:bg-black hover:text-white transition-all duration-300 shrink-0"
+            className="hidden sm:flex items-center justify-center w-12 h-12 rounded-full border border-greyon-stone text-greyon-ink hover:bg-greyon-primary hover:border-greyon-primary hover:text-white transition-all duration-300 shrink-0"
             aria-label="View all news"
           >
             <ChevronRight size={20} />
@@ -87,7 +87,7 @@ export default function LatestNewsSection() {
         <div className="flex sm:hidden justify-center mt-8">
           <Link
             to="/news"
-            className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-black/60 hover:text-black transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.2em] uppercase text-greyon-muted hover:text-greyon-ink transition-colors"
           >
             <span>View All News</span>
             <ChevronRight size={14} />

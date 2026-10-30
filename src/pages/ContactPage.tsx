@@ -109,10 +109,10 @@ export default function ContactPage() {
   }
 
   const inputClass =
-    'w-full bg-transparent border-b border-slate-300 py-3 text-sm md:text-base focus:outline-none focus:border-[#050810] transition-colors mb-6 placeholder-slate-400 text-[#050810]'
+    'w-full bg-transparent border-b border-greyon-stone py-3 text-sm md:text-base focus:outline-none focus:border-greyon-primary transition-colors mb-6 placeholder-greyon-muted text-greyon-ink'
 
   return (
-    <main className="min-h-screen bg-white text-[#050810] pt-32 md:pt-40 pb-24">
+    <main className="min-h-screen bg-greyon-cream text-greyon-ink pt-32 md:pt-40 pb-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* ── Top Section: Headline ── */}
         <h1 className="text-5xl md:text-[72px] lg:text-[80px] font-light leading-[1.05] tracking-tight mb-16">
@@ -121,7 +121,7 @@ export default function ContactPage() {
         </h1>
 
         {/* ── Tabs Row ── */}
-        <div className="flex flex-wrap gap-8 md:gap-12 border-b border-slate-200 w-full mb-12">
+        <div className="flex flex-wrap gap-8 md:gap-12 border-b border-greyon-stone w-full mb-12">
           {TABS.map((tab) => {
             const isActive = activeTab === tab
             return (
@@ -130,14 +130,14 @@ export default function ContactPage() {
                 type="button"
                 onClick={() => setActiveTab(tab)}
                 className={`text-xs md:text-sm font-semibold tracking-widest uppercase pb-4 relative cursor-pointer transition-colors ${
-                  isActive ? 'text-[#050810]' : 'text-slate-400 hover:text-[#050810]'
+                  isActive ? 'text-greyon-ink' : 'text-greyon-muted hover:text-greyon-ink'
                 }`}
               >
                 {tab}
                 {isActive && (
                   <motion.div
                     layoutId="activeTabUnderline"
-                    className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-[#050810]"
+                    className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-greyon-primary"
                     transition={{ type: 'spring', stiffness: 450, damping: 35 }}
                   />
                 )}
@@ -158,15 +158,15 @@ export default function ContactPage() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.3 }}
-                  className="py-12 px-8 rounded-2xl bg-slate-50 border border-slate-100 flex flex-col items-start gap-4"
+                  className="py-12 px-8 rounded-2xl bg-white border border-greyon-stone flex flex-col items-start gap-4"
                 >
-                  <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-greyon-sand text-greyon-success flex items-center justify-center">
                     <CheckCircle2 size={26} />
                   </div>
-                  <h3 className="text-2xl font-light text-[#050810]">
+                  <h3 className="text-2xl font-light text-greyon-ink">
                     THANK YOU!
                   </h3>
-                  <p className="text-slate-600 font-light text-sm md:text-base leading-relaxed max-w-lg">
+                  <p className="text-greyon-muted font-light text-sm md:text-base leading-relaxed max-w-lg">
                     {activeTab === 'GENERAL' &&
                       'For reaching out to The Creators HQ. We have received your inquiry regarding our real estate projects and services. Our representative will be in touch with you shortly.'}
                     {activeTab === 'LAND PROPOSAL' &&
@@ -179,7 +179,7 @@ export default function ContactPage() {
                   <button
                     type="button"
                     onClick={resetActiveTabSubmission}
-                    className="mt-4 inline-flex items-center gap-2 bg-[#050810] text-white px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider hover:bg-slate-800 transition-colors cursor-pointer"
+                    className="mt-4 inline-flex items-center gap-2 bg-greyon-primary text-white px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-wider hover:bg-greyon-primary-hover transition-colors cursor-pointer"
                   >
                     <RefreshCw size={14} />
                     <span>Submit Another Inquiry</span>
@@ -256,7 +256,7 @@ export default function ContactPage() {
                         <button
                           type="submit"
                           disabled={isSubmitting}
-                          className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                          className="bg-greyon-primary text-white px-8 py-3 rounded-full text-sm hover:bg-greyon-primary-hover transition-colors cursor-pointer disabled:opacity-50"
                         >
                           {isSubmitting ? 'Sending...' : 'Submit'}
                         </button>
@@ -268,10 +268,10 @@ export default function ContactPage() {
                   {activeTab === 'LAND PROPOSAL' && (
                     <div>
                       <div className="mb-8">
-                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                        <h2 className="text-xl md:text-2xl font-light text-greyon-ink mb-2">
                           Present Your Land Opportunity
                         </h2>
-                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                        <p className="text-greyon-muted font-light text-sm leading-relaxed max-w-xl">
                           We welcome submissions for potential development sites that align with our vision for high-quality residential and mixed-use projects.
                         </p>
                       </div>
@@ -360,7 +360,7 @@ export default function ContactPage() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                            className="bg-greyon-primary text-white px-8 py-3 rounded-full text-sm hover:bg-greyon-primary-hover transition-colors cursor-pointer disabled:opacity-50"
                           >
                             {isSubmitting ? 'Submitting...' : 'Submit'}
                           </button>
@@ -373,10 +373,10 @@ export default function ContactPage() {
                   {activeTab === 'PRODUCT PROPOSAL' && (
                     <div>
                       <div className="mb-8">
-                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                        <h2 className="text-xl md:text-2xl font-light text-greyon-ink mb-2">
                           Introduce Your Product Innovation
                         </h2>
-                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                        <p className="text-greyon-muted font-light text-sm leading-relaxed max-w-xl">
                           Suppliers may propose materials, products, or solutions that support our commitment to exceptional quality and innovation.
                         </p>
                       </div>
@@ -400,22 +400,22 @@ export default function ContactPage() {
                             onChange={(e) =>
                               setProductForm({ ...productForm, mainProduct: e.target.value })
                             }
-                            className="w-full bg-transparent border-b border-slate-300 py-3 text-sm md:text-base focus:outline-none focus:border-[#050810] transition-colors text-[#050810] cursor-pointer appearance-none"
+                            className="w-full bg-transparent border-b border-greyon-stone py-3 text-sm md:text-base focus:outline-none focus:border-greyon-primary transition-colors text-greyon-ink cursor-pointer appearance-none"
                           >
-                            <option value="" disabled className="text-slate-400">
+                            <option value="" disabled className="text-greyon-muted">
                               Main product *
                             </option>
-                            <option value="Product Supply Only" className="text-[#050810]">
+                            <option value="Product Supply Only" className="text-greyon-ink">
                               Supply Only
                             </option>
-                            <option value="Supply & Installation" className="text-[#050810]">
+                            <option value="Supply & Installation" className="text-greyon-ink">
                               Supply &amp; Installation
                             </option>
-                            <option value="Installation Only" className="text-[#050810]">
+                            <option value="Installation Only" className="text-greyon-ink">
                               Installation Only
                             </option>
                           </select>
-                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-slate-400">
+                          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1 text-greyon-muted">
                             <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
                               <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
@@ -470,7 +470,7 @@ export default function ContactPage() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                            className="bg-greyon-primary text-white px-8 py-3 rounded-full text-sm hover:bg-greyon-primary-hover transition-colors cursor-pointer disabled:opacity-50"
                           >
                             {isSubmitting ? 'Submitting...' : 'Submit'}
                           </button>
@@ -483,10 +483,10 @@ export default function ContactPage() {
                   {activeTab === 'CAREERS' && (
                     <div>
                       <div className="mb-8">
-                        <h2 className="text-xl md:text-2xl font-light text-[#050810] mb-2">
+                        <h2 className="text-xl md:text-2xl font-light text-greyon-ink mb-2">
                           Create spaces that inspire
                         </h2>
-                        <p className="text-slate-500 font-light text-sm leading-relaxed max-w-xl">
+                        <p className="text-greyon-muted font-light text-sm leading-relaxed max-w-xl">
                           Join The Creators HQ and be part of a culture that celebrates innovation, individuality, and the art of refined living.
                         </p>
                       </div>
@@ -539,11 +539,11 @@ export default function ContactPage() {
 
                         {/* Resume upload or link */}
                         <div className="mb-8">
-                          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+                          <label className="block text-xs font-semibold uppercase tracking-wider text-greyon-muted mb-3">
                             Resume / CV (Upload File or Document Link) *
                           </label>
 
-                          <div className="relative border border-dashed border-slate-300 rounded-lg p-5 text-center hover:border-slate-500 transition-colors bg-slate-50/50">
+                          <div className="relative border border-dashed border-greyon-stone rounded-lg p-5 text-center hover:border-greyon-primary transition-colors bg-white/50">
                             <input
                               type="file"
                               accept=".pdf,.doc,.docx"
@@ -551,26 +551,26 @@ export default function ContactPage() {
                               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                             />
                             <div className="flex flex-col items-center justify-center gap-1.5">
-                              <UploadCloud size={24} className="text-slate-400" />
-                              <p className="text-xs text-slate-600 font-medium">
+                              <UploadCloud size={24} className="text-greyon-muted" />
+                              <p className="text-xs text-greyon-ink font-medium">
                                 {careerForm.fileName ? (
-                                  <span className="text-[#050810] font-semibold">
+                                  <span className="text-greyon-ink font-semibold">
                                     Selected: {careerForm.fileName}
                                   </span>
                                 ) : (
                                   'Click or drag your Resume/CV here (PDF or DOC)'
                                 )}
                               </p>
-                              <p className="text-[11px] text-slate-400">Max file size 10MB</p>
+                              <p className="text-[11px] text-greyon-muted">Max file size 10MB</p>
                             </div>
                           </div>
 
                           <div className="flex items-center gap-3 my-3">
-                            <div className="h-px bg-slate-200 flex-1" />
-                            <span className="text-[11px] uppercase tracking-wider text-slate-400 font-medium">
+                            <div className="h-px bg-greyon-stone flex-1" />
+                            <span className="text-[11px] uppercase tracking-wider text-greyon-muted font-medium">
                               Or paste link
                             </span>
-                            <div className="h-px bg-slate-200 flex-1" />
+                            <div className="h-px bg-greyon-stone flex-1" />
                           </div>
 
                           <input
@@ -588,7 +588,7 @@ export default function ContactPage() {
                           <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="bg-[#050810] text-white px-8 py-3 rounded-full text-sm hover:bg-slate-800 transition-colors cursor-pointer disabled:opacity-50"
+                            className="bg-greyon-primary text-white px-8 py-3 rounded-full text-sm hover:bg-greyon-primary-hover transition-colors cursor-pointer disabled:opacity-50"
                           >
                             {isSubmitting ? 'Submitting Application...' : 'Submit'}
                           </button>
@@ -605,9 +605,9 @@ export default function ContactPage() {
           <div className="col-span-1 lg:col-span-5 flex flex-col justify-between">
             <div>
               {/* Address Details */}
-              <div className="space-y-6 text-slate-600 font-light leading-relaxed">
+              <div className="space-y-6 text-greyon-ink/80 font-light leading-relaxed">
                 <div>
-                  <h3 className="text-base font-medium text-[#050810] mb-1">
+                  <h3 className="text-base font-medium text-greyon-ink mb-1">
                     The Creators HQ Co, Ltd.
                   </h3>
                   <p className="text-sm">
@@ -615,34 +615,34 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 flex items-start gap-3 text-sm">
-                  <Train size={18} className="text-slate-400 shrink-0 mt-0.5" />
+                <div className="pt-2 border-t border-greyon-stone/40 flex items-start gap-3 text-sm">
+                  <Train size={18} className="text-greyon-muted shrink-0 mt-0.5" />
                   <div>
-                    <span className="font-medium text-[#050810] block">
+                    <span className="font-medium text-greyon-ink block">
                       Public Transportation
                     </span>
                     <span>MRT Rama 9 Station, Exit 1</span>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center gap-4 text-sm">
+                <div className="pt-2 border-t border-greyon-stone/40 flex flex-col sm:flex-row sm:items-center gap-4 text-sm">
                   <div className="flex items-center gap-2">
-                    <Phone size={15} className="text-slate-400 shrink-0" />
+                    <Phone size={15} className="text-greyon-muted shrink-0" />
                     <span>T :</span>
                     <a
                       href="tel:022462195"
-                      className="text-[#050810] hover:underline underline-offset-4 font-normal"
+                      className="text-greyon-ink hover:underline underline-offset-4 font-normal"
                     >
                       (+66) 02 246 2195
                     </a>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <Mail size={15} className="text-slate-400 shrink-0" />
+                    <Mail size={15} className="text-greyon-muted shrink-0" />
                     <span>E :</span>
                     <a
                       href="mailto:info@thecreatorshq.com?subject=Contact%20The%20Creators%20HQ"
-                      className="text-[#050810] hover:underline underline-offset-4 font-normal"
+                      className="text-greyon-ink hover:underline underline-offset-4 font-normal"
                     >
                       info@thecreatorshq.com
                     </a>
@@ -651,14 +651,14 @@ export default function ContactPage() {
               </div>
 
               {/* Map Placeholder */}
-              <div className="w-full aspect-video bg-slate-100 mt-8 mb-12 rounded-xl overflow-hidden relative group border border-slate-200/60 shadow-sm">
+              <div className="w-full aspect-video bg-greyon-sand mt-8 mb-12 rounded-xl border border-greyon-stone/60 shadow-sm overflow-hidden relative group">
                 <img
                   src="https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/69883028dc4a1440775dad60_decoration.webp"
                   alt="Chamnan Phenjati Business Center - The Creators HQ"
                   className="w-full h-full object-cover object-center filter grayscale contrast-125 group-hover:scale-105 group-hover:filter-none transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-5 text-white">
-                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-slate-300 mb-1">
+                  <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-greyon-sand mb-1">
                     <Building2 size={14} />
                     <span>Headquarters &amp; Executive Office</span>
                   </div>
@@ -666,8 +666,8 @@ export default function ContactPage() {
                     Chamnan Phenjati Business Center, Rama 9
                   </p>
                 </div>
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-medium text-[#050810] flex items-center gap-1.5 shadow-sm">
-                  <MapPin size={12} className="text-rose-500" />
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-medium text-greyon-ink flex items-center gap-1.5 shadow-sm">
+                  <MapPin size={12} className="text-greyon-danger" />
                   <span>Bangkok 10310</span>
                 </div>
               </div>
@@ -676,12 +676,12 @@ export default function ContactPage() {
             {/* Agent & Affiliate Cards */}
             <div className="space-y-4">
               {/* Creators Agent Card */}
-              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200/50 hover:border-slate-300 transition-all flex flex-col justify-between">
+              <div className="bg-white p-6 rounded-lg border border-greyon-stone hover:border-greyon-gold/50 transition-all flex flex-col justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-[#050810] mb-2">
+                  <h3 className="text-base font-semibold text-greyon-ink mb-2">
                     Creators Agent
                   </h3>
-                  <p className="text-xs md:text-sm text-slate-600 font-light leading-relaxed mb-4">
+                  <p className="text-xs md:text-sm text-greyon-muted font-light leading-relaxed mb-4">
                     Become a Creators HQ Agent and expand your portfolio with premium creative properties. Refer customers, secure bookings, and earn commission on every successful sales.
                   </p>
                 </div>
@@ -696,7 +696,7 @@ export default function ContactPage() {
                         subject: 'Application: Creators Agent Network',
                       }))
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#050810] hover:text-slate-600 transition-colors cursor-pointer group"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-greyon-primary hover:text-greyon-primary-hover transition-colors cursor-pointer group"
                   >
                     <span>Join Our Network</span>
                     <ArrowUpRight
@@ -708,12 +708,12 @@ export default function ContactPage() {
               </div>
 
               {/* Creators Affiliate Card */}
-              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200/50 hover:border-slate-300 transition-all flex flex-col justify-between">
+              <div className="bg-white p-6 rounded-lg border border-greyon-stone hover:border-greyon-gold/50 transition-all flex flex-col justify-between">
                 <div>
-                  <h3 className="text-base font-semibold text-[#050810] mb-2">
+                  <h3 className="text-base font-semibold text-greyon-ink mb-2">
                     Creators Affiliate
                   </h3>
-                  <p className="text-xs md:text-sm text-slate-600 font-light leading-relaxed mb-4">
+                  <p className="text-xs md:text-sm text-greyon-muted font-light leading-relaxed mb-4">
                     Become a Creators HQ affiliate and earn from your referral. Share our creative living spaces with your audience and turn your network into passive income.
                   </p>
                 </div>
@@ -728,7 +728,7 @@ export default function ContactPage() {
                         subject: 'Application: Creators Affiliate Program',
                       }))
                     }}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[#050810] hover:text-slate-600 transition-colors cursor-pointer group"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-greyon-primary hover:text-greyon-primary-hover transition-colors cursor-pointer group"
                   >
                     <span>Apply as Affiliate</span>
                     <ArrowUpRight
