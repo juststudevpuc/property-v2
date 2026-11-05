@@ -6,19 +6,12 @@ import PromotionSection from '@/components/sections/PromotionSection'
 import LatestNewsSection from '@/components/sections/LatestNewsSection'
 
 /**
- * HomePage — composes all primary homepage sections.
- *
- * Current composition:
- *  ✅ HeroSection — full-viewport parallax entrance
- *  ✅ ProjectsSlider — touch-friendly luxury project cards
- *  ✅ AboutSection — typography-focused philosophy & milestones
- *  ✅ VideoShowcaseSection — deep navy architectural film modal
- *  ✅ PromotionSection — split-screen slider showcase
- *  ✅ LatestNewsSection — 4-column latest news grid
+ * HomePage — composes all primary homepage sections tailored strictly
+ * to the GREYON contemporary luxury minimalism design system.
  */
 export default function HomePage() {
   return (
-    <>
+    <div className="min-h-screen bg-greyon-cream bg-white text-greyon-ink selection:bg-greyon-gold/20 selection:text-greyon-dark font-sans">
       <HeroSection />
       <VideoShowcaseSection />
       <ProjectsSlider />
@@ -30,6 +23,6 @@ export default function HomePage() {
         ariaLabel="Staying Showcase"
       />
       <LatestNewsSection />
-    </>
+    </div>
   )
 }

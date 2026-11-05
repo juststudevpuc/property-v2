@@ -1,53 +1,55 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform, type Variants } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 
 const fadeIn: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.8, ease: [0.165, 0.84, 0.44, 1] },
+    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] },
   },
 }
 
-const fadeUpVariants: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.165, 0.84, 0.44, 1] },
-  },
+interface CareService {
+  index: string
+  title: string
+  subtitle: string
+  intro: string
+  bullets: string[]
+  footnote: string
+  image: string
 }
 
-const PROPERTY_CARE_SLIDES = [
+const PROPERTY_CARE_SLIDES: CareService[] = [
   {
-    title: 'Home Check-Up',
-    subtitle: 'Confidence in Every Corner',
+    index: '01',
+    title: 'Precision Home Inspection',
+    subtitle: 'Structural Assurance & Performance',
     intro:
-      'Complimentary inspection of condominiums and homes up to 2 times during the structural warranty period*',
+      'Complimentary bi-annual technical audits conducted across all primary building envelopes during the active warranty tenure.',
     bullets: [
-      'Covers 7 key categories: doors & windows, flooring/walls/ceilings/stairs, electrical systems, communication systems, fire protection & alarm systems, appliances, and plumbing & sanitary systems',
-      'Scheduled 2 times a year or before the warranty expires (from the date of ownership transfer)',
-      'Conducted by our professional technical team and on-site staff',
+      'Comprehensive audit of 7 critical domains: Fenestration, interior surfaces, acoustic barriers, MEP installations, fire safety systems, and automated valves.',
+      'Conducted bi-annually by licensed architectural engineers and senior technicians.',
+      'Includes digital diagnostic reports with preventative maintenance recommendations.',
     ],
-    footnote: '*Terms and conditions as specified by the company',
+    footnote: '*Terms, inspection schedules, and warranty scope apply per residential agreement.',
     image:
-      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/697f1c7bdc0dcce7eaaeb088_property-care.webp',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85',
   },
   {
-    title: 'Healthy Home Event',
-    subtitle: 'Wellness for Your Home',
+    index: '02',
+    title: 'Wellness & Habitat Servicing',
+    subtitle: 'Preventative Longevity Care',
     intro:
-      'Complimentary inspection and basic maintenance of selected installed products within condominiums, homes, or townhomes',
+      'Specialized maintenance protocols for engineered finishes, acoustic assemblies, and integrated climate systems.',
     bullets: [
-      'Carried out by authorized product specialists*',
-      'Up to 2 products can be inspected per event',
+      'Certified technicians oversee calibration of concealed air filtration and microclimate systems.',
+      'Tactile surface treatments for natural timber and imported natural stone slabs.',
+      'Flexible annual concierge scheduling tailored to resident lifestyle preferences.',
     ],
-    footnote: '*Terms and conditions as specified by the company',
+    footnote: '*Terms, inspection schedules, and warranty scope apply per residential agreement.',
     image:
-      'https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/698cb067fb0239be942f8d17_healthy%20home%20event.webp',
+      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85',
   },
 ]
 
@@ -61,18 +63,18 @@ export default function ServicesPage() {
     offset: ['start start', 'end end'],
   })
 
-  // Smooth drawing and subtle parallax for the ultra-tall architectural wireframe
+  // Smooth drawing and subtle parallax for the architectural wireframe
   const pathLength = useTransform(scrollYProgress, [0, 0.7], [0.15, 1])
-  const buildingY = useTransform(scrollYProgress, [0, 1], [25, -25])
+  const buildingY = useTransform(scrollYProgress, [0, 1], [30, -30])
 
-  // Vertical scroll transformation: 4 min-h-screen blocks smoothly cycle through center
+  // Vertical scroll transformation for text blocks
   const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-75%'])
 
   return (
-    <div className="min-h-screen bg-greyon-dark text-greyon-sand">
-      {/* ── Edge-to-Edge Hero Section ── */}
-      <section className="relative w-full h-screen min-h-[600px] overflow-hidden">
-        {/* Background Image Container */}
+    <div className="min-h-screen bg-greyon-dark text-greyon-sand select-none">
+      
+      {/* ── 1. Edge-to-Edge Hero Section ────────────────────────── */}
+      <section className="relative w-full h-[90vh] min-h-[640px] overflow-hidden bg-greyon-dark">
         <motion.div
           variants={fadeIn}
           initial="hidden"
@@ -80,71 +82,42 @@ export default function ServicesPage() {
           className="absolute inset-0 w-full h-full"
         >
           <img
-            src="https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/697daee1a57b9ce537587461_service-hero.webp"
-            alt="Services - Preserving Value, Elevating Living"
-            className="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=85"
+            alt="GREYON Services - Preserving Value, Elevating Living"
+            className="w-full h-full object-cover opacity-60"
           />
-
-          {/* Gradient Overlay focused on the bottom */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-greyon-dark" />
+          <div className="absolute inset-0 bg-gradient-to-t from-greyon-dark via-greyon-dark/40 to-transparent" />
         </motion.div>
 
-        {/* Split Column Text Content */}
-        <div className="absolute inset-x-0 bottom-0 z-10 w-full px-6 md:px-12 lg:px-24 pb-12 md:pb-20">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-end">
-            {/* Left: Headline */}
-            <div className="md:col-span-6 lg:col-span-5">
-              <h1 className="text-4xl md:text-5xl lg:text-[56px] font-light text-white tracking-tight leading-[1.1]">
-                PRESERVING VALUE,<br />ELEVATING LIVING
+        {/* Editorial Split Header Block */}
+        <div className="absolute inset-x-0 bottom-0 z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 pb-16 md:pb-24">
+          <div className="border-t border-white/20 pt-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-end">
+            <div className="md:col-span-6 lg:col-span-6">
+              <span className="font-display text-xs tracking-[0.3em] uppercase text-greyon-gold mb-4 block">
+                Asset Stewardship &amp; Hospitality
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-light text-white tracking-tight leading-[1.1]">
+                Preserving Value,<br />Elevating Living
               </h1>
             </div>
 
-            {/* Right: Paragraph */}
-            <div className="md:col-span-6 lg:col-span-6 lg:col-start-7">
-              <p className="text-sm md:text-base font-light text-greyon-sand leading-relaxed">
-                At The Creators HQ, we are committed to safeguarding and enhancing the long-term
-                value of our customers through dedicated after-sales services. These include brokerage
-                solutions for rental management and resales, as well as comprehensive home care services.
-                Our objective is to maximize asset performance, ensure lasting satisfaction, and foster
-                long-term engagement with our residents, while also providing solutions that address
-                their broader investment and property needs.
+            <div className="md:col-span-6 lg:col-span-6">
+              <p className="font-body text-sm sm:text-base font-light text-greyon-sand/90 leading-relaxed">
+                At GREYON, asset management extends beyond handover. Through dedicated brokerage, 
+                leasing advisory, and precision home health audits, we preserve the architectural integrity 
+                and long-term yield of every residence while ensuring an effortless ownership experience.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Section Header: BROKERAGE (Symmetrically aligned with columns below) ── */}
-      <section className="bg-greyon-dark pt-20 md:pt-28 pb-10 md:pb-14 ">
-        <div className="w-full flex flex-col md:flex-row">
-          {/* Left: Aligned symmetrically with left column */}
-          <div className="w-full md:w-1/2 px-6 md:px-12 lg:px-20 flex items-end">
-            <span className="text-xs uppercase tracking-[0.3em] text-greyon-gold font-light">
-              SERVICE
-            </span>
-          </div>
-
-          {/* Right: Aligned symmetrically with right column content */}
-          <div className="w-full md:w-1/2 px-6 md:px-12 lg:px-20 mt-6 md:mt-0">
-            <div className="max-w-lg">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-white tracking-tight leading-none mb-2">
-                BROKERAGE
-              </h2>
-              <span className="text-xs sm:text-sm font-light text-greyon-gold tracking-widest uppercase">
-                by Space Management
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Section 1: Sticky Scroll BROKERAGE Wireframe Section (300vh) ── */}
+      {/* ── 2. Sticky Scroll BROKERAGE Wireframe Section (300vh) ─ */}
       <section ref={brokerageRef} className="relative h-[300vh] bg-greyon-dark text-greyon-sand">
-        {/* Sticky Container locks to viewport */}
         <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row overflow-hidden">
-
-          {/* Left Column (The Building: Sleek Ultra-Tall Architectural Wireframe) */}
-          <div className="absolute inset-0 md:relative md:inset-auto w-full md:w-1/2 h-full flex items-end justify-center p-4 md:p-8 z-10 pointer-events-none opacity-20 md:opacity-100">
+          
+          {/* Left Column: Sleek Ultra-Tall Architectural Wireframe */}
+          <div className="absolute inset-0 md:relative md:inset-auto w-full md:w-1/2 h-full flex items-end justify-center p-6 md:p-12 z-10 pointer-events-none opacity-20 md:opacity-100">
             <motion.div
               style={{ y: buildingY }}
               className="w-full max-w-[340px] h-[80vh] md:h-[85vh] flex items-end justify-center"
@@ -153,9 +126,9 @@ export default function ServicesPage() {
                 viewBox="0 0 320 840"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-full h-full"
+                className="w-full h-full drop-shadow-[0_0_12px_rgba(255,255,255,0.15)]"
               >
-                {/* Ground Datum Lines */}
+                {/* Datum Lines */}
                 <motion.line
                   x1="15"
                   y1="800"
@@ -177,8 +150,7 @@ export default function ServicesPage() {
                   style={{ pathLength }}
                 />
 
-                {/* ── 1. Central Ultra-Tall Skyscraper (Needle & Angular Crown) ── */}
-                {/* Spire Tip */}
+                {/* Central Spire & Core Tower */}
                 <motion.line
                   x1="160"
                   y1="15"
@@ -189,7 +161,6 @@ export default function ServicesPage() {
                   strokeOpacity="0.8"
                   style={{ pathLength }}
                 />
-                {/* Outer Shell & Sharp Angular Roof */}
                 <motion.path
                   d="M110 800 L110 110 L160 40 L210 110 L210 800"
                   stroke="white"
@@ -197,7 +168,6 @@ export default function ServicesPage() {
                   strokeOpacity="0.75"
                   style={{ pathLength }}
                 />
-                {/* Long Uninterrupted Vertical Mullions */}
                 <motion.path
                   d="
                     M122 98 L122 800
@@ -213,18 +183,11 @@ export default function ServicesPage() {
                   strokeOpacity="0.4"
                   style={{ pathLength }}
                 />
-                {/* Minimalist Horizontal Floor Rings */}
                 <motion.path
                   d="
-                    M110 180 H210
-                    M110 250 H210
-                    M110 320 H210
-                    M110 390 H210
-                    M110 460 H210
-                    M110 530 H210
-                    M110 600 H210
-                    M110 670 H210
-                    M110 740 H210
+                    M110 180 H210 M110 250 H210 M110 320 H210
+                    M110 390 H210 M110 460 H210 M110 530 H210
+                    M110 600 H210 M110 670 H210 M110 740 H210
                   "
                   stroke="white"
                   strokeWidth="0.6"
@@ -232,7 +195,7 @@ export default function ServicesPage() {
                   style={{ pathLength }}
                 />
 
-                {/* ── 2. Left Slender Tower (Sharp Chamfer Roof) ── */}
+                {/* Left Flank */}
                 <motion.path
                   d="M35 800 L35 230 L95 160 L95 800"
                   stroke="white"
@@ -240,36 +203,15 @@ export default function ServicesPage() {
                   strokeOpacity="0.65"
                   style={{ pathLength }}
                 />
-                {/* Long Uninterrupted Vertical Mullions */}
                 <motion.path
-                  d="
-                    M50 212 L50 800
-                    M65 195 L65 800
-                    M80 178 L80 800
-                  "
+                  d="M50 212 L50 800 M65 195 L65 800 M80 178 L80 800"
                   stroke="white"
                   strokeWidth="0.65"
                   strokeOpacity="0.35"
                   style={{ pathLength }}
                 />
-                {/* Subtle Horizontal Floor Lines */}
-                <motion.path
-                  d="
-                    M35 290 H95
-                    M35 360 H95
-                    M35 430 H95
-                    M35 500 H95
-                    M35 570 H95
-                    M35 640 H95
-                    M35 710 H95
-                  "
-                  stroke="white"
-                  strokeWidth="0.5"
-                  strokeOpacity="0.2"
-                  style={{ pathLength }}
-                />
 
-                {/* ── 3. Right Tower (Stepped Angular Facet) ── */}
+                {/* Right Flank */}
                 <motion.path
                   d="M225 800 L225 140 L285 200 L285 800"
                   stroke="white"
@@ -277,258 +219,230 @@ export default function ServicesPage() {
                   strokeOpacity="0.65"
                   style={{ pathLength }}
                 />
-                {/* Long Uninterrupted Vertical Mullions */}
                 <motion.path
-                  d="
-                    M240 155 L240 800
-                    M255 170 L255 800
-                    M270 185 L270 800
-                  "
+                  d="M240 155 L240 800 M255 170 L255 800 M270 185 L270 800"
                   stroke="white"
                   strokeWidth="0.65"
                   strokeOpacity="0.35"
-                  style={{ pathLength }}
-                />
-                {/* Subtle Horizontal Floor Lines */}
-                <motion.path
-                  d="
-                    M225 270 H285
-                    M225 340 H285
-                    M225 410 H285
-                    M225 480 H285
-                    M225 550 H285
-                    M225 620 H285
-                    M225 690 H285
-                  "
-                  stroke="white"
-                  strokeWidth="0.5"
-                  strokeOpacity="0.2"
                   style={{ pathLength }}
                 />
               </svg>
             </motion.div>
           </div>
 
-          {/* Right Column (Scrolling Content: 4 min-h-screen centered blocks) */}
+          {/* Right Column: Narrative Steps */}
           <div className="w-full md:w-1/2 h-full relative z-10 overflow-hidden flex flex-col px-6 md:px-12 lg:px-20">
             <motion.div style={{ y: contentY }} className="flex flex-col">
-              {/* Block 1: Space Management */}
-              <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
-                  01 / SUBSIDIARY
+              
+              {/* Block 1 */}
+              <div className="min-h-screen flex flex-col justify-center max-w-lg  pl-8 my-auto">
+                <span className="font-display text-xs tracking-[0.25em] text-greyon-gold uppercase block mb-3">
+                  01 / Stewardship
                 </span>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
-                  Space Management
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
+                  Asset Management
                 </h3>
-                <h4 className="text-sm font-medium text-white/90 mb-4">
-                  Protecting Your Interests, Growing Your Value
+                <h4 className="font-display text-xs tracking-wider uppercase text-white/80 mb-4">
+                  Protecting Interests, Sustaining Yield
                 </h4>
-                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
-                  Through our subsidiary, Space Management, we believe every property is a valuable
-                  investment. Our role is to safeguard your interests while ensuring your assets continue
-                  to generate income and appreciate in value. With trusted services in both rental
-                  management and resale, we provide peace of mind that your property is always in good
-                  hands.
+                <p className="font-body text-sm sm:text-base font-light text-greyon-sand/85 leading-relaxed">
+                  Every residence is a legacy investment. Our role is to safeguard capital 
+                  through proactive tenancy curation, transparent financial reporting, and comprehensive 
+                  resale positioning to preserve long-term asset value.
                 </p>
               </div>
 
-              {/* Block 2: Rental Services */}
-              <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
-                  02 / LEASING
+              {/* Block 2 */}
+              <div className="min-h-screen flex flex-col justify-center max-w-lg  pl-8 my-auto">
+                <span className="font-display text-xs tracking-[0.25em] text-greyon-gold uppercase block mb-3">
+                  02 / Leasing
                 </span>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
-                  Rental Services
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
+                  Private Leasing
                 </h3>
-                <h4 className="text-sm font-medium text-white/90 mb-4">
-                  Seamless Rentals, Effortless Income
+                <h4 className="font-display text-xs tracking-wider uppercase text-white/80 mb-4">
+                  Seamless Tenancies, Curated Occupants
                 </h4>
-                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
-                  From finding the right tenants and managing rental collections to property maintenance
-                  and housekeeping, we handle every step with care. Our goal is to always keep your unit
-                  rental-ready, so you can enjoy effortless Passive Income while knowing your investment
-                  is being looked after with integrity.
+                <p className="font-body text-sm sm:text-base font-light text-greyon-sand/85 leading-relaxed">
+                  From multi-channel tenant screening to rent collection, contract administration, and 
+                  turnover housekeeping, our hospitality desk ensures your residence remains pristine and 
+                  consistently yielding without administrative friction.
                 </p>
               </div>
 
-              {/* Block 3: Resales */}
-              <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
-                  03 / BROKERAGE
+              {/* Block 3 */}
+              <div className="min-h-screen flex flex-col justify-center max-w-lg  pl-8 my-auto">
+                <span className="font-display text-xs tracking-[0.25em] text-greyon-gold uppercase block mb-3">
+                  03 / Secondary Market
                 </span>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
-                  Resales
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
+                  Bespoke Resales
                 </h3>
-                <h4 className="text-sm font-medium text-white/90 mb-4">
-                  Stronger Network, Higher Value
+                <h4 className="font-display text-xs tracking-wider uppercase text-white/80 mb-4">
+                  Private Network, Premium Realization
                 </h4>
-                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
-                  With comprehensive marketing strategies and a strong network of co-agents, we help you
-                  secure a selling price above market value. We also manage the entire transfer process
-                  with transparency and efficiency, so you never have to worry—simply trust us to deliver
-                  the best outcome for your property.
+                <p className="font-body text-sm sm:text-base font-light text-greyon-sand/85 leading-relaxed">
+                  Leveraging an established network of ultra-high-net-worth investors and discreet 
+                  private brokerage channels, we market signature residences with confidentiality, 
+                  achieving optimal valuation and effortless title transfers.
                 </p>
               </div>
 
-              {/* Block 4: Property Care */}
-              <div className="min-h-screen flex flex-col justify-center max-w-lg">
-                <span className="text-xs uppercase tracking-[0.25em] text-greyon-gold block mb-2 font-mono">
-                  04 / STEWARDSHIP
+              {/* Block 4 */}
+              <div className="min-h-screen flex flex-col justify-center max-w-lg  pl-8 my-auto">
+                <span className="font-display text-xs tracking-[0.25em] text-greyon-gold uppercase block mb-3">
+                  04 / Maintenance
                 </span>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
-                  Property Care
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight mb-4">
+                  Residence Care
                 </h3>
-                <h4 className="text-sm font-medium text-white/90 mb-4">
-                  Preserving Pristine Condition &amp; Security
+                <h4 className="font-display text-xs tracking-wider uppercase text-white/80 mb-4">
+                  Enduring Condition &amp; Security
                 </h4>
-                <p className="text-sm sm:text-base font-light text-greyon-sand leading-relaxed">
-                  Our dedicated Home Care Service ensures your residence remains in its prime condition—safe,
-                  well-maintained, and rental-ready. We provide scheduled engineering check-ups, product
-                  servicing, and preventative maintenance for total peace of mind.
+                <p className="font-body text-sm sm:text-base font-light text-greyon-sand/85 leading-relaxed">
+                  Our dedicated engineering desk coordinates scheduled structural check-ups, 
+                  appliance diagnostics, and preventative servicing to ensure your habitat operates at peak 
+                  acoustic and functional performance.
                 </p>
               </div>
             </motion.div>
           </div>
 
-          {/* Bottom Right: Horizontal Circle Outlined Buttons */}
-          <div className="absolute bottom-8 right-6 md:bottom-12 md:right-12 z-30 flex flex-wrap items-center justify-end gap-2.5 pointer-events-auto">
-            {['Rental', 'Cleaning', 'Laundry', 'Decoration', 'Resales'].map((tag) => (
-              <button
+          {/* Bottom Right: Clean Sharp Typology Filters */}
+          <div className="absolute bottom-8 right-6 md:bottom-12 md:right-12 z-30 flex flex-wrap items-center justify-end gap-2 pointer-events-auto">
+            {['Leasing', 'Housekeeping', 'Interior Curation', 'Discreet Resale'].map((tag) => (
+              <span
                 key={tag}
-                type="button"
-                className="px-4 py-2 rounded-full border border-white/30 text-[11px] sm:text-xs tracking-wider uppercase font-light text-white bg-transparent hover:border-white hover:bg-white hover:text-greyon-dark transition-all duration-300"
+                className="px-3.5 py-1.5 border border-white/20 text-[11px] tracking-widest uppercase font-display text-white/80 bg-greyon-dark/60 backdrop-blur-sm"
               >
                 {tag}
-              </button>
+              </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Section 2: PROPERTY CARE (Light Theme Header Block) ── */}
-      <section className="bg-greyon-cream py-16 px-6 md:px-12 text-greyon-ink">
-        <div className="container-large grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
-          {/* Left Column (col-span-4) */}
-          <div className="md:col-span-4">
-            <span className="text-greyon-muted uppercase tracking-widest text-sm font-medium">
-              SERVICE
-            </span>
-          </div>
-
-          {/* Right Column (col-span-8) */}
-          <div className="md:col-span-8">
-            <h2 className="text-greyon-ink text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-none">
-              PROPERTY CARE
-            </h2>
-            <p className="text-greyon-muted font-light text-base sm:text-lg mt-4">
-              Protecting Your Home. Preserving Its Value.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Full-Bleed Image Container with Bottom Dark Gradient ── */}
-      <section className="relative w-full h-[40vh] md:h-[70vh] overflow-hidden">
-        {/* Warm, modern home interior image */}
-        <img
-          src="https://cdn.prod.website-files.com/692e90b31f7640dcffe64cf6/697f1c7bdc0dcce7eaaeb088_property-care.webp"
-          alt="Property Care Interior"
-          className="w-full h-full object-cover"
-        />
-
-        {/* Bottom Dark Gradient fading upwards */}
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-greyon-dark via-greyon-dark/80 to-transparent pointer-events-none" />
-
-        {/* Overlay Text Inside the Gradient */}
-        <div className="absolute inset-x-0 bottom-0 px-6 md:px-12 pb-12 z-10 w-full">
-          <div className="container-large flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12">
-            {/* Left side: Large white headline */}
-            <div className="md:w-1/2">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl font-light text-white tracking-tight leading-none">
-                PROPERTY CARE
-              </h3>
+      {/* ── 3. PROPERTY CARE (Editorial Monograph Section) ──────── */}
+      <section className="bg-greyon-cream py-28 md:py-36 text-greyon-ink border-t border-greyon-stone/40">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
+          
+          {/* Header */}
+          <div className="border-b border-greyon-stone/40 pb-10 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <span className="font-display text-xs tracking-[0.3em] uppercase text-greyon-gold-deep">
+                Stewardship Protocols
+              </span>
+              <h2 className="mt-3 font-display text-4xl sm:text-5xl font-light tracking-tight text-greyon-ink">
+                Architectural Home Care
+              </h2>
             </div>
 
-            {/* Right side: Introductory paragraph */}
-            <div className="md:w-1/2">
-              <p className="text-white/80 text-sm md:text-base leading-relaxed font-light max-w-xl">
-                At The Creators HQ, our Home Care Service ensures your residence remains in its best
-                condition—safe, well-maintained, and rental-ready. We go beyond standard after-sales
-                support to protect your investment and provide peace of mind.
-              </p>
+            {/* Slider Tab Navigation */}
+            <div className="flex items-center space-x-6">
+              {PROPERTY_CARE_SLIDES.map((slide, idx) => {
+                const isActive = activeSlide === idx
+                return (
+                  <button
+                    key={slide.index}
+                    type="button"
+                    onClick={() => setActiveSlide(idx)}
+                    className="group flex items-baseline space-x-2 pb-1 border-b transition-all duration-300 focus:outline-none"
+                    style={{
+                      borderColor: isActive ? 'var(--color-greyon-gold-deep)' : 'transparent',
+                    }}
+                  >
+                    <span
+                      className={`font-display text-xs tracking-wider transition-colors duration-300 ${
+                        isActive ? 'text-greyon-gold-deep font-semibold' : 'text-greyon-stone group-hover:text-greyon-muted'
+                      }`}
+                    >
+                      {slide.index}
+                    </span>
+                    <span
+                      className={`font-display text-sm tracking-wider uppercase transition-colors duration-300 ${
+                        isActive ? 'text-greyon-ink font-medium' : 'text-greyon-muted group-hover:text-greyon-ink'
+                      }`}
+                    >
+                      {slide.title}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
+          </div>
+
+          {/* Exhibition Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left: Interactive Details */}
+            <div className="lg:col-span-5">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <span className="font-display text-xs tracking-[0.25em] uppercase text-greyon-gold-deep mb-2 block">
+                    {PROPERTY_CARE_SLIDES[activeSlide].subtitle}
+                  </span>
+                  
+                  <h3 className="font-display text-2xl sm:text-3xl font-light text-greyon-ink tracking-tight mb-4">
+                    {PROPERTY_CARE_SLIDES[activeSlide].title}
+                  </h3>
+                  
+                  <p className="font-body text-sm sm:text-base text-greyon-muted leading-relaxed font-light mb-6">
+                    {PROPERTY_CARE_SLIDES[activeSlide].intro}
+                  </p>
+
+                  <div className="border-t border-greyon-stone/40 pt-6 space-y-4 mb-6">
+                    {PROPERTY_CARE_SLIDES[activeSlide].bullets.map((bullet, idx) => (
+                      <div key={idx} className="flex items-start space-x-3">
+                        <span className="font-display text-xs text-greyon-gold-deep mt-0.5">•</span>
+                        <p className="font-body text-xs sm:text-sm text-greyon-muted leading-relaxed font-light">
+                          {bullet}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="font-display text-[11px] text-greyon-muted/80 tracking-wide italic">
+                    {PROPERTY_CARE_SLIDES[activeSlide].footnote}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Right: Sharp Architectural Photography Frame */}
+            <div className="lg:col-span-7">
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-none bg-greyon-sand border border-greyon-stone/40">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeSlide}
+                    src={PROPERTY_CARE_SLIDES[activeSlide].image}
+                    alt={PROPERTY_CARE_SLIDES[activeSlide].title}
+                    initial={{ opacity: 0, scale: 1.03 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+
+                {/* Corner Frame Accent */}
+                <div className="absolute bottom-4 right-4 pointer-events-none">
+                  <span className="font-display text-[11px] tracking-[0.2em] uppercase text-white/90 bg-greyon-dark/70 px-3 py-1">
+                    Phase {PROPERTY_CARE_SLIDES[activeSlide].index}
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── Property Care Slider: White Content Container ── */}
-      <section className="bg-greyon-cream py-16 md:py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-4xl">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeSlide}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
-            >
-              <h3 className="text-3xl md:text-[40px] text-greyon-ink font-light mb-6">
-                {PROPERTY_CARE_SLIDES[activeSlide].title}
-              </h3>
-              <h4 className="text-sm font-semibold text-greyon-ink mb-2">
-                {PROPERTY_CARE_SLIDES[activeSlide].subtitle}
-              </h4>
-              <p className="text-greyon-muted font-light text-sm md:text-base mb-6">
-                {PROPERTY_CARE_SLIDES[activeSlide].intro}
-              </p>
-              <ul className="list-disc ml-5 text-greyon-muted font-light text-sm md:text-base space-y-2 mb-8">
-                {PROPERTY_CARE_SLIDES[activeSlide].bullets.map((bullet, idx) => (
-                  <li key={idx}>{bullet}</li>
-                ))}
-              </ul>
-              <p className="text-xs text-greyon-muted mt-4">
-                {PROPERTY_CARE_SLIDES[activeSlide].footnote}
-              </p>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </section>
-
-      {/* ── Full-Bleed Lifestyle Image Block with Animated Crossfade & Dots ── */}
-      <section className="relative w-full h-[50vh] md:h-[60vh] overflow-hidden bg-greyon-dark">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={activeSlide}
-            src={PROPERTY_CARE_SLIDES[activeSlide].image}
-            alt={PROPERTY_CARE_SLIDES[activeSlide].title}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
-            className="w-full h-full object-cover"
-          />
-        </AnimatePresence>
-
-        {/* Interactive Slider Dots */}
-        <div className="absolute bottom-8 inset-x-0 flex justify-center gap-3 z-10">
-          {PROPERTY_CARE_SLIDES.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => setActiveSlide(idx)}
-              aria-label={`Slide ${idx + 1}`}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                activeSlide === idx
-                  ? 'bg-white scale-125'
-                  : 'bg-white/50 cursor-pointer hover:bg-white/80'
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-
-
-     
     </div>
   )
 }

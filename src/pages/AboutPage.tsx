@@ -1,19 +1,15 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import {
-  ArrowRight,
-  Gem,
-  Layers,
-  Leaf,
-  Users,
-} from 'lucide-react'
+import { ArrowRight, Gem, Layers, Leaf, Users } from 'lucide-react'
 
-/* ─── Tabs Data for Interactive Hero ─────────────────────── */
+/* ─── Hero Tabbed Monograph Data ──────────────────────────── */
 interface AboutTab {
   id: string
+  index: string
   label: string
   title: string
+  subtitle: string
   image: string
   description: [string, string]
 }
@@ -21,17 +17,21 @@ interface AboutTab {
 const ABOUT_TABS: AboutTab[] = [
   {
     id: 'about',
-    label: 'About us',
+    index: '01',
+    label: 'About Us',
+    subtitle: 'The Architectural Thesis',
     title: 'Crafting Habitats Where Architecture Meets The Human Soul',
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85',
     description: [
-      'Established since 2015, Schneitec Property dedicates itself to redefining modern living. With a customer-first philosophy, we craft residences that combine innovation, architectural purity, and human touch, delivering homes that elevate everyday life.',
-      'We reject repetitive developer formulas to champion tailored architectural spaces centered on wellness, clarity, and enduring distinction across Bangkok and beyond.',
+      'Established to redefine modern sanctuary living, GREYON dedicates itself to architectural purity. With a resident-first philosophy, we craft spaces that balance quiet innovation with timeless human connection.',
+      'We reject repetitive development formulas to champion bespoke spaces centered on spatial clarity, acoustic calm, and enduring architectural distinction.',
     ],
   },
   {
     id: 'vision',
+    index: '02',
     label: 'Vision',
+    subtitle: 'Future Habitat',
     title: 'Pioneering Human-Centric Architectural Wellness',
     image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85',
     description: [
@@ -41,7 +41,9 @@ const ABOUT_TABS: AboutTab[] = [
   },
   {
     id: 'mission',
+    index: '03',
     label: 'Mission',
+    subtitle: 'Enduring Purpose',
     title: 'Transforming Cities Through Purpose and Emotion',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85',
     description: [
@@ -51,7 +53,9 @@ const ABOUT_TABS: AboutTab[] = [
   },
   {
     id: 'culture',
+    index: '04',
     label: 'Culture',
+    subtitle: 'Studio Ethos',
     title: 'An Obsession with Craft, Detail, and Integrity',
     image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2000&q=85',
     description: [
@@ -61,53 +65,13 @@ const ABOUT_TABS: AboutTab[] = [
   },
 ]
 
-/* ─── Timeline Events Data ───────────────────────────────── */
-const TIMELINE_EVENTS = [
-  {
-    year: '2015',
-    title: 'Inception of The Creators HQ',
-    description:
-      'Established in Bangkok with a radical vision: rejecting repetitive developer formulas to champion tailored architectural spaces centered on human wellness.',
-  },
-  {
-    year: '2017',
-    title: 'C Ekkamai Milestone',
-    description:
-      'Unveiled our premier 44-story skyline tower on Sukhumvit 63, earning critical acclaim for elevating high-density vertical living into an art form.',
-  },
-  {
-    year: '2019',
-    title: 'Common TU Community Hub',
-    description:
-      'Pioneered human-scale co-living with Common TU, selling out in record time and setting new benchmarks for university-adjacent student residences.',
-  },
-  {
-    year: '2022',
-    title: 'Corner Ratchathewi',
-    description:
-      'Launched an iconic high-rise 300 meters from BTS Ratchathewi, blending skyline hydroponic gardens with dual-key layouts for global citizens.',
-  },
-  {
-    year: '2024',
-    title: 'Curva Ekkamai Boutique Release',
-    description:
-      'Engineered an ultra-exclusive 12-unit low-rise sanctuary showcasing fluid curved facades and private botanical courtyard lift entries.',
-  },
-  {
-    year: '2025',
-    title: 'CIRA Residences Flagship',
-    description:
-      'Introduced our crown jewel: ultra-luxury private detached houses in prime central Bangkok starting at 125 MB, designed for multi-generational wealth preservation.',
-  },
-]
-
 /* ─── Core Values Data ───────────────────────────────────── */
 const VALUES = [
   {
     icon: Gem,
     title: 'Authentic Craftsmanship',
     description:
-      'We curate raw, noble materials—hand-selected Italian marbles, solid natural timber, and tactile stone—that age gracefully with time.',
+      'We curate raw, noble materials—hand-selected marbles, solid natural timber, and tactile stone—that develop a graceful patina over time.',
   },
   {
     icon: Layers,
@@ -129,49 +93,75 @@ const VALUES = [
   },
 ]
 
+/* ─── Timeline / Heritage Data ───────────────────────────── */
+const TIMELINE_EVENTS = [
+  {
+    year: '2015',
+    title: 'Foundation of GREYON',
+    description:
+      'Founded with a radical design mandate: rejecting repetitive developer formulas to champion tailored architectural spaces centered on human wellness.',
+  },
+  {
+    year: '2018',
+    title: 'Skyline Landmark Award',
+    description:
+      'Unveiled our premier high-rise residential tower, earning international critical acclaim for elevating high-density vertical living into an art form.',
+  },
+  {
+    year: '2021',
+    title: 'Urban Sanctuary Initiative',
+    description:
+      'Pioneered human-scale communal living, setting new benchmarks for integrated biophilic design and private residential gardens.',
+  },
+  {
+    year: '2024',
+    title: 'Curva Private Residences',
+    description:
+      'Engineered an ultra-exclusive boutique sanctuary showcasing fluid curved stone facades and private botanical courtyard lift entries.',
+  },
+  {
+    year: '2026',
+    title: 'Flagship Estate Collection',
+    description:
+      'Introduced our crown jewel: ultra-luxury private detached estates designed for generational wealth preservation and architectural permanence.',
+  },
+]
+
 export default function AboutPage() {
   const [activeTab, setActiveTab] = useState<string>('about')
   const currentTab = ABOUT_TABS.find((t) => t.id === activeTab) || ABOUT_TABS[0]
 
   return (
-    <div className="min-h-screen">
-      {/* ── Interactive Full-Screen Hero Section ── */}
-      <section className="relative min-h-screen w-full flex items-center overflow-hidden">
-        {/* Full-screen background image with smooth crossfade */}
-        <AnimatePresence mode="popLayout">
+    <div className="min-h-screen bg-greyon-cream text-greyon-ink selection:bg-greyon-gold/20 selection:text-greyon-ink">
+      {/* ── 1. Interactive Monograph Hero ──────────────────────── */}
+      <section className="relative min-h-[92vh] w-full flex items-center overflow-hidden bg-greyon-dark">
+        {/* Photographic Canvas with Subtle Zoom on Switch */}
+        <AnimatePresence mode="wait">
           <motion.img
             key={currentTab.id}
             src={currentTab.image}
             alt={currentTab.title}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-            className="absolute inset-0 object-cover w-full h-full"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0 object-cover w-full h-full pointer-events-none"
           />
         </AnimatePresence>
 
-        {/* Darkening overlay for text readability */}
-        <div className="absolute inset-0 bg-black/35 pointer-events-none" />
+        {/* Ambient Overlays */}
+        <div className="absolute inset-0 bg-greyon-dark/55 backdrop-blur-[1px] pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-greyon-dark via-transparent to-greyon-dark/40 pointer-events-none" />
 
-        {/* ── Bottom Gradient & Aurora matching Footer (#070D17) ── */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-64 sm:h-80 md:h-96 pointer-events-none overflow-hidden z-[1]"
-          aria-hidden="true"
-        >
-          {/* Smooth vertical fade directly into footer background */}
-          <div className="absolute inset-0 bg-gradient-to-t from-greyon-dark via-greyon-dark/75 to-transparent" />
+        {/* Hero Grid Container */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-32 md:py-40">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left Column: Refined Index Selector */}
+            <div className="lg:col-span-4 flex flex-col space-y-2 border-l border-white/20 pl-6">
+              <span className="font-display text-[11px] tracking-[0.25em] uppercase text-greyon-gold mb-4">
+                Directory / Overview
+              </span>
 
-          {/* Soft ambient aurora glow blobs matching footer */}
-          <div className="absolute -bottom-20 left-1/4 w-[480px] h-[280px] rounded-full bg-greyon-primary opacity-60 blur-[100px]" />
-          <div className="absolute -bottom-20 right-1/4 w-[480px] h-[280px] rounded-full bg-greyon-gold-deep opacity-50 blur-[110px]" />
-        </div>
-
-        {/* Hero content container */}
-        <div className="container-large relative z-10 w-full pt-28 pb-16 md:pt-36 md:pb-24">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Left Column (Menu) */}
-            <div className="lg:col-span-5 flex flex-col items-start space-y-4 sm:space-y-6">
               {ABOUT_TABS.map((tab) => {
                 const isActive = activeTab === tab.id
                 return (
@@ -179,34 +169,49 @@ export default function AboutPage() {
                     key={tab.id}
                     type="button"
                     onClick={() => setActiveTab(tab.id)}
-                    className={`text-left text-3xl sm:text-4xl md:text-5xl font-light tracking-tight transition-all duration-300 focus:outline-none ${isActive
-                        ? 'text-white'
-                        : 'text-white/50 hover:text-white'
-                      }`}
+                    className="group flex items-baseline space-x-3 text-left py-2 focus:outline-none transition-all duration-300"
                   >
-                    {tab.label}
+                    <span
+                      className={`font-display text-xs tracking-wider transition-colors duration-300 ${
+                        isActive ? 'text-greyon-gold font-medium' : 'text-white/40 group-hover:text-white/70'
+                      }`}
+                    >
+                      {tab.index}
+                    </span>
+                    <span
+                      className={`font-display text-xl sm:text-2xl font-light tracking-tight transition-all duration-300 ${
+                        isActive
+                          ? 'text-white translate-x-1 font-normal'
+                          : 'text-white/45 group-hover:text-white'
+                      }`}
+                    >
+                      {tab.label}
+                    </span>
                   </button>
                 )
               })}
             </div>
 
-            {/* Right Column (Content) */}
-            <div className="lg:col-span-7">
+            {/* Right Column: Editorial Focus Block */}
+            <div className="lg:col-span-8">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
+                  key={currentTab.id}
+                  initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="max-w-2xl"
                 >
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.2] mb-6 sm:mb-8">
+                  <p className="font-display text-xs tracking-[0.25em] uppercase text-greyon-gold mb-3">
+                    {currentTab.subtitle}
+                  </p>
+                  <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.15] mb-6">
                     {currentTab.title}
                   </h1>
-                  <div className="space-y-5 text-base sm:text-lg font-light text-greyon-sand leading-relaxed">
+                  <div className="space-y-4 font-body text-base sm:text-lg text-greyon-sand/90 font-light leading-relaxed">
                     <p>{currentTab.description[0]}</p>
-                    <p>{currentTab.description[1]}</p>
+                    <p className="text-white/70">{currentTab.description[1]}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -215,136 +220,95 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Core Philosophy Narrative ── */}
-      {/* <section className="container-large mb-28">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-5">
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-[#8FA5B3] mb-3">
-              The Manifesto
-            </p>
-            <h2 className="text-3xl sm:text-4xl font-light text-[#EAF3FB] leading-snug">
-              Every Square Meter Must Have Purpose and Emotion
+      {/* ── 2. Core Architectural Values ───────────────────────── */}
+      <section className="py-28 md:py-36 border-b border-greyon-stone/40">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Section Header */}
+          <div className="max-w-xl mb-20">
+            <span className="font-display text-xs tracking-[0.25em] uppercase text-greyon-gold-deep">
+              Design Principles
+            </span>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-greyon-ink">
+              Quiet Luxury Grounded in Noble Materiality
             </h2>
           </div>
 
-          <div className="lg:col-span-7 space-y-6 text-base md:text-lg font-light text-[#D4DDE3]/85 leading-relaxed">
-            <p>
-              In a rapidly modernizing metropolis like Bangkok, high-density residential towers too
-              frequently succumb to repetitive grids and disposable materials. The Creators HQ was
-              founded as a deliberate counterweight to this commodification.
-            </p>
-            <p>
-              We believe great architecture is experienced from the inside out: how morning sunlight
-              filters through a bespoke louver, how natural acoustic dampening creates quietude in a
-              vibrant district, and how spatial proportions instill tranquility after demanding days.
-            </p>
-            <p>
-              By collaborating exclusively with award-winning master planners, structural innovators,
-              and landscape visionaries, each development under our banner is an enduring testament
-              to elevated living.
-            </p>
+          {/* Minimalist 4-Column Grid with Hairline Borders */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+            {VALUES.map((val, idx) => {
+              const Icon = val.icon
+              return (
+                <article
+                  key={idx}
+                  className="flex flex-col border-t border-greyon-stone/50 pt-8"
+                >
+                  <div className="flex items-center justify-between mb-8">
+                    <Icon className="w-5 h-5 stroke-[1.25] text-greyon-gold-deep" />
+                    <span className="font-display text-xs text-greyon-muted tracking-widest">
+                      0{idx + 1}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-lg font-medium text-greyon-ink mb-3">
+                    {val.title}
+                  </h3>
+                  <p className="font-body text-sm text-greyon-muted leading-relaxed font-light">
+                    {val.description}
+                  </p>
+                </article>
+              )
+            })}
           </div>
         </div>
-      </section> */}
+      </section>
 
-      {/* ── Timeline Milestone Block ── */}
-      {/* <section className="bg-greyon-dark/60 py-24 md:py-32 border-y border-greyon-stone/20 mb-28">
-        <div className="container-large">
-          <div className="max-w-2xl mb-16">
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-greyon-gold mb-3">
-              A Decade of Distinction
-            </p>
-            <h2 className="heading-h2 text-white">
-              Our Journey &amp; Milestones
-            </h2>
+      {/* ── 3. Chronological Heritage / Milestones ─────────────── */}
+      <section className="py-28 md:py-36 bg-greyon-sand/40">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 pb-6 border-b border-greyon-stone/40">
+            <div>
+              <span className="font-display text-xs tracking-[0.25em] uppercase text-greyon-gold-deep">
+                Monograph Archive
+              </span>
+              <h2 className="mt-3 font-display text-3xl sm:text-4xl md:text-5xl font-light tracking-tight text-greyon-ink">
+                A Decade of Spatial Innovation
+              </h2>
+            </div>
+            <Link
+              to="/projects"
+              className="mt-6 md:mt-0 inline-flex items-center space-x-2 font-display text-xs tracking-widest uppercase text-greyon-ink hover:text-greyon-primary transition-colors duration-200 group"
+            >
+              <span>Explore Portfolio</span>
+              <ArrowRight className="w-4 h-4 stroke-[1.5] transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {TIMELINE_EVENTS.map(({ year, title, description }) => (
+          {/* Clean Editorial Timeline Strip */}
+          <div className="divide-y divide-greyon-stone/40">
+            {TIMELINE_EVENTS.map((event, idx) => (
               <div
-                key={year}
-                className="p-8 rounded-sm bg-greyon-dark/70 border border-greyon-stone/20 hover:border-greyon-gold/40 transition-all flex flex-col justify-between"
+                key={idx}
+                className="py-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-baseline group"
               >
-                <div>
-                  <span className="font-mono text-2xl font-light text-white tracking-wider block mb-4 border-b border-greyon-stone/20 pb-3">
-                    {year}
+                <div className="md:col-span-3">
+                  <span className="font-display text-3xl md:text-4xl font-light tracking-tight text-greyon-ink/80 group-hover:text-greyon-primary transition-colors duration-300">
+                    {event.year}
                   </span>
-                  <h3 className="text-lg font-normal text-white mb-3">
-                    {title}
+                </div>
+                <div className="md:col-span-4">
+                  <h3 className="font-display text-lg font-medium text-greyon-ink">
+                    {event.title}
                   </h3>
-                  <p className="text-sm font-light text-greyon-sand/80 leading-relaxed">
-                    {description}
+                </div>
+                <div className="md:col-span-5">
+                  <p className="font-body text-sm text-greyon-muted leading-relaxed font-light">
+                    {event.description}
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section> */}
-
-      {/* ── Core Values Grid ── */}
-      {/* <section className="container-large mb-28">
-        <div className="max-w-2xl mb-16">
-          <p className="text-xs font-semibold tracking-[0.3em] uppercase text-greyon-gold mb-3">
-            Guiding Principles
-          </p>
-          <h2 className="heading-h2 text-white">
-            The Pillars of Our Craft
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {VALUES.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="p-8 rounded-sm bg-greyon-dark/40 border border-greyon-stone/20 hover:border-greyon-gold/40 transition-all group"
-            >
-              <div className="h-10 w-10 rounded-sm bg-greyon-dark flex items-center justify-center text-greyon-sand mb-6 group-hover:bg-greyon-primary group-hover:text-white transition-all">
-                <Icon size={20} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-lg font-normal text-white mb-3">
-                {title}
-              </h3>
-              <p className="text-xs font-light text-greyon-sand/80 leading-relaxed">
-                {description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section> */}
-
-      {/* ── Bottom Call To Action ── */}
-      {/* <section className="container-large">
-        <div className="p-8 sm:p-14 rounded-sm bg-greyon-dark border border-greyon-stone/20 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-          <div>
-            <span className="text-xs font-semibold tracking-[0.25em] uppercase text-greyon-gold block mb-2">
-              Explore Our Collection
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-light text-white mb-2">
-              Ready to Discover Your Next Sanctuary?
-            </h2>
-            <p className="text-sm font-light text-greyon-sand/80 max-w-xl">
-              From super-luxury detached villas to landmark skyline condominiums, tour our complete portfolio.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 btn-primary px-8 py-4 rounded-sm text-xs font-medium tracking-[0.2em] uppercase"
-            >
-              <span>Explore Projects</span>
-              <ArrowRight size={14} />
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 btn-secondary px-8 py-4 rounded-sm text-xs font-medium tracking-[0.2em] uppercase"
-            >
-              <span>Contact Us</span>
-            </Link>
-          </div>
-        </div>
-      </section> */}
+      </section>
     </div>
   )
 }
