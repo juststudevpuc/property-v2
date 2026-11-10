@@ -5,9 +5,13 @@ import { cn } from '@/lib/utils'
 
 /* ─── Navigation Data ─────────────────────────────────────── */
 const COMPANY_LINKS = [
-  { label: 'About us',  href: '/about' },
-  { label: 'Services',  href: '/services' },
-  { label: 'News',      href: '/news' },
+  { label: 'Hotels & Resorts', href: '/hotels' },
+  { label: 'About us',         href: '/about' },
+  { label: 'Services',         href: '/services' },
+  { label: 'Experience',       href: '/experience' },
+  { label: 'Offers',           href: '/offers' },
+  { label: 'News',             href: '/news' },
+  { label: 'Media & Press',     href: '/media' },
 ]
 
 const PROJECT_LINKS = [
@@ -25,7 +29,9 @@ const CONNECT_LINKS = [
 ]
 
 const LEGAL_LINKS = [
-  { label: 'Privacy Policy', href: '/privacy-policy' },
+  { label: 'Terms & Conditions', href: '/terms' },
+  { label: 'Privacy Policy',     href: '/terms?section=privacy' },
+  { label: 'Cookie Policy',      href: '/terms?section=cookies' },
 ]
 
 const SOCIAL_LINKS = [

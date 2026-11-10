@@ -17,7 +17,7 @@ export default function HomePage() {
       <ProjectsSlider />
       <AboutSection />
       <PromotionSection />
-      <VideoShowcaseSection
+      <VideoShowcaseSection 
         src="/staying.mp4"
         fallbackSrc="/statying.mp4"
         ariaLabel="Staying Showcase"

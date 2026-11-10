@@ -5,18 +5,15 @@ import ProjectsPage from '@/pages/ProjectsPage'
 import ProjectDetailPage from '@/pages/ProjectDetailPage'
 import AboutPage from '@/pages/AboutPage'
 import ServicesPage from '@/pages/ServicesPage'
+import OffersPage from '@/pages/OffersPage'
+import ExperiencePage from '@/pages/ExperiencePage'
+import HotelListPage from '@/pages/HotelListPage'
+import HotelDetailPage from '@/pages/HotelDetailPage'
 import NewsPage from '@/pages/NewsPage'
 import NewsDetailPage from '@/pages/NewsDetailPage'
 import ContactPage from '@/pages/ContactPage'
-
-/* ─── Lazy placeholder pages (stubs until built) ────────── */
-const PlaceholderPage = ({ name }: { name: string }) => (
-  <div className="min-h-[60vh] flex items-center justify-center">
-    <p className="text-greyon-muted text-sm tracking-widest uppercase">
-      {name} — coming soon
-    </p>
-  </div>
-)
+import MediaPage from '@/pages/MediaPage'
+import TermsPage from '@/pages/TermsPage'
 
 /* ─── Data Router configuration ──────────────────────────── */
 const router = createBrowserRouter([
@@ -49,6 +46,22 @@ const router = createBrowserRouter([
         element: <ServicesPage />,
       },
       {
+        path: 'experience',
+        element: <ExperiencePage />,
+      },
+      {
+        path: 'offers',
+        element: <OffersPage />,
+      },
+      {
+        path: 'hotels',
+        element: <HotelListPage />,
+      },
+      {
+        path: 'hotels/:slug',
+        element: <HotelDetailPage />,
+      },
+      {
         path: 'news',
         element: <NewsPage />,
       },
@@ -57,12 +70,20 @@ const router = createBrowserRouter([
         element: <NewsDetailPage />,
       },
       {
+        path: 'media',
+        element: <MediaPage />,
+      },
+      {
         path: 'contact',
         element: <ContactPage />,
       },
       {
+        path: 'terms',
+        element: <TermsPage />,
+      },
+      {
         path: 'privacy-policy',
-        element: <PlaceholderPage name="Privacy Policy" />,
+        element: <Navigate to="/terms?section=privacy" replace />,
       },
       {
         path: '*',
