@@ -170,7 +170,7 @@ export default function HotelDetailPage() {
 
           {/* Right Action: Reserve CTA Button */}
           <Link
-            to={`/contact?hotel=${hotel.slug}`}
+            to={`/booking?hotel=${hotel.slug}`}
             className="shrink-0 text-xs uppercase tracking-widest font-display font-medium px-5 py-2 border border-[#c4a35a] bg-[#c4a35a] text-white hover:bg-[#8f7340] hover:border-[#8f7340] transition-colors rounded-none"
           >
             Reserve
@@ -445,7 +445,7 @@ export default function HotelDetailPage() {
                     </button>
 
                     <Link
-                      to={`/contact?hotel=${hotel.slug}&suite=${encodeURIComponent(item.name)}`}
+                      to={`/booking?hotel=${hotel.slug}&suite=${encodeURIComponent(item.name)}`}
                       className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest font-display text-greyon-gold-deep hover:text-greyon-ink transition-colors font-medium group/arr"
                     >
                       <span>Check Availability</span>
@@ -670,7 +670,7 @@ export default function HotelDetailPage() {
           </Link>
 
           <Link
-            to={`/contact?hotel=${hotel.slug}`}
+            to={`/booking?hotel=${hotel.slug}`}
             className="text-xs uppercase tracking-widest font-display text-greyon-gold-deep hover:text-greyon-ink transition-colors font-medium border-b border-[#c4a35a] pb-0.5"
           >
             Contact Concierge &amp; Reservations →
@@ -769,7 +769,7 @@ export default function HotelDetailPage() {
                   Close
                 </button>
                 <Link
-                  to={`/contact?hotel=${hotel.slug}&suite=${encodeURIComponent(selectedSuite.name)}`}
+                  to={`/booking?hotel=${hotel.slug}&suite=${encodeURIComponent(selectedSuite.name)}`}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-display font-medium px-8 py-3.5 bg-greyon-primary text-white hover:bg-greyon-primary-hover transition-colors rounded-none order-1 sm:order-2"
                 >
                   <span>Reserve This {selectedSuite.category}</span>

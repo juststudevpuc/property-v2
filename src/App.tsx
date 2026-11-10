@@ -14,6 +14,9 @@ import NewsDetailPage from '@/pages/NewsDetailPage'
 import ContactPage from '@/pages/ContactPage'
 import MediaPage from '@/pages/MediaPage'
 import TermsPage from '@/pages/TermsPage'
+import BookingPage from '@/pages/BookingPage'
+import CareersPage from '@/pages/CareersPage'
+import FeedbackPage from '@/pages/FeedbackPage'
 
 /* ─── Data Router configuration ──────────────────────────── */
 const router = createBrowserRouter([
@@ -76,6 +79,18 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage />,
+      },
+      {
+        path: 'booking',
+        element: <BookingPage />,
+      },
+      {
+        path: 'careers',
+        element: <CareersPage />,
+      },
+      {
+        path: 'feedback',
+        element: <FeedbackPage />,
       },
       {
         path: 'terms',

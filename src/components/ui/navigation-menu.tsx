@@ -19,7 +19,6 @@ const NavigationMenu = React.forwardRef<
     {...props}
   >
     {children}
-    <NavigationMenuViewport />
   </NavigationMenuPrimitive.Root>
 ))
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
@@ -70,7 +69,7 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      'left-0 top-0 w-full rounded-none bg-[#faf8f6] text-greyon-ink shadow-none md:absolute md:w-auto data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-28 data-[motion=from-start]:slide-in-from-left-28 data-[motion=to-end]:slide-out-to-right-28 data-[motion=to-start]:slide-out-to-left-28',
+      'top-full mt-2 w-auto data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out md:absolute before:absolute before:-top-3 before:left-0 before:h-3 before:w-full before:content-[\'\']',
       className
     )}
     {...props}

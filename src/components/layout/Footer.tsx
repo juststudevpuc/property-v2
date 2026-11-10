@@ -6,12 +6,15 @@ import { cn } from '@/lib/utils'
 /* ─── Navigation Data ─────────────────────────────────────── */
 const COMPANY_LINKS = [
   { label: 'Hotels & Resorts', href: '/hotels' },
+  { label: 'Reserve a Stay',   href: '/booking' },
   { label: 'About us',         href: '/about' },
   { label: 'Services',         href: '/services' },
   { label: 'Experience',       href: '/experience' },
   { label: 'Offers',           href: '/offers' },
   { label: 'News',             href: '/news' },
-  { label: 'Media & Press',     href: '/media' },
+  { label: 'Media & Press',    href: '/media' },
+  { label: 'Careers',          href: '/careers' },
+  { label: 'Guest Feedback',   href: '/feedback' },
 ]
 
 const PROJECT_LINKS = [

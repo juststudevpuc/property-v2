@@ -196,7 +196,7 @@ export default function HotelListPage() {
                       </Link>
 
                       <Link
-                        to={hotel.reservationUrl || `/contact?hotel=${hotel.slug}`}
+                        to={`/booking?hotel=${hotel.slug}`}
                         className="text-xs uppercase tracking-widest font-display text-greyon-gold-deep hover:text-greyon-ink transition-colors font-medium border-b border-[#c4a35a]/60 pb-0.5 hover:border-greyon-ink"
                       >
                         Reserve

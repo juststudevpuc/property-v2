@@ -28,37 +28,53 @@ interface NavGroup {
 }
 
 const DROPDOWN_GROUPS: NavGroup[] = [
-  // {
-  //   label: 'About',
-  //   items: [
-  //     {
-  //       title: 'About',
-  //       href: '/About',
-  //       description: 'Our philosophy & leadership',
-  //     },
-  //     // {
-  //     //   title: 'News',
-  //     //   href: '/news',
-  //     //   description: 'Dispatches, press & milestones',
-  //     // },
-  //   ],
-  // },
-  { label: 'About', href: '/About' },
+  {
+    label: 'Company',
+    items: [
+      {
+        title: 'About Us',
+        label: 'About Us',
+        href: '/about',
+        description: 'Our philosophy & leadership',
+      },
+      {
+        title: 'Careers',
+        label: 'Careers',
+        href: '/careers',
+        description: 'Architectural & hospitality opportunities',
+      },
+      {
+        title: 'Guest Feedback',
+        label: 'Guest Feedback',
+        href: '/feedback',
+        description: 'Post-stay feedback & guestbook archive',
+      },
+    ],
+  },
   {
     label: 'Hotels & Stays',
     items: [
       {
         title: 'Hotels & Resorts',
+        label: 'Hotels & Resorts',
         href: '/hotels',
         description: 'Coastal, urban & forest sanctuaries',
       },
       {
+        title: 'Reserve a Sanctuary',
+        label: 'Reserve a Sanctuary',
+        href: '/booking',
+        description: 'Private stays & bespoke arrangements',
+      },
+      {
         title: 'Experience',
+        label: 'Experience',
         href: '/experience',
         description: 'Holistic wellness, dining & rituals',
       },
       {
         title: 'Offers',
+        label: 'Offers',
         href: '/offers',
         description: 'Seasonal stays & private privileges',
       },
@@ -66,17 +82,18 @@ const DROPDOWN_GROUPS: NavGroup[] = [
   },
   { label: 'Projects', href: '/projects' },
   { label: 'Services', href: '/services' },
-  // { label: 'News', href: '/news' },
   {
     label: 'News',
     items: [
       {
         title: 'News',
+        label: 'News',
         href: '/news',
         description: 'News & Updates',
       },
       {
         title: 'Media',
+        label: 'Media',
         href: '/media',
         description: 'Press Kits, Monographs & Archival Imagery',
       },
@@ -136,7 +153,7 @@ export default function Navbar() {
 
   // Detect whether current route or page has a light/white background
   const isWhiteRoute =
-    ['/news', '/projects', '/contact', '/offers', '/hotels', '/media', '/terms'].includes(
+    ['/news', '/projects', '/contact', '/offers', '/hotels', '/media', '/terms', '/booking', '/careers', '/feedback'].includes(
       location.pathname.replace(/\/$/, '')
     ) ||
     location.pathname.startsWith('/news/') ||
@@ -144,7 +161,10 @@ export default function Navbar() {
     location.pathname.startsWith('/projects/') ||
     location.pathname.startsWith('/project/') ||
     location.pathname.startsWith('/media') ||
-    location.pathname.startsWith('/terms')
+    location.pathname.startsWith('/terms') ||
+    location.pathname.startsWith('/booking') ||
+    location.pathname.startsWith('/careers') ||
+    location.pathname.startsWith('/feedback')
 
   const [hasWhiteBg, setHasWhiteBg] = useState(false)
   const [prevPath, setPrevPath] = useState(location.pathname)
@@ -289,8 +309,19 @@ export default function Navbar() {
                   // Dropdown Group (e.g., Hotels & Stays, About)
                   const isActive = isGroupActive(group.items, location.pathname)
 
+                  // Content alignment per group
+                  let dropdownClasses =
+                    '!absolute top-full left-0 mt-2 w-[320px] rounded-none border border-stone-200/80 bg-[#faf8f6] p-5 shadow-none'
+                  if (group.label.toLowerCase() === 'hotels & stays') {
+                    dropdownClasses =
+                      '!absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[340px] rounded-none border border-stone-200/80 bg-[#faf8f6] p-5 shadow-none'
+                  } else if (group.label.toLowerCase() === 'news') {
+                    dropdownClasses =
+                      '!absolute top-full right-0 mt-2 w-[320px] rounded-none border border-stone-200/80 bg-[#faf8f6] p-5 shadow-none'
+                  }
+
                   return (
-                    <NavigationMenuItem key={group.label}>
+                    <NavigationMenuItem key={group.label} className="relative">
                       <NavigationMenuTrigger
                         className={cn(
                           'py-2 px-1 transition-colors cursor-pointer select-none',
@@ -303,8 +334,8 @@ export default function Navbar() {
                       >
                         {group.label}
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="w-[340px] p-5 divide-y divide-stone-200/60 list-none m-0 bg-[#faf8f6]">
+                      <NavigationMenuContent className={dropdownClasses}>
+                        <ul className="w-full divide-y divide-stone-200/60 list-none m-0 p-0">
                           {group.items?.map((item) => {
                             const normalizedPath = location.pathname.replace(/\/$/, '')
                             const itemNorm = item.href.replace(/\/$/, '')
